@@ -1,0 +1,22 @@
+<div class="top col-lg-6">
+	<h1>{{title}}</h1>
+
+	<form #formAdd="ngForm" (ngSubmit)="onSubmit()">
+		<p>
+			<label>Nombre referencia</label>
+			<input type="text" name="name" #name="ngModel" [(ngModel)]="reference.name" class="form-control" required>
+			<span *ngIf="!name.valid && name.touched">
+				El nombre es obligatorio
+			</span>
+		</p>
+		<p>
+			<label>Codigo</label>
+			<input type="text" name="code" #code="ngModel" [(ngModel)]="reference.code" class="form-control" required>
+			<span *ngIf="!code.valid && code.touched">
+				El codigo es obligatorio
+			</span>
+		</p>
+
+		<input type="submit" value="{{title}}" class="btn btn-success">
+	</form>
+</div>

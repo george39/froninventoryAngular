@@ -1,0 +1,24 @@
+<div class="top">
+    <form [formGroup]="miFormulario" (ngSubmit)="onSubmit(miFormulario.value)">
+        <div class="form-group">
+            <label for="operator">Operario</label>
+            <input type="text" class="form-control" formControlName="operator" id="exampleoperator">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" formControlName="name" id="examplename">
+        </div>
+
+        <div class="form-group">
+            <div formArrayName="registros">
+                <div *ngFor="let item of getRegistros.controls; let i = index" [formGroupName]="i">
+                    <input formControlName="registro">
+                    <a class="btn btn-link" (click)="removeRegistro()">Eliminar</a>
+                </div>
+                <a class="btn btn-link" (click)="addRegistro()">Agregar</a>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>

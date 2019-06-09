@@ -1,0 +1,25 @@
+<div class="top homework-box col-lg-11" *ngIf="homework">
+	<div class="homework-data col-lg-7">
+		<h1>{{homework.name}}</h1>
+		<table class="table table-hover">
+			<thead class="thead-default">
+				<tr>
+					<th>Número tarea</th>
+					<th>Operario</th>
+					<th>Referencia</th>
+					<th>Talla</th>
+					<th>Cantidad</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let tarea of [homework]">
+					<td>{{tarea._id}}</td>
+					<td>{{tarea.operator}}</td>
+					<td>{{tarea.reference}}</td>
+					<td>{{tarea.size}}</td>
+					<td>{{tarea.quantity}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,28 @@
+<div class="col-lg-6 col-md-offset-4">
+	<h1>{{title}}</h1>
+
+	<div class="alert alert-success" *ngIf="status == 'success'">
+		Bienvenido {{user.name}}
+	</div>
+	<div class="alert alert-danger" *ngIf="status == 'error'">
+		El usuario o la contraseña no coinciden
+	</div>
+
+	<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-7">
+		<p>
+			<label>Nombre usuario</label>
+			<input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" class="form-control" required>
+			<span *ngIf="!nick.valid && nick.touched">
+				El nombre de usuario es obligatorio
+			</span>
+		</p>
+		<p>
+			<label>Contraseña</label>
+			<input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control" required>
+			<span *ngIf="!password.valid && password.touched">
+				La contraseña es obligatoria
+			</span>
+		</p>
+		<input type="submit" value="Entrar" class="btn btn-success">
+	</form>
+</div>

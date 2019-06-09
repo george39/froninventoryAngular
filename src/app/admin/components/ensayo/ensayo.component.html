@@ -1,0 +1,143 @@
+<!-- <div class="top">
+    <form [formGroup]="formData" (ngSubmit)="saveFormData(formData.value)">
+        <div class="fields">
+            <input type="text" placeholder="Operario" formControlName="operator" ([gnModel])="warehouse1.operator">
+        </div>
+        <div class="fields">
+            <input type="text" placeholder="Nombre" formControlName="name" ([gnModel])="warehouse1.name">
+        </div>
+        <button (click)="addRegistro()">Add</button>
+        <div id="addressBlock" formArrayName="registros">
+            <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="i">
+                <input type="text" placeholder="Referencia" formControlName="registro">
+                <button (click)="removeAddress(i)">X</button>
+            </div>
+        </div>
+        <button type="submit">Guardar</button>
+    </form>
+</div> -->
+
+
+
+<div class="top">
+
+    <input (keyup.enter)="addMarca()">
+    <form #registerForm="ngForm" (ngSubmit)="onsubmit()">
+        <ul>
+            <li *ngFor="let marca of marcas; let indice = index">
+                {{indice + 1 }}
+
+                <input type="text" name="name{{indice}}" #name placeholder="nombre" [(ngModel)]="marca.name">
+                <input type="text" name="reference{{indice}}" #reference [(ngModel)]="marca.reference" placeholder="referencia">
+                <input type="text" name="size{{indice}}" #size [(ngModel)]="marca.size" placeholder="referencia">
+
+
+                <button (click)="borrarMarca(indice)" class="btn btn-danger">Borrar</button>
+            </li>
+        </ul>
+        <button (click)="addMarca()">Añadir marca</button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+</div>
+
+
+
+<!-- <form #ngregister="ngForm" (ngSubmit)="onsubmit(ngregister)" class="top">
+    <div>
+
+        <button (click)="addMarca()">Agregar</button>
+    </div>
+    <div *ngFor="let register of marcas; let i = index">
+        <input type="text" name="name" #name ([ngModel])="register.name">
+        <input type="text" name="operator" #operator ([ngModel])="warehouse1.operator">
+    </div>
+    <button type="submit">Guardar</button>
+</form> -->
+
+
+
+<!-- <form (ngSubmit)="onsubmit()" class="top">
+    <div class="container">
+
+        <div class="form-row" *ngFor="let register of dataarray; let i = index">
+
+
+
+            <input type="text" placeholder="Operario" name="operator{{i}}" [(ngModel)]="register.operator">
+
+
+
+            <input type="text" placeholder="Nombre" name="name{{i}}" [(ngModel)]="register.name">
+
+
+
+
+            <input type="text" placeholder="Referencia" name="reference{{i}}" [(ngModel)]="register.reference">
+
+
+
+            <input type="text" placeholder="Talla" name="size{{i}}" [(ngModel)]="register.size">
+
+
+            <button (click)="removeForm([i +1])" class="btn btn-danger">eliminar</button>
+
+
+
+        </div>
+
+        <button (click)="addForm()" class="btn btn-success">agregar</button>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+
+</form> -->
+
+
+
+<!-- <div class="top">
+    <form (ngSubmit)="onsubmit()">
+        <div class="form-group fields">
+            <input type="text" placeholder="operario" ([ngModel])="warehouse1.operator">
+        </div>
+        <div class="fields">
+            <input type="text" placeholder="nombre" ([ngModel])="warehouse1.name">
+        </div>
+
+        <div *ngFor="let warehouse1 of dataarray; let i = index">
+            <input type="text" placeholder="operario"  name="operator{{i}}" ([ngModel])="warehouse1.operator">
+            <input type="text" placeholder="nombre" ([ngModel])="warehouse1.name">
+            <input type="text"  name="refrence{{i}}" [(ngModel)]="warehouse1.reference">
+            <input type="text"  name="size{{i}}" [(ngModel)]="warehouse1.size">
+            <span (click)="removeForm(i)" class="btn btn-danger">-</span>
+        </div>
+
+        <span (click)="addForm()" class="btn btn-success">+</span>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div> -->
+
+
+
+
+<!-- <div class="top">
+    <form [formGroup]="formData" (ngSubmit)="onsubmit(formData.value)">
+        <div class="fields">
+            <input type="text" placeholder="operator" formControlName="operator">
+        </div>
+        <div class="fields">
+            <input type="text" formControlName="name">
+        </div>
+
+        <div id="addressBlock" formArrayName="address">
+            <div *ngFor="let item of addressListArray.controls; let i = index " [formGroupName]="i">
+                <div *ngFor="let s of [warehouse1]">
+                    <input type="text" placeholder="referencia" formControlName="reference">
+                    <input type="text" placeholder="talla" formControlName="size">
+                    <button (click)="removeAddress(i)">x</button>
+                </div>
+
+            </div>
+        </div>
+        <button type="submit">Guardar</button>
+        <button (click)="addAddress()">Agregar</button>
+    </form>
+</div> -->

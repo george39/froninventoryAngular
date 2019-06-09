@@ -1,0 +1,43 @@
+<div class="top homework-box col-lg-11" *ngIf="homework">
+	
+	<div id="print-section">
+		<div class="homework-data col-lg-10">
+			<h1>{{homework.name}}</h1>
+			<table class="table table-hover">
+				<thead class="thead-default">
+					<tr>
+						<th>Número tarea</th>
+						<th>Operario</th>
+						<th>Referencia</th>
+						<th>Talla</th>
+						<th>Cantidad</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let tarea of [homework]">
+						<td>{{tarea._id}}</td>
+						<td>{{tarea.operator}}</td>
+						<td>{{tarea.reference}}</td>
+						<td>{{tarea.size}}</td>
+						<td>{{tarea.quantity}}</td>					
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<hr>
+<div *ngFor="let t of [homework]">
+	<button class="btn btn-primary " (click)="print()">
+		<span class="glyphicon glyphicon-print"></span>
+		Imprimir
+	</button>
+
+	<a style="margin-left: 300px" [routerLink]="['/admin-panel/codigo-barras', t._id]" class="btn btn-sm btn-primary">
+		<span class="glyphicon glyphicon-barcode" ></span>
+		Código barras
+	</a>
+</div>
+
+	
+	

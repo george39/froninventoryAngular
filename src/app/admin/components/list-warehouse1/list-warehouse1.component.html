@@ -1,0 +1,36 @@
+<div class="top col-lg-12">
+	<h1>{{title}}</h1>
+	<hr>
+
+	<div class="row">		
+		<div class="col-lg-4 inner-addon right-addon">
+			<i class="glyphicon glyphicon-search"></i>			
+			<input type="text" class="form-control"  [(ngModel)]="busqueda" placeholder="Buscar por tarea">			
+		</div>
+		<div class="label label-success" *ngIf="busqueda">
+			Termino de busqueda <strong>{{busqueda}}</strong>
+		</div>
+	</div>
+	<br>
+
+	<table class="table table-hover">
+		<thead class="thead-default">
+			<tr>
+				<th>Nombre</th>
+				<th>Referencia</th>
+				<th>Talla</th>
+				
+			</tr>
+		</thead>
+		<tbody class="">
+			<tr *ngFor="let warehouse of warehouse1 | barcode: busqueda">				
+				<td>{{warehouse.name}}</td>
+				<td>{{warehouse.reference}}</td>
+				<td>{{warehouse.size}}</td>
+				<td>					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+

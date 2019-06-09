@@ -1,0 +1,110 @@
+<div class="navigation col-lg-12 col-xs-4 navbar-fixed-top">
+    <nav class="navbar navbar-default ">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a [routerLink]="['/home']" class="navbar-brand">{{title}}</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <a [routerLink]="['/home']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-home"></span> Inicio
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/tareas']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-list-alt"></span> Tareas
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/almacen1']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-text-color"></span> Almacen
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/almacen2']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-text-height"></span> Terminado
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/inyeccion1']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-oil"></span> Inyeccion
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/guarnecida']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-scissors"></span> Guarnecida
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
+                <li>
+                    <a [routerLink]="['/login']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-user"></span> Login
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/registro']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-log-in"></span> Registro
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" *ngIf="identity">
+                <li *ngIf="identity && identity.role == 'ROLE_ADMIN'">
+                    <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-user"></span> {{identity.nick}}
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" [routerLinkActive]="['active']">
+            {{identity.name}} <span class="caret"></span>
+          </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a [routerLink]="['/mis-datos']">
+                                <span class="glyphicon glyphicon-cog"></span> Mis datos
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer" (click)="logout()">
+                                <span class="glyphicon glyphicon-log-out"></span> Salir
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" *ngIf="identity">
+                <li *ngIf="identity && identity.role == 'ROLE_ALMACEN1'">
+                    <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']">
+                        <span class="glyphicon glyphicon-user"></span> {{identity.nick}}
+                    </a>
+                </li>
+                <li class="dropdown">
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a [routerLink]="['/mis-datos']">
+                                <span class="glyphicon glyphicon-cog"></span> Mis datos
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer" (click)="logout()">
+                                <span class="glyphicon glyphicon-log-out"></span> Salir
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+<div class="col-lg-11">
+    <router-outlet></router-outlet>
+
+
+</div>

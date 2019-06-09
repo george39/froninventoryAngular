@@ -1,0 +1,226 @@
+<!-- <div class="top">
+    <h2>{{titulo}}</h2>
+
+    <p>Añadir marca</p>
+    <p>
+        <input type="text" [(ngModel)]="my_register" (keyup.enter)="mostrarPalabra()">
+        <input type="text" name="operator" placeholder="operario">
+        <button (click)="getMarca()">Mostrar marca</button>
+        <button (click)="addRegister()">Añadir marca</button>
+    </p>
+    <p>{{my_register}}</p>
+    <p>Compra las zapatillas de las mejores marcas</p>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+        <ul>
+            <li *ngFor="let marca of register; let indice = index">
+                {{indice + 1 + ' ' + marca }}
+                <input type="text" name="name" #name placeholder="nombre">
+                <input type="text" name="reference" #reference placeholder="referencia">
+                <input type="text" name="size" placeholder="referencia">
+
+
+                <button (click)="deleteRegister(indice)">Borrar</button>
+            </li>
+        </ul>
+        <button type="submit">Guardar</button>
+    </form>
+</div> -->
+
+
+
+
+<!-- <div class="top">
+    <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
+        <div class="fields">
+            <input type="text" placeholder="operator" formControlName="operator">
+        </div>
+        <div class="fields">
+            <input type="text" name="name" formControlName="name">
+        </div>
+
+        <div id="addressBlock" formArrayName="address">
+            <div *ngFor="let item of addressListArray.controls; let i = index " [formGroupName]="i">
+                <div *ngFor="let s of [warehouse1]">
+                    <input type="text" placeholder="referencia" formControlName="reference">
+                    <input type="text" placeholder="talla" formControlName="size">
+                    <button (click)="removeAddress(i)">x</button>
+                </div>
+
+            </div>
+        </div>
+        <button type="submit">Guardar</button>
+        <button (click)="addAddress()">Agregar</button>
+    </form>
+</div> -->
+<div class="row top">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="top">
+                    <input type="text" placeholder="Leer código de barras" (keyup.enter)="addAddress()" [(ngModel)]="busqueda">
+                    <div *ngIf="busqueda">
+                        {{busqueda}}
+                    </div>
+                    <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
+                        <div class="fields">
+                            <input type="text" placeholder="operario" formControlName="operator">
+                        </div>
+                        <div class="fields">
+                            <input type="text" placeholder="name" formControlName="name" (keyup.enter)="addAddress()">
+                        </div>
+                        <div class="form-group">
+                            <div formArrayName="registros">
+                                <div *ngFor="let item of addressListArray.controls; let i = index; let s = index" [formGroupName]="i">
+                                    <div *ngIf="i != 0">
+                                        <input type="text" placeholder="referencia" formControlName="reference">
+                                        <input type="text" placeholder="talla" formControlName="size"> {{i}}
+                                        <button (click)="removeAddress(i)">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="btn btn-link" (click)="addAddress()">Agregar</a>
+                            <button (click)="addAddress()">Agregar</button>
+                        </div>
+
+
+                        <button type="submit">Guardar</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!--   ***************************************************************** 
+<div class="top" >
+
+	<h1 align="center">{{title}}</h1>
+
+	<hr>
+	
+	<div class="row" >		
+		<div class="col-lg-6 inner-addon right-addon" >
+			<i class="glyphicon glyphicon-barcode" ></i>			
+			<input align="center" type="text" class="form-control"  [(ngModel)]="my_register" (keyup.enter)="getWarehouses1()" placeholder="Lea o ingrese el código de barras" >
+
+			<button (click)="addRegister()">Añadir</button>	
+			<ul>
+			<li *ngFor="let registro of [warehouse1] | barcode: my_register; let indice = index ">
+				{{indice + 1 +' ' + registro }}
+				<button (click)="deleteRegister(indice)">Eliminar</button>
+			</li>
+		</ul>		
+		</div>
+		<strong>{{my_register}}</strong>				
+	</div>
+</div>
+
+
+
+
+<div class="top container col-lg-8" *ngIf="warehouse1">
+	<h1 align="center">{{title}}</h1>
+	<div class="message success" *ngIf="status == 'success'">
+		El proyecto se ha creado correctamente, puedes
+	</div>
+<form #formAddWarehouse1="ngForm" (ngSubmit)="onSubmit(formAddWarehouse1)">	
+	<p>
+		<label>Operario</label>
+		<input type="text" name="operator" #operator="ngModel" [(ngModel)]="warehouse1.operator" class="form-control" required>
+		<span *ngIf="!operator.valid && operator.touched">
+			El nombre del operario es obligatorio
+		</span>
+	</p>
+	<p>
+		<label>Nombre tarea</label>
+		<input type="text" name="name" #name="ngModel" [(ngModel)]="warehouse1.name" class="form-control" required>
+		<span *ngIf="!name.valid && name.touched">
+			El nombre de la tarea es obligatorio
+		</span>
+	</p>
+	<p>
+		<label>Código referencia</label>
+		<input type="text" name="reference" #reference="ngModel" [(ngModel)]="warehouse1.reference" class="form-control" required>
+		<span *ngIf="!reference.valid && reference.touched">
+			La referencia es obligatoria
+		</span>
+	</p>
+	<p>
+		<label>Talla</label>
+		<input type="text" name="size" #size="ngModel" [(ngModel)]="warehouse1.size" class="form-control" required>
+		<span *ngIf="!size.valid && size.touched">
+			La referencia es obligatoria
+		</span>
+	</p>
+	<p>
+		<label>Clsificacion</label>
+		<input type="text"  name="clasification" #clasifications="ngModel" [(ngModel)]="warehouse1.clasifications" class="form-control" required>
+		<span *ngIf="!clasifications.valid && clasifications.touched">
+			La cantidad es obligatoria
+		</span>
+	</p>
+		
+	<input type="submit" value="{{title}}" class="btn btn-success">
+</form>
+</div>
+
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<h1>Insertar registros</h1>
+			<form [formGroup]="nestedReactiveForm">
+
+				<div formArrayName="userforms">
+					<div class="row">
+						<div class="col-md-3" [formGroupName]="i" *ngFor="let reactiveForm of nestedReactiveForm.controls.userforms.controls; let i = index">
+
+							<div class="form-group">
+								<label class="control-label"><span style="color:red;">User form {{i+1}}</span></label>
+								<a href="javascript:void(0)" class="close-icon" *ngIf="nestedReactiveForm.controls.userforms.length > 1" (click)="removeSelectedForm(i)"></a>
+							</div>
+							<button (click)="removeSelectedForm(i)">Eliminar</button>
+
+							<div class="form-group">
+								<label for="operator">Operario</label>
+								<input type="text" name="operator" class="form-control" id="operator" formControlName="operator" required>
+								
+							</div>
+							<div class="form-group">
+								<label for="operator">Referencia</label>
+								<input type="text" name="reference" class="form-control" id="reference" formControlName="reference">
+							</div>
+							<div class="form-group">
+								<label for="code">Código</label>
+								<input type="text" name="code" class="form-control" id="code" formControlName="code">
+							</div>
+							<div class="form-group">
+								<label for="size">Talla</label>
+								<input type="text" name="size" class="form-control" id="size" formControlName="size">
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+				
+
+				<button type="submit" class="btn btn-success" (click)="addNewForm()">Agregar</button>
+				<button type="submit" class="btn btn-primary"  (click)="save(nestedReactiveForm.value)" >Guardar</button>
+				
+				
+			</form>
+		</div>
+	</div>
+</div>
+
+-->

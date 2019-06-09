@@ -1,0 +1,46 @@
+<div class="top col-lg-12">
+	<h1>{{title}}</h1>
+	<br>
+
+	<div class="row">		
+		<div class="col-lg-4 inner-addon right-addon">
+			<i class="glyphicon glyphicon-search"></i>			
+			<input type="text" class="form-control"  [(ngModel)]="busqueda" placeholder="Buscar por referencia">			
+		</div>
+		<div class="label label-success" *ngIf="busqueda">
+			Termino de busqueda <strong>{{busqueda}}</strong>
+		</div>
+	</div>
+	<hr>
+
+	<table class="table table-hover">
+		<thead class="thead-default">
+			<tr>
+				<th>Número tarea</th>
+				<th>Nombre</th>
+				<th>Referencia</th>
+				<th>Talla</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let tarea of homeworks | search: busqueda">
+				<td>{{tarea._id}}</td>				
+				<td>{{tarea.name}}</td>
+				<td>{{tarea.reference}}</td>
+				<td>{{tarea.size}}</td>
+				<td>
+					
+					
+					
+					<a class="btn btn-sm btn-success" [routerLink]="['/detalles-tarea/', tarea._id]">
+						<span class="glyphicon glyphicon-eye-open" arial-hidden="true"></span>
+						Ver
+					</a>						
+						
+						
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,71 @@
+<div class="top col-lg-4" *ngIf="identity.role == 'ROLE_ADMIN'">
+    <h1>{{title}}</h1>
+    <div class="sidebar-admin" data-example-id="sample-nav-stacked">
+        <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['listado-tareas']">Listado tareas</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['listado-operarios']">Listado operarios</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['crear-operario']">
+                    <span class="glyphicon glyphicon-user"></span> Crear operario
+                </a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['crear-referencia']">
+                    <span class="glyphicon glyphicon-barcode"></span> Crear referencia
+                </a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['crear-tarea']">Crear tarea</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['crear-tarea']">Editar referencia</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="top col-lg-3 col-sx-3" *ngIf="identity.role == 'ROLE_ALMACEN1'">
+    <h1>Almacen 1</h1>
+    <div class="sidebar-admin" data-example-id="sample-nav-stacked">
+        <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['ensayo3']">Pruebas3</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['ensayo2']">Pruebas2</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['agregar-registro']">Pruebas</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['insertar-registro']">Insertar registro</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['lista-registro']">Listado operarios</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['crear-operario']">
+                    <span class="glyphicon glyphicon-user"></span> Crear operario
+                </a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['crear-referencia']">
+                    <span class="glyphicon glyphicon-barcode"></span> Crear referencia
+                </a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['crear-tarea']">Crear tarea</a>
+            </li>
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['crear-tarea']">Editar referencia</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="col-lg-8">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,43 @@
+<div class="col-lg-6">
+	<h1>{{title}}</h1>
+
+	<div class="alert alert-success" *ngIf="status == 'success'">
+		La informacion se actualizó correctamente
+	</div>
+	<div class="alert alert-danger" *ngIf="status == 'error'">
+		La informacion no se ha podido actualizar
+	</div>
+
+	<form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="col-lg-10">
+		<p>
+			<label>Nombre</label>
+			<input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required>
+			<span *ngIf="!name.valid && name.touched">
+				El nombre es obligatorio
+			</span>
+		</p>
+		<p>
+			<label>Apellidos</label>
+			<input type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" class="form-control" required>
+			<span *ngIf="!surname.valid && surname.touched">
+				Los apellidos son obligatorios
+			</span>
+		</p>
+		<p>
+			<label>Usuario</label>
+			<input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" class="form-control" required>
+			<span *ngIf="!nick.valid && nick.touched">
+				El alias es obligatorio
+			</span>
+		</p>
+		
+		<p>
+			<label>Seccion</label>
+			<input type="text" name="section" #section="ngModel" [(ngModel)]="user.section" class="form-control" required>
+			<span *ngIf="!section.valid && section.touched">
+				La seccion es obligatoria
+			</span>
+		</p>
+		<input type="submit" value="Actualizar datos" class="btn btn-primary" [disabled]="!registerForm.form.valid">
+	</form>
+</div>

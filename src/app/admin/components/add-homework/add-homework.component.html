@@ -1,0 +1,47 @@
+
+
+<div class="top col-lg-8">
+	<h1 align="center">{{title}}</h1>
+<form #formAddHomework="ngForm" (ngSubmit)="onSubmit()">	
+	<p>
+		<label>Operario</label>
+		<input type="text" name="operator" #operator="ngModel" [(ngModel)]="homework.operator" class="form-control" required>
+		<span *ngIf="!operator.valid && operator.touched">
+			El nombre del operario es obligatorio
+		</span>
+	</p>
+	<p>
+		<label>Nombre tarea</label>
+		<input type="text" name="name" #name="ngModel" [(ngModel)]="homework.name" class="form-control" required>
+		<span *ngIf="!name.valid && name.touched">
+			El nombre de la tarea es obligatorio
+		</span>
+	</p>
+	<p>
+		<label>Código referencia</label>
+		<input type="text" name="reference" #reference="ngModel" [(ngModel)]="homework.reference" class="form-control" required>
+		<span *ngIf="!reference.valid && reference.touched">
+			La referencia es obligatoria
+		</span>
+	</p>
+	<p>
+		<label>Talla</label>
+		<input type="text" name="size" #size="ngModel" [(ngModel)]="homework.size" class="form-control" required>
+		<span *ngIf="!size.valid && size.touched">
+			La referencia es obligatoria
+		</span>
+	</p>
+	<p>
+		<label>Cantidad</label>
+		<input type="text"  name="quantity" #quantity="ngModel" [(ngModel)]="homework.quantity" class="form-control" required>
+		<span *ngIf="!quantity.valid && quantity.touched">
+			La cantidad es obligatoria
+		</span>
+	</p>
+		
+	<input type="submit" value="{{title}}" class="btn btn-success">
+</form>
+</div>
+
+
+
