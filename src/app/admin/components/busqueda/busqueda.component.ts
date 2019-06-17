@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { GLOBAL } from '../../../services/global';
+import { Warehouse1 } from '../../../models/warehouse1';
+import { Warehouse2 } from '../../../models/warehouse2';
+import { Injection1 } from '../../../models/injection1';
 
 @Component({
   selector: 'app-busqueda',
@@ -8,15 +12,22 @@ import { HttpClient } from '@angular/common/http';
   styles: []
 })
 export class BusquedaComponent implements OnInit {
+  warehouse1: Warehouse1[] = [];
+  warehouse2: Warehouse2[] = [];
+  injection1: Injection1[] = [];
+
+  public url: string;
 
   constructor(
     public activatedRoute: ActivatedRoute,
-    public http: HttpClient
+    public http: HttpClient,
+    //bublic router: Router,
   ) {
+    this.url = GLOBAL.url;
     activatedRoute.params
       .subscribe(params => {
-        let termino = params['termino'];
-        console.log(termino);
+        const termino = params.termino;
+        this.buscar(termino);
       });
    }
 
@@ -24,7 +35,15 @@ export class BusquedaComponent implements OnInit {
   }
 
   buscar(termino: string) {
+    let url = GLOBAL + '/busqueda/todo/' + termino;
 
+    this.http.get(url)
+        .subscribe((resp: any) => {
+          console.log(resp);
+          this.warehouse1 = resp.warehouse1;
+          this.warehouse2 = resp.warehouse2;
+          this.injection1 = resp.injection1;
+        });
   }
 
 }

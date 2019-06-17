@@ -21,6 +21,8 @@ export class AddWarehouse1Component implements OnInit {
 	public token;
   public url: string;
   public busqueda;
+  public mierda;
+ 
 
   formData: FormGroup;
 
@@ -37,6 +39,7 @@ export class AddWarehouse1Component implements OnInit {
    this.warehouse1 = new Warehouse1('', '', '', '', '', []);
    this.token = this._userService.getToken();
    this.url = GLOBAL.url;
+   this.mierda = 4;
 
 
 

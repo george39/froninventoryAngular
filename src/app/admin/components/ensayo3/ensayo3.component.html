@@ -1,3 +1,31 @@
-<div class="top">
-    <input #input class="form-control" type="text" placeholder="Leer código de barras" (keyup.enter)="buscar(input.value)">
+<div class=" top">
+    <input type="text" [(ngModel)]="busqueda" placeholder="código de barras">
+
+    <br>
+    <table class="table table-hover">
+        <thead class="thead-default">
+            <tr>
+                <th>Operario</th>
+                <th>Nombre</th>
+                <th>Referencia</th>
+                <th>Talla</th>
+                <th>Registros</th>
+
+            </tr>
+        </thead>
+        <tbody *ngIf="busqueda">
+            <tr *ngFor="let registro of warehouse1 | register: busqueda">
+                <div *ngIf="busqueda === registro.name">
+                    <td><input value="{{registro.operator}}"></td>
+                    <td><input value="{{registro.name}}"></td>
+                    <td>{{registro.reference}}</td>
+                    <td>{{registro.name}}</td>
+                    <td>{{registro.registros}}</td>
+                </div>
+            </tr>
+        </tbody>
+
+    </table>
+    <app-ensayo></app-ensayo>
+
 </div>

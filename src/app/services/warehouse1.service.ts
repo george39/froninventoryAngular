@@ -19,7 +19,7 @@ export class Warehouse1Service{
 			'Authorization': token
 		});
 
-		return this._http.post(this.url+'add-register', params, {headers: headers});
+		return this._http.post(this.url + 'add-register', params, {headers: headers});
 	}
 
 	getWarehouses1(): Observable<any>{
@@ -28,6 +28,10 @@ export class Warehouse1Service{
 
 	getWarehouse1(id): Observable<any>{
 		return this._http.get(this.url+'getwarehouse1/'+id).pipe(map(response => response));
+	}
+
+	todoWarehouse1(id): Observable<any>{
+		return this._http.get(this.url+'buscar/'+id).pipe(map(response => response));
 	}
 
 }	

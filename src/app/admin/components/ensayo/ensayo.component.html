@@ -19,18 +19,19 @@
 
 
 
-<div class="top">
 
+<div class="top">
     <input (keyup.enter)="addMarca()">
+
     <form #registerForm="ngForm" (ngSubmit)="onsubmit()">
+
+        <input type="text" name="name" #name placeholder="operario" [(ngModel)]="warehouse1.operator">
         <ul>
             <li *ngFor="let marca of marcas; let indice = index">
                 {{indice + 1 }}
-
                 <input type="text" name="name{{indice}}" #name placeholder="nombre" [(ngModel)]="marca.name">
                 <input type="text" name="reference{{indice}}" #reference [(ngModel)]="marca.reference" placeholder="referencia">
-                <input type="text" name="size{{indice}}" #size [(ngModel)]="marca.size" placeholder="referencia">
-
+                <input type="text" name="size{{indice}}" #size [(ngModel)]="marca.size" placeholder="referencia"> {{name.value}}
 
                 <button (click)="borrarMarca(indice)" class="btn btn-danger">Borrar</button>
             </li>

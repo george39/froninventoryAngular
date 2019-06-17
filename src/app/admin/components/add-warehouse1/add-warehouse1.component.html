@@ -73,7 +73,7 @@
                             <div formArrayName="registros">
                                 <div *ngFor="let item of addressListArray.controls; let i = index; let s = index" [formGroupName]="i">
                                     <div *ngIf="i != 0">
-                                        <input type="text" placeholder="referencia" formControlName="reference">
+                                        <input type="text" [ngModel]="mierda" placeholder="referencia" formControlName="reference">
                                         <input type="text" placeholder="talla" formControlName="size"> {{i}}
                                         <button (click)="removeAddress(i)">Eliminar</button>
                                     </div>
