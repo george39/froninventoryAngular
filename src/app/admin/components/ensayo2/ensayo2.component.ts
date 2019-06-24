@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { Warehouse1 } from '../../../models/warehouse1';
 import { Warehouse1Service } from '../../../services/warehouse1.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
@@ -15,7 +15,7 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./ensayo2.component.css'],
   providers: [UserService, Warehouse1Service]
 })
-export class Ensayo2Component implements OnInit {
+export class Ensayo2Component implements OnInit, OnChanges {
   @ViewChild('fondovalor') fondovalor: ElementRef;
   @ViewChild('size') size: ElementRef;
   public warehouse1: Warehouse1;
@@ -24,6 +24,8 @@ export class Ensayo2Component implements OnInit {
   public busqueda;
   public nom: string;
   public regis: string[];
+  public regis2: string[];
+  public a: string[];
 
   formData: FormGroup;
 
@@ -38,18 +40,26 @@ export class Ensayo2Component implements OnInit {
     this.token = this._userService.getToken();
     this.warehouse1 = new Warehouse1('', '', '', '', '', []);
     this.regis = new Array();
+    this.regis2 = new Array();
+    this.a = new Array();
      // document.getElementsByName('reg').value;
 
     this.formData = this.fb.group({
-      operator: [],
-      name: [],
+      operator: [''],
+      name: [''],
       registros: this.fb.array([this.getaddress()]),
 
     });
   }
 
+  ngOnChanges() {
+    // this.regis.push(this.fondovalor.nativeElement.value);
+    // this.addReg();
+  }
+
   ngOnInit() {
-    this.getWarehouse();
+     this.getWarehouse();
+    
     //this.addReg();
     
   }
@@ -61,17 +71,19 @@ export class Ensayo2Component implements OnInit {
   }
 
 
-  addAddress() {
+  addAddress() {    
     this.addressListArray.push(this.getaddress());
+    const control = this.formData.controls.registros;
+    const control2 = this.addressListArray.controls;
+    console.log('addadres', control2);
     
-    console.log(this.nom);
   }
 
   getaddress() {
 
     return this.fb.group({
-      reference: [],
-      size: [],
+      reference: [''],
+      size: [''],
     });
   }
 
@@ -88,31 +100,46 @@ export class Ensayo2Component implements OnInit {
     );
   }
 
-
+  deleteRegis() {
+    this.regis.splice(0);
+  }
+  
+  
   addReg() {
     this.regis.push(this.fondovalor.nativeElement.value);
-    this.regis.push(this.size.nativeElement.value);
-    for (var i in this.regis.length) {
-      if ( this.regis.length > 2) {
-        this.regis.splice(0);
-      }
-      console.log(this.regis.length);
-    }
+    this.regis2.push(this.size.nativeElement.value);
     
-    console.log(this.regis);
-  }
+    // this.regis.push(this.fondovalor.nativeElement.value);
+    
+    // for (let i = 0; i <= this.regis.length; i++) {
+    //   if ( this.regis.length > 2) {
+    //      // this.regis.splice(i);
+    //     // this.regis.push(this.fondovalor.nativeElement.value);
+    //     // this.regis.push(this.size.nativeElement.value);
+    //   }
+    //   console.log(this.regis.length);
+   // }
+    }
 
 
 
   onSubmit(data) {
-    this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
+      console.log(data);
+      // const control = this.formData.controls.registros;
+
+      this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
           response => {
-           console.log(data);
+            console.log(data.registros[0].reference);
           },
           error  => {
-             console.log(error as any);
+              console.log(error as any);
           }
         );
+      
+
+
+
+
     // console.log(data);
     // tslint:disable-next-line:forin
     // for (let i in data) {
@@ -154,8 +181,12 @@ export class Ensayo2Component implements OnInit {
 
 
 
-  removeAddress(index) {
-    this.addressListArray.removeAt(index);
+  removeAddress(index: number) {
+    const control = this.addressListArray.controls;
+    control.splice(index, 1);
+    this.regis.splice(index, 1);
+    this.regis2.splice(index, 1);
+
   }
 
 
