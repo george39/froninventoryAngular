@@ -5,49 +5,76 @@ import { GLOBAL } from '../../../services/global';
 import { HomeworkService } from '../../../services/homework.service';
 import { UserService } from '../../../services/user.service';
 import { Homework } from '../../../models/homework';
+import { TareaUnidad } from '../../../models/tareaUnidad';
+import { TareaUnidadService } from '../../../services/tarea-unidad.service';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-homework-detail',
   templateUrl: './homework-detail.component.html',
   styleUrls: ['./homework-detail.component.css'],
-  providers: [HomeworkService, UserService]
+  providers: [HomeworkService, UserService, TareaUnidadService]
 })
 export class HomeworkDetailComponent implements OnInit {
-	public homework: Homework;
-	public url: string;
+
+  public homework: Homework;
+  public tareaUnidad: TareaUnidad;
+  public url: string;
+  public token;
+  
 
   constructor(
   	private _route: ActivatedRoute,
   	private _router: Router,
   	private _homeworkService: HomeworkService,
-  	private _userService: UserService
+    private _userService: UserService,
+    private _tareaUnidadService: TareaUnidadService,
+   
   ) {
-  	this.url = GLOBAL.url;
-   }
+    this.url = GLOBAL.url;
+    this.token = _userService.getToken();
+    this.homework = new Homework('', '', '', '', 0 , '');
+    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
 
-  ngOnInit() {
-  	this.getHomework();
+
+
   }
 
-  getHomework(){
+
+  ngOnInit() {
+    this.getHomework();
+  }
+
+
+
+  getHomework() {
   	this._route.params.forEach((params: Params) => {
-  		let id = params['id'];
+  		const id = params.id;
 
   		this._homeworkService.getHomework(id).subscribe(
   			response => {
-  				if(!response.homework){
+  				if (!response.homework) {
   					this._router.navigate(['/']);
-  				}else{
-  					this.homework = response.homework;
+  				} else {
+            this.homework = response.homework;
+            // this.in = this.in + 1;
+            this.in = new Array(this.homework.quantity);
+             
+
   				}
   			},
   			error => {
-  				console.log(<any>error);
+  				console.log(error as any);
   			}
-  		)
+  		);
   	});
-  	
+
   }
+
+
+  
 
   print(): void {
     let printContents, popupWin;

@@ -14,4 +14,8 @@ export class RegisterPipe implements PipeTransform {
     });
   }
 
+  
+
+  
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -6,6 +6,9 @@ import { GLOBAL } from '../../../services/global';
 import { HomeworkService } from '../../../services/homework.service';
 import { Homework } from '../../../models/homework';
 import {map} from 'rxjs/operators';
+
+import { UserService } from '../../../services/user.service';
+
 
 
 @Component({
@@ -15,30 +18,34 @@ import {map} from 'rxjs/operators';
   providers: [HomeworkService]
 })
 export class BarcodeComponent implements OnInit{
+  
 	public title: string;
 	public homework: Homework;
-	public homeworks: Homework[];
-  public  n = new Array(3);
-  public a;
+  public tareaUnidad: TareaUnidad;
+  public token;
+  public codes;
+  
 
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
-		private _homeworkService: HomeworkService
+		private _homeworkService: HomeworkService,
+    
 	){
-		this.title = 'Código de barras'
-		this.homework = new Homework('','','','', 0 ,'');
+		this.title = 'Código de barras';
+	  this.homework = new Homework('','','','', 0 , '');
+    
+    
  
 	}
 
 	ngOnInit(){
 		this.getHomework();
-		this.getHomeworks();
+   
+    
 	}
 
-	ngDoCheck(){
-		//this.getHomework();
-	}
+	
 
 	getHomework(){
 		this._route.params.forEach((params: Params) => {
@@ -50,7 +57,8 @@ export class BarcodeComponent implements OnInit{
 						this._router.navigate(['admin-panel/listado-tareas'])
 					}else{
 						this.homework = response.homework;            
-            this.a = new Array(this.homework.quantity);
+            this.codes = new Array(this.homework.quantity);  // this.homework.quantity
+            
 						//var arr = Object.keys(this.homework).map(key => ({type: key, value: this.homework[key]}));
 						
 					}
@@ -64,21 +72,8 @@ export class BarcodeComponent implements OnInit{
 		});
 	}
 
-	getHomeworks(){
-    this._homeworkService.getHomeworks().subscribe(
-      response => {
-        if(!response.homewoks){
-
-        }else{
-          this.homeworks = response.homeworks;
-          console.log(this.homeworks);
-        }
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
-  }
+	
+ 
 
   print(): void {
     let printContents, popupWin;

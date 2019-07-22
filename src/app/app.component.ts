@@ -36,4 +36,8 @@ export class AppComponent implements OnInit, DoCheck {
   	this._router.navigate(['/']);
   }
 
+  buscar(termino: string) {
+    this._router.navigate(['/busqueda', termino]);
+  }
+
 }

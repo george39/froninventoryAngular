@@ -27,27 +27,30 @@
 
 
 <div class="row top">
-    <input type="text" (keyup.enter)="addAddress(); addReg()" [(ngModel)]="busqueda" placeholder="Leer código de barras">
+    <input type="text" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Leer código de barras">
     <table class="table table-hover">
         <thead class="thead-default">
             <tr>
-                <th>Operario</th>
-                <th>Nombre</th>
+
                 <th>Referencia</th>
                 <th>Talla</th>
-                <th>Registros</th>
+
 
             </tr>
         </thead>
         <tbody *ngIf="busqueda">
-            <tr *ngFor="let registro of warehouse1| register: busqueda; let i = index ">
+            <tr *ngFor="let registro of warehouse1 | register: busqueda">
                 <div *ngIf="busqueda === registro.name">
 
-                    <td><input #fondovalor value="{{registro.operator}}"></td>
-                    <td><input #size value="{{registro.name}}"></td>
+                    <td><input type="hidden" #fondovalor value="{{registro.operator}}"></td>
+                    <td><input type="hidden" #size value="{{registro.name}}"></td>
                     <td>{{registro.reference}}</td>
-                    <td>{{registro.name}}</td>
-                    <td>{{registro.registros}}</td>
+                    <td>{{registro.size}}</td>
+
+                    <div *ngFor="let s of registro.registros">
+                        <td>{{s.reference}}</td>
+                    </div>
+
 
                 </div>
             </tr>
@@ -62,20 +65,23 @@
                 <div class="top">
 
                     <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
-                        <input type="text" placeholder="Leer código de barras" (keyup.enter)="addReg(); addAddress()">
+
                         <div class="fields">
                             <input type="text" placeholder="operario" formControlName="operator">
                         </div>
                         <div class="fields">
-                            <input type="text" placeholder="name" formControlName="name">
+                            <input type="search" placeholder="name" formControlName="name">
                         </div>
                         <div class="form-group">
                             <div formArrayName="registros">
                                 <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
-                                    <div *ngIf="i != 0">
+                                    <div>
                                         <input type="text" [ngModel]="regis[i-1]" placeholder="referencia" formControlName="reference">
-                                        <input type="text" [ngModel]="regis2[i-1]" placeholder="talla" formControlName="size"> {{i}}
-                                        <button (click)="removeAddress(i-1)">Eliminar</button>
+                                        <input type="text" [ngModel]="regis2[i-1]" placeholder="talla" formControlName="size">
+                                        <span *ngIf="i!=0">
+
+                                            <button class="btn btn-danger" (click)="removeAddress([i-1])">Eliminar</button>{{' ' + i}}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +90,7 @@
                         </div>
 
 
-                        <button type="submit">Guardar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
                     </form>
                 </div>
 

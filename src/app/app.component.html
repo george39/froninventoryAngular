@@ -36,6 +36,9 @@
                         <span class="glyphicon glyphicon-scissors"></span> Guarnecida
                     </a>
                 </li>
+                <li>
+                    <input #input (keyup.enter)="buscar(input.value)" type="text" class="form-control">
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right" *ngIf="!identity">

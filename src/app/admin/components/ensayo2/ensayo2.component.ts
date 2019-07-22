@@ -9,6 +9,7 @@ import { UserService } from '../../../services/user.service';
 
 
 
+
 @Component({
   selector: 'app-ensayo2',
   templateUrl: './ensayo2.component.html',
@@ -18,6 +19,7 @@ import { UserService } from '../../../services/user.service';
 export class Ensayo2Component implements OnInit, OnChanges {
   @ViewChild('fondovalor') fondovalor: ElementRef;
   @ViewChild('size') size: ElementRef;
+  
   public warehouse1: Warehouse1;
   public warehouse: Warehouse1[];
   public token;
@@ -26,6 +28,7 @@ export class Ensayo2Component implements OnInit, OnChanges {
   public regis: string[];
   public regis2: string[];
   public a: string[];
+  
 
   formData: FormGroup;
 
@@ -71,11 +74,16 @@ export class Ensayo2Component implements OnInit, OnChanges {
   }
 
 
-  addAddress() {    
+  addAddress() {
     this.addressListArray.push(this.getaddress());
     const control = this.formData.controls.registros;
     const control2 = this.addressListArray.controls;
-    console.log('addadres', control2);
+    this.regis.push(this.fondovalor.nativeElement.value);
+    this.regis2.push(this.size.nativeElement.value);
+    this.busqueda = '';
+   
+
+    console.log('addadres', this.addressListArray.length);
     
   }
 
@@ -93,8 +101,9 @@ export class Ensayo2Component implements OnInit, OnChanges {
       response => {
         if (!response.warehouse1) {
 
-        } else {
+        } else {          
           this.warehouse1 = response.warehouse1;
+          console.log('getwa', this.warehouse1);
         }
       }
     );
@@ -103,11 +112,15 @@ export class Ensayo2Component implements OnInit, OnChanges {
   deleteRegis() {
     this.regis.splice(0);
   }
+
+
   
   
-  addReg() {
-    this.regis.push(this.fondovalor.nativeElement.value);
-    this.regis2.push(this.size.nativeElement.value);
+  // addReg() {
+  //   this.regis.push(this.fondovalor.nativeElement.value);
+  //   this.regis2.push(this.size.nativeElement.value);
+  //   this.busqueda = '';
+    
     
     // this.regis.push(this.fondovalor.nativeElement.value);
     
@@ -119,22 +132,25 @@ export class Ensayo2Component implements OnInit, OnChanges {
     //   }
     //   console.log(this.regis.length);
    // }
-    }
+    // }
 
 
 
   onSubmit(data) {
-      console.log(data);
+      console.log(data.registros.length);
       // const control = this.formData.controls.registros;
+      for (let i = 0; i <= data.registros.length; i++) {
 
-      this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
-          response => {
-            console.log(data.registros[0].reference);
-          },
-          error  => {
-              console.log(error as any);
-          }
-        );
+        this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
+            response => {
+              console.log(data.registros[1]);
+            },
+            error  => {
+                console.log(error as any);
+            }
+          );
+     }
+
       
 
 
@@ -181,11 +197,13 @@ export class Ensayo2Component implements OnInit, OnChanges {
 
 
 
-  removeAddress(index: number) {
-    const control = this.addressListArray.controls;
+  removeAddress(index) {
+    const control = this.addressListArray.controls;    
     control.splice(index, 1);
     this.regis.splice(index, 1);
     this.regis2.splice(index, 1);
+
+    console.log('puta', control[0]);
 
   }
 

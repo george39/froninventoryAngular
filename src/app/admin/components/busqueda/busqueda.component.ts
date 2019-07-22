@@ -26,8 +26,9 @@ export class BusquedaComponent implements OnInit {
     this.url = GLOBAL.url;
     activatedRoute.params
       .subscribe(params => {
-        const termino = params.termino;
+        const termino = params['termino'];
         this.buscar(termino);
+        console.log(termino);
       });
    }
 
@@ -35,9 +36,9 @@ export class BusquedaComponent implements OnInit {
   }
 
   buscar(termino: string) {
-    let url = GLOBAL + '/busqueda/todo/' + termino;
+    let url2 = this.url + 'busqueda/todo/' + termino;
 
-    this.http.get(url)
+    this.http.get(url2)
         .subscribe((resp: any) => {
           console.log(resp);
           this.warehouse1 = resp.warehouse1;

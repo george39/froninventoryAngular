@@ -44,6 +44,7 @@ const adminRoutes: Routes = [
 			{path: 'ensayo2', component: Ensayo2Component},
 			{path: 'ensayo3', component: Ensayo3Component},
 			{path: 'busqueda/:termino', component: BusquedaComponent},
+			{path: 'busqueda/:termino/:todo', component: BusquedaComponent},
 
 		]
 	}

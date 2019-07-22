@@ -37,6 +37,7 @@ import { Ensayo2Component } from './components/ensayo2/ensayo2.component';
 import { Ensayo3Component } from './components/ensayo3/ensayo3.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { Ensayo2Pipe } from './pipes/ensayo2.pipe';
+import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea-unidad.component';
 
 
 
@@ -63,7 +64,8 @@ import { Ensayo2Pipe } from './pipes/ensayo2.pipe';
 		Ensayo3Component,
 		RegisterPipe,
 		BusquedaComponent,
-		Ensayo2Pipe
+		Ensayo2Pipe,
+		AddTareaUnidadComponent
 		
 		
 		

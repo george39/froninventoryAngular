@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { HomeworkDetailComponent } from './components/homework-detail/homework-detail.component';
+import { BusquedaComponent } from './admin/components/busqueda/busqueda.component';
 
 const appRoutes: Routes = [
 	{path: '', component: HomeComponent},
@@ -29,7 +30,9 @@ const appRoutes: Routes = [
 	{path: 'registro', component: RegisterComponent},
 	{path: 'mis-datos', component: UserEditComponent},
 	{path: 'detalles-tarea/:id', component: HomeworkDetailComponent},
+	{path: 'busqueda/:termino', component: BusquedaComponent},
 	{path: '**', component: HomeComponent}
+	
 ];
 
 export const appRoutingProviders: any[] = [];

@@ -1,24 +1,27 @@
 <h1 class="top">{{title}}</h1>
 <hr>
-	<button class="btn btn-primary " (click)="print()">
+<button class="btn btn-primary " (click)="print()">
 		<span class="glyphicon glyphicon-print"></span>
 		Imprimir
-	</button> 
+	</button>
 
-<div fxLayout="column" class="top">
+<hr>
+<div>
 
-<div id="print-section"> 	
-	
-	<div fxLayout="column" *ngFor="let s of (a); let i = index">	 
-		<ngx-barcode *ngFor="let code of [homework]" [bc-display-value]="true" [bc-element-type]="elementType" [bc-value]="code._id + code.reference + [i+1]" [bc-format]="format" [bc-line-color]="lineColor"
-		 [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
-		 [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
-		 [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
-	
-	</div>     
-</div> 
 
-<!-- 
+    <div fxLayout="column" class="top">
+
+        <div id="print-section">
+
+            <div fxLayout="column" *ngFor="let s of (codes); let i = index">
+                <ngx-barcode *ngFor="let code of [homework]" [bc-display-value]="true" [bc-element-type]="elementType" [bc-value]="code._id  + [i+1]" [bc-format]="format" [bc-line-color]="lineColor" [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue"
+                    [bc-font-options]="fontOptions" [bc-font]="font" [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background" [bc-margin]="margin" [bc-margin-top]="marginTop"
+                    [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
+
+            </div>
+        </div>
+
+        <!-- 
 <tr *ngFor="let PS of PrintSerials">
 	<ngx-barcode [bc-value]="PS.SerialId" [bc-display-value]="true">
 	</ngx-barcode>	

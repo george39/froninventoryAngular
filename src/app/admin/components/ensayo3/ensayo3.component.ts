@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, DoCheck } from '@angular/core';
 import { Warehouse1 } from '../../../models/warehouse1';
 import { Warehouse1Service } from '../../../services/warehouse1.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Warehouse2 } from 'src/app/models/warehouse2';
 import { Injection1 } from '../../../models/injection1';
+import { UserService } from '../../../services/user.service';
+
 
 
 @Component({
@@ -12,24 +14,57 @@ import { Injection1 } from '../../../models/injection1';
   styleUrls: ['./ensayo3.component.css']
 })
 export class Ensayo3Component implements OnInit {
-  public warehouse1: Warehouse1[];
-  public token;
+  
+
+  @ViewChild('fondovalor') fondovalor: ElementRef;
+  @ViewChild('size') size: ElementRef;
+
   public busqueda;
+
+  // warehouse1 = new Warehouse1('', '', '', '', '', []);
+  warehouse1: Warehouse1;
+  warehouse: Warehouse1;
+  public token;
+  
   public registro: number;
+  public regis: string[];
+  public regis2: string[];
+  public marcas: any[];
+  dataarray = [];
 
 
   constructor(
-    // tslint:disable-next-line:variable-name
-		private _warehouse1Service: Warehouse1Service,
-		private router: Router
+    
+		private _warehouse1Service: Warehouse1Service,		
+    private router: Router,
+    private _userService: UserService,
+    private _route: ActivatedRoute
   ) {
-    // this.injection1 = new Injection1('', '', '', '', '');
+    this.marcas = new Array();
+    this.warehouse1 = new Warehouse1('', '', '', '', '', []);    
+        
+    this.token = this._userService.getToken();
+    this.regis = new Array();
+    this.regis2 = new Array();
    }
 
   ngOnInit() {
-    this.getWarehouse();
+   this.getWarehouse();
+   this.getWare();
+   
+   
+   
   }
+
   
+
+  
+
+  buscarWarehouse(termino: string) {
+    this._warehouse1Service.buscarAlmacen(termino)
+        .subscribe(almacen => this.warehouse = almacen);
+  }
+
   getWarehouse() {
     this._warehouse1Service.getWarehouses1().subscribe(
       response => {
@@ -41,6 +76,80 @@ export class Ensayo3Component implements OnInit {
       }
     );
   }
+
+  getWare() {
+    this._warehouse1Service.getWarehouses1().subscribe(
+      response => {
+        if (!response.warehouse) {
+
+        } else {
+          this.warehouse = response.warehouse;
+          
+        }
+      }
+    );
+  }
+
+  
+  addMarca() {
+    this.warehouse1 = new Warehouse1('', '', '', '', '', []);
+    this.marcas.push(this.warehouse1);
+    let re: any = document.getElementsByName('operator');
+    this.regis.push(re);
+    // this.regis.push(this.fondovalor.nativeElement.value);
+    // this.regis2.push(this.size.nativeElement.value);
+    console.log(re);
+  }
+  
+  borrarMarca(index) {
+    this.marcas.splice(index, 1);
+  }
+  
+  
+  
+  
+  addForm() {
+    this.warehouse1 = new Warehouse1('', '', '', '', '', []);
+    this.dataarray.push(this.warehouse1);
+    console.log('agregar', this.dataarray.length);
+  }
+
+
+  removeForm(index) {
+
+
+      this.dataarray.splice(index, 1);
+      console.log('eliminar', this.dataarray.length);
+
+
+  }
+
+  // onsubmit() {
+  //   console.log(this.marcas);
+  // }
+
+
+  onsubmit() {
+
+
+    for (let i = 0; i <= this.marcas.length; i++) {
+
+      this._warehouse1Service.addWarehouse1(this.token, this.marcas[i]).subscribe(
+        response => {
+          console.log(this.marcas[i]);
+
+
+
+          // form.reset();
+
+        },
+        error => {
+          const errorMessage = error as any;
+        }
+      );
+    }
+
+     }
 
 	
 

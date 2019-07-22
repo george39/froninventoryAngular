@@ -1,3 +1,57 @@
-<p>
-  busqueda works!
-</p>
+<div class="row top">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Almacen 1</h4>
+
+                <table class="table table-hover">
+                    <tbody>
+                        <tr *ngFor="let warehouse of warehouse1">
+                            <div *ngFor="let s of warehouse.registros">
+                                <td>{{s.reference}}</td>
+                                <td>{{s.size}}</td>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Almacen 2</h4>
+
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td>Referencia</td>
+                            <td>Talla</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Inyección 1</h4>
+
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td>Referencia</td>
+                            <td>Talla</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

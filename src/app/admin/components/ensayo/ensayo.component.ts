@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./ensayo.component.css']
 })
 export class EnsayoComponent implements OnInit {
-  @Input() registro: any;
-  warehouse1 = new Warehouse1('', '', '', '', '', []);
   
+  warehouse1 = new Warehouse1('', '', '', '', '', []);
+
   dataarray = [];
   public zapatillas: Array<Warehouse1>;
   public marcas: any[];
@@ -35,7 +35,7 @@ export class EnsayoComponent implements OnInit {
      this.marcas = new Array();
      this.mimarca = 4;
 
-     console.log(this.registro);
+     
   }
 
 
