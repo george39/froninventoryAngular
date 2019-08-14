@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 
 
 
+
 // Importar nuestro nuevo modulo
 import { AdminModule } from './admin/admin.module';
 import { OperationsComponent } from './components/operations/operations.component';
@@ -26,6 +27,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { AddReferenceComponent } from './components/add-reference/add-reference.component';
 import { HomeworkDetailComponent } from './components/homework-detail/homework-detail.component';
 import { SearchPipe } from '../pipes/search.pipe';
+import { AddTareaUnidadComponent } from './admin/components/add-tarea-unidad/add-tarea-unidad.component';
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { SearchPipe } from '../pipes/search.pipe';
     AddReferenceComponent,
     HomeworkDetailComponent,
     SearchPipe,
+    
      
     
     

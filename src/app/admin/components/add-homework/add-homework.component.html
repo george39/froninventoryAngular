@@ -31,7 +31,7 @@
         </p>
         <p>
             <label>Cantidad</label>
-            <input type="text" name="quantity" #quantity="ngModel" [(ngModel)]="homework.quantity" class="form-control" required>
+            <input type="number" name="quantity" #quantity="ngModel" [(ngModel)]="homework.quantity" class="form-control" required>
             <span *ngIf="!quantity.valid && quantity.touched">
 			La cantidad es obligatoria
 		</span>

@@ -7,14 +7,16 @@ import { UserService } from '../../../services/user.service';
 import { Homework } from '../../../models/homework';
 import { TareaUnidad } from '../../../models/tareaUnidad';
 import { TareaUnidadService } from '../../../services/tarea-unidad.service';
-import { homedir } from 'os';
+import { Troquelado } from '../../../models/troquelado';
+import { TroqueladoService } from '../../../services/troquelado.service';
+
 
 
 @Component({
   selector: 'app-add-homework',
   templateUrl: './add-homework.component.html',
   styleUrls: ['./add-homework.component.css'],
-  providers: [UserService, HomeworkService, TareaUnidadService]
+  providers: [UserService, HomeworkService, TareaUnidadService, TroqueladoService]
 })
 export class AddHomeworkComponent implements OnInit {
 
@@ -23,6 +25,7 @@ export class AddHomeworkComponent implements OnInit {
 	public title: string;
 	public homework: Homework;
 	public tareaUnidad: TareaUnidad;
+	public troquelado: Troquelado;
 	public identityd;
 	public token;
 	public url: string;
@@ -34,7 +37,8 @@ export class AddHomeworkComponent implements OnInit {
   	private _router: Router,
   	private _userService: UserService,
   	private _homeworkService: HomeworkService,
-  	private _tareaUnidadService: TareaUnidadService
+	private _tareaUnidadService: TareaUnidadService,
+	private troqueladoService: TroqueladoService
   ) {
   	this.title = 'Crear tarea';
   	this.homework = new Homework('', '', '', '', 0, '');
@@ -42,7 +46,7 @@ export class AddHomeworkComponent implements OnInit {
   	this.identityd = this._userService.getIdentity();
   	this.token = this._userService.getToken();
 	  this.url = GLOBAL.url;
-	  this.r = this.homework._id;
+	  
    }
 
   ngOnInit() {
@@ -59,7 +63,7 @@ export class AddHomeworkComponent implements OnInit {
 				this.status = 'success';
 				this.homework = response.homework;
 
-
+				// Guardar registros por unidad
 				for ( let i = 1; i <= this.homework.quantity; i++) {
 					this.tareaUnidad.operator = this.homework.operator;
 					this.tareaUnidad.name = this.homework.name;

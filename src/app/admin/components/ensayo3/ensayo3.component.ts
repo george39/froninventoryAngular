@@ -41,7 +41,7 @@ export class Ensayo3Component implements OnInit {
     private _route: ActivatedRoute
   ) {
     this.marcas = new Array();
-    this.warehouse1 = new Warehouse1('', '', '', '', '', []);    
+    this.warehouse1 = new Warehouse1('', '', []);    
         
     this.token = this._userService.getToken();
     this.regis = new Array();
@@ -92,7 +92,7 @@ export class Ensayo3Component implements OnInit {
 
   
   addMarca() {
-    this.warehouse1 = new Warehouse1('', '', '', '', '', []);
+    this.warehouse1 = new Warehouse1('', '', []);
     this.marcas.push(this.warehouse1);
     let re: any = document.getElementsByName('operator');
     this.regis.push(re);
@@ -109,7 +109,7 @@ export class Ensayo3Component implements OnInit {
   
   
   addForm() {
-    this.warehouse1 = new Warehouse1('', '', '', '', '', []);
+    this.warehouse1 = new Warehouse1('', '', []);
     this.dataarray.push(this.warehouse1);
     console.log('agregar', this.dataarray.length);
   }

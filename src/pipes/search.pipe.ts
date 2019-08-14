@@ -8,6 +8,7 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
 export class SearchPipe implements PipeTransform{
 	transform(items: any, term: any):any {
 		if(term === undefined){
+			console.log('register', items);
 			return items;
 		}
 

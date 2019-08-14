@@ -25,5 +25,10 @@ export class TareaUnidadService {
 		});
 
 		return this._http.post(this.url + 'tareaunidad', params, {headers});
+  }
+  
+
+  getHomeworkUnit(): Observable<any>{
+		return this._http.get(this.url + 'gethomeworkunit').pipe(map(response => response));
 	}
 }

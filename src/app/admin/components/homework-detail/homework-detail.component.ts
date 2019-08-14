@@ -59,8 +59,7 @@ export class HomeworkDetailComponent implements OnInit {
   					this._router.navigate(['/']);
   				} else {
             this.homework = response.homework;
-            // this.in = this.in + 1;
-            this.in = new Array(this.homework.quantity);
+            
              
 
   				}

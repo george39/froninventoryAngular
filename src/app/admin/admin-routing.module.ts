@@ -17,9 +17,11 @@ import { HomeworkEditComponent } from './components/homework-edit/homework-edit.
 import { AddWarehouse1Component } from './components/add-warehouse1/add-warehouse1.component';
 import { ListWarehouse1Component } from './components/list-warehouse1/list-warehouse1.component';
 import { EnsayoComponent } from './components/ensayo/ensayo.component';
-import { Ensayo2Component } from './components/ensayo2/ensayo2.component';
+import { IngresosWarehouse1Component } from './components/ingresos-warehouse1/ingresos-warehouse1.component';
 import { Ensayo3Component } from './components/ensayo3/ensayo3.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
+import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea-unidad.component';
+import { AddGuarnecidaComponent } from './components/add-guarnecida/add-guarnecida.component';
 
 
 const adminRoutes: Routes = [
@@ -41,13 +43,17 @@ const adminRoutes: Routes = [
 			{path: 'insertar-registro', component: AddWarehouse1Component},
 			{path: 'lista-registro', component: ListWarehouse1Component},
 			{path: 'agregar-registro', component: EnsayoComponent},
-			{path: 'ensayo2', component: Ensayo2Component},
+			{path: 'ingresos-almacen1', component: IngresosWarehouse1Component},
 			{path: 'ensayo3', component: Ensayo3Component},
+			{path: 'tarea-unidad', component: AddTareaUnidadComponent},
+			{path: 'addguarnecida', component: AddGuarnecidaComponent},
 			{path: 'busqueda/:termino', component: BusquedaComponent},
 			{path: 'busqueda/:termino/:todo', component: BusquedaComponent},
 
 		]
 	}
+
+	
 ];
 
 @NgModule({

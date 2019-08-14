@@ -23,15 +23,20 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  	this.admins();
+	  this.admins();
+	  
   }
 
   admins(){
   	this.identity = this._userService.getIdentity();
-  	if(this.identity.role == 'ROLE_ALMACEN1'){  		
+  	// tslint:disable-next-line:max-line-length
+  	if(this.identity.role === 'ROLE_ADMIN' || this.identity.role === 'ROLE_ALMACEN1' || this.identity.role === 'ROLE_ALMACEN2' || this.identity.role === 'ROLE_GUARNECIDA') {  		
   		return true;
   	}
   	
   }
+
+
+ 
 
 }

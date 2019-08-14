@@ -20,8 +20,7 @@ import { UserService } from '../../../services/user.service';
 export class BarcodeComponent implements OnInit{
   
 	public title: string;
-	public homework: Homework;
-  public tareaUnidad: TareaUnidad;
+	public homework: Homework; 
   public token;
   public codes;
   

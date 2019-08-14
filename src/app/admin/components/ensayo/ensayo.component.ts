@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class EnsayoComponent implements OnInit {
   
-  warehouse1 = new Warehouse1('', '', '', '', '', []);
+  warehouse1 = new Warehouse1('', '',  []);
 
   dataarray = [];
   public zapatillas: Array<Warehouse1>;
@@ -30,7 +30,7 @@ export class EnsayoComponent implements OnInit {
     private _userService: UserService,
     private route: Router
   ) {
-     this.warehouse1 = new Warehouse1('', '', '', '', '', []);
+     this.warehouse1 = new Warehouse1('', '',  []);
      this.token = this._userService.getToken();
      this.marcas = new Array();
      this.mimarca = 4;
@@ -47,7 +47,7 @@ export class EnsayoComponent implements OnInit {
 
 
   addMarca() {
-    this.warehouse1 = new Warehouse1('', '', '', '', '', []);
+    this.warehouse1 = new Warehouse1('', '',  []);
     this.marcas.push(this.warehouse1);
     console.log(this.marcas.length);
   }
@@ -60,7 +60,7 @@ export class EnsayoComponent implements OnInit {
 
 
   addForm() {
-      this.warehouse1 = new Warehouse1('', '', '', '', '', []);
+      this.warehouse1 = new Warehouse1('', '', []);
       this.dataarray.push(this.warehouse1);
       console.log('agregar', this.dataarray.length);
   }

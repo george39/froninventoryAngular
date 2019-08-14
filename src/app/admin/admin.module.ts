@@ -33,11 +33,13 @@ import { ListWarehouse1Component } from './components/list-warehouse1/list-wareh
 import { EnsayoComponent } from './components/ensayo/ensayo.component';
 import { Warehouse1Service } from '../services/warehouse1.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { Ensayo2Component } from './components/ensayo2/ensayo2.component';
+import { IngresosWarehouse1Component } from './components/ingresos-warehouse1/ingresos-warehouse1.component';
 import { Ensayo3Component } from './components/ensayo3/ensayo3.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
-import { Ensayo2Pipe } from './pipes/ensayo2.pipe';
+import { IngresosWarehouse1Pipe } from './pipes/ingresos-warehouse1.pipe';
 import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea-unidad.component';
+import { AddGuarnecidaComponent } from './components/add-guarnecida/add-guarnecida.component';
+
 
 
 
@@ -60,12 +62,16 @@ import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea
 		AddWarehouse1Component,
 		ListWarehouse1Component,
 		EnsayoComponent,
-		Ensayo2Component,
+		IngresosWarehouse1Component,
 		Ensayo3Component,
 		RegisterPipe,
 		BusquedaComponent,
-		Ensayo2Pipe,
-		AddTareaUnidadComponent
+		IngresosWarehouse1Pipe,
+		AddTareaUnidadComponent,
+		AddGuarnecidaComponent
+		
+		
+		
 		
 		
 		
