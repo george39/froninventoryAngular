@@ -1,36 +1,48 @@
 <div class="row top">
     <div class="col-lg-5 inner-addon right-addon">
+        <span>Almacen de salida </span>
+        <select [(ngModel)]="seleccion">   
+        <option value="">Elija el almacen de salida</option>
+        <option *ngFor="let o of warehouses" [value]="o">{{o}}</option>
+    </select>
+    </div>
+    <div class="col-lg-5 inner-addon right-addon">
+
         <i class="glyphicon glyphicon-barcode"></i>
         <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Leer código de barras">
         <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false">
             NO SE ENCONTRO EL CÓDIGO {{busqueda}}
         </div>
     </div>
-    <table class="table table-hover">
-        <thead class="thead-default">
-            <tr>
+
+    <div *ngIf="seleccion === 'Troquelado'">
+        <table class="table table-hover">
+            <thead class="thead-default">
+                <tr>
+                    <th>Código</th>
+                    <th>Referencia</th>
+                    <th>Talla</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="busqueda">
+
+                <tr *ngFor="let registro of tareaUnidad | ingresos: busqueda">
+
+                    <div *ngIf="busqueda === registro.code">
+
+                        <td><input type="hidden" #code value="{{registro.code}}"></td>
+                        <td><input type="hidden" #reference value="{{registro.reference}}"></td>
+                        <td><input type="hidden" #size value="{{registro.size}}"></td>
+
+                    </div>
 
 
+                </tr>
 
+            </tbody>
 
-            </tr>
-        </thead>
-        <tbody *ngIf="busqueda">
-            <tr *ngFor="let registro of tareaUnidad | ingresos: busqueda">
-
-                <div *ngIf="busqueda === registro.code">
-
-                    <td><input type="hidden" #code value="{{registro.code}}"></td>
-                    <td><input type="hidden" #reference value="{{registro.reference}}"></td>
-                    <td><input type="hidden" #size value="{{registro.size}}"></td>
-
-                </div>
-
-
-            </tr>
-        </tbody>
-
-    </table>
+        </table>
+    </div>
 
     <div class="col-lg-12">
         <div class="card">
@@ -49,17 +61,17 @@
                                 <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
                                     <div class="col-lg-10">
                                         <div class="col-lg-4 inner-addon right-addon">
-                                            <input class="form-control" type="text" [ngModel]="codigo[i-1]" placeholder="código" formControlName="code">
+                                            <input class="form-control" type="text" [ngModel]="codigo[i]" placeholder="código" formControlName="code">
                                         </div>
                                         <div class="col-lg-3 inner-addon right-addon">
-                                            <input class="form-control" type="text" [ngModel]="referencia[i-1]" placeholder="referencia" formControlName="reference">
+                                            <input class="form-control" type="text" [ngModel]="referencia[i]" placeholder="referencia" formControlName="reference">
                                         </div>
                                         <div class="col-lg-2 inner-addon right-addon">
-                                            <input class="form-control" type="text" [ngModel]="talla[i-1]" placeholder="talla" formControlName="size">
+                                            <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
                                         </div>
-                                        <span *ngIf="i !== 0">
+                                        <span>
 
-                                            <a class="btn btn-danger" (click)="removeAddress([i-1])">Eliminar</a>{{' ' + i}}
+                                            <a class="btn btn-danger" (click)="removeAddress([i])">Eliminar</a>{{' ' + [i+1]}}
                                         </span>
                                     </div>
                                 </div>

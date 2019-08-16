@@ -38,6 +38,8 @@ export class IngresosWarehouse1Component implements OnInit {
   public referencia: string[];
   public talla: string[];
   public status;
+  public warehouses: any[];
+  public seleccion;
 
 
 
@@ -46,7 +48,7 @@ export class IngresosWarehouse1Component implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-  	 private _router: Router,
+  	private _router: Router,
     private tareaUnidadService: TareaUnidadService,
     private _warehouse1Service: Warehouse1Service,
     private _userService: UserService,
@@ -61,6 +63,12 @@ export class IngresosWarehouse1Component implements OnInit {
     this.referencia = new Array();
     this.talla = new Array();
     this.status = true;
+    this.warehouses = [
+    'Troquelado',
+    'Reproceso'
+  ];
+  this.seleccion = '';
+    
 
 
     this.formData = this.fb.group({
@@ -75,11 +83,16 @@ export class IngresosWarehouse1Component implements OnInit {
   ngOnInit() {
      this.HomeworkUnit();
      this.getHomeworks();
+     
+     
+     
+     const control = this.addressListArray.controls;
+     control.splice(1[0]);
   }
 
   get addressListArray() {
-
-      return this.formData.get('registros') as FormArray;
+    
+    return this.formData.get('registros') as FormArray;
   }
 
 
@@ -100,6 +113,8 @@ export class IngresosWarehouse1Component implements OnInit {
       this.talla.push(this.size.nativeElement.value);
       this.busqueda = '';
       this.status = true;
+      console.log('datos', control);
+      
 
     }
   }
@@ -147,33 +162,46 @@ export class IngresosWarehouse1Component implements OnInit {
 
   onSubmit(data) {
     console.log('final', data);
-    console.log('addreslistArray', this.formData.value);
+    console.log('addreslistArray', this.formData.value);  //this.formData.value
     
-    const control = this.addressListArray.controls;
-    this._warehouse1Service.addWarehouse1(this.token, this.formData.value).subscribe(
+    
+    
+    this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
                 response => {
                   console.log('data',  this.formData.value);
+                  this.formData.reset();
+                  const control = this.addressListArray.controls;      
+                  control.splice(data);
+                  this.seleccion = '';
+                  const s = this.formData.value.registros;
+                  s.splice(data);
+                  this.codigo.splice(data);
+                  this.referencia.splice(data);
+                  this.talla.splice(data);
                 },
                 error  => {
-                    console.log(error as any);
+                  console.log(error as any);
                 }
-              );
+                );
+    
     }
 
 
 
-    removeAddress(index) {
-      
-      const control = this.addressListArray.controls;      
-      control.splice(index, 1);
-      this.codigo.splice(index, 1);
-      this.referencia.splice(index, 1);
-      this.talla.splice(index, 1);
-      console.log('eliminar', control);
-      // this.addressListArray.removeAt(index);
-      console.log('index', index);
-  
-    }
+  removeAddress(index) {
+    const s = this.formData.value.registros;
+    s.splice(index, 1);
+    
+    const control = this.addressListArray.controls;      
+    control.splice(index, 1);
+    this.codigo.splice(index, 1);
+    this.referencia.splice(index, 1);
+    this.talla.splice(index, 1);
+    console.log('eliminar', this.formData.value);
+    // this.addressListArray.removeAt(index);
+    console.log('index', index);
+
+  }
 
 
 
