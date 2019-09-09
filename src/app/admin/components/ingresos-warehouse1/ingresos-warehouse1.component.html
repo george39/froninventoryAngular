@@ -33,6 +33,7 @@
                         <td><input type="hidden" #code value="{{registro.code}}"></td>
                         <td><input type="hidden" #reference value="{{registro.reference}}"></td>
                         <td><input type="hidden" #size value="{{registro.size}}"></td>
+                        <td><input type="text" #idWarehouse value="{{registro._id}}"></td>
 
                     </div>
 
@@ -50,11 +51,12 @@
 
                 <div class="top">
 
-                    <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
+                    <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)">
 
 
                         <!-- <div class="fields">
-                            <input type="search" placeholder="name" formControlName="name">
+                            <input type="text" [ngModel]="idAlmacen" placeholder="id" formControlName="idWare">
+
                         </div> -->
                         <div class="form-group">
                             <div id=addresBlock formArrayName="registros">
@@ -68,6 +70,9 @@
                                         </div>
                                         <div class="col-lg-2 inner-addon right-addon">
                                             <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
+                                        </div>
+                                        <div class="col-lg-2 inner-addon right-addon">
+                                            <input class="form-control" type="text" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
                                         </div>
                                         <span>
 

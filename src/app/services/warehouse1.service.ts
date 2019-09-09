@@ -40,4 +40,13 @@ export class Warehouse1Service {
 		           .pipe(map((resp: any) => resp.warehouse1));
 	}
 
+	updateWarehouse(token, warehouse1): Observable<any> {
+		const params = JSON.stringify(warehouse1);
+		const headers = new HttpHeaders({'Content-Type': 'application/json',
+			Authorization: token
+		});
+
+		return this._http.put(this.url + 'updatewarehouse1/', params, { headers: headers});
+	}
+
 }
