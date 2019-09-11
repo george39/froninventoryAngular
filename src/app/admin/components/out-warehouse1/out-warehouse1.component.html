@@ -1,9 +1,12 @@
 <div class="row top">
     <div class="col-lg-5 inner-addon ">
-        <span>Almacen de salida </span>
+        <div>
+
+            <span>Operario </span>
+        </div>
         <select [(ngModel)]="seleccion">   
-        <option value="">Elija el almacen de salida</option>
-        <option *ngFor="let o of warehouses" [value]="o">{{o}}</option>
+        <option value="">Elija operario</option>
+        <option *ngFor="let operario of operators" [value]="operario">{{operario.name}}</option>
     </select>
     </div>
 
@@ -11,7 +14,7 @@
     <div class="col-lg-5 inner-addon right-addon">
 
         <i class="glyphicon glyphicon-barcode"></i>
-        <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Leer código de barras por canasta">
+        <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Digite número de canasta">
         <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false">
             NO SE ENCONTRO EL CÓDIGO {{busqueda}}
         </div>
