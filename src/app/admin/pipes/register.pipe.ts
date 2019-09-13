@@ -8,17 +8,15 @@ import { Pipe, PipeTransform, Injectable } from '@angular/core';
 export class RegisterPipe implements PipeTransform {
 
   transform(items: any, term: any): any {
-    if (term === undefined) {
-      return items;
+    const result = [];
+    term = JSON.parse(term);
+    for (const post of items) {
+      if (post._id === term) {
+        result.push(post);
+      }
     }
-    return items.filter(function(item) {
-      return item.code.toLowerCase().includes(term.toLowerCase());
-      
-    });
+    return result;
+
   }
-
-  
-
-  
 
 }

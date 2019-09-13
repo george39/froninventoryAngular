@@ -46,7 +46,14 @@ export class Warehouse1Service {
 			Authorization: token
 		});
 
-		return this._http.put(this.url + 'updatewarehouse1/', params, { headers: headers});
+		return this._http.put(this.url + 'updatewarehouse1/', params, { headers});
+	}
+
+	deleteWarehouse(token, id): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+									   .set('Authorization', token);
+
+	 return this._http.delete(this.url+'deletewarehouse1/' + id, {headers});								   
 	}
 
 }

@@ -1,101 +1,177 @@
 <div class="row top">
-    <div class="col-lg-5 inner-addon ">
+    <div class="col-lg-4 inner-addon ">
         <div>
 
             <span>Operario </span>
         </div>
-        <select [(ngModel)]="seleccion">   
+        <select [(ngModel)]="seleccion" #selecOperario>   
         <option value="">Elija operario</option>
-        <option *ngFor="let operario of operators" [value]="operario">{{operario.name}}</option>
+        <option *ngFor="let operario of operators"  [value]="operario">{{operario.name}}</option>
+    </select>
+    </div>
+
+    <div class="col-lg-4 inner-addon ">
+        <div>
+
+            <span>Salidas </span>
+        </div>
+        <select [(ngModel)]="selecSalidas">   
+        <option value="">Elija salida</option>
+        <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
     </select>
     </div>
 
 
-    <div class="col-lg-5 inner-addon right-addon">
 
-        <i class="glyphicon glyphicon-barcode"></i>
-        <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Digite número de canasta">
-        <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false">
-            NO SE ENCONTRO EL CÓDIGO {{busqueda}}
+
+
+    <!--Salidas por canasta-->
+    <div *ngIf="selecSalidas === 'canasta'">
+        <div class="col-lg-4 inner-addon right-addon">
+            <div align="center">Salidas canasta</div>
+            <input type="text" #bus="ngModel" class="form-control" #canasta autofocus name="busqueda2" (keyup.enter)="enters()" [(ngModel)]="busqueda2" placeholder="Digite número de canasta" autofocus>
+
+            <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false && busqueda2">
+                NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
+            </div>
         </div>
+
+        <div *ngIf="selecSalidas">
+            <table class="table table-hover">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Código</th>
+                        <th>Referencia</th>
+                        <th>Talla</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="busqueda2">
+
+                    <tr *ngFor="let registro of warehouse1 | register: busqueda2">
+
+                        <div>
+
+                            <td><input type="hidden" #idCanasta value="{{registro._id}}"></td>
+                            <td><input type="hidden" #reference value="{{registro.reference}}"></td>
+                            <td><input type="hidden" #size value="{{registro.size}}"></td>
+                            <td><input type="text" #registros value="{{registro.registros}}"></td>
+
+                        </div>
+
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+
+        <form #register="ngForm" (ngSubmit)="addCanasta()">
+            <div *ngFor="let reg of warehouse">
+                <div *ngFor="let r of reg.registros">
+                    <input type="text" name="name" ([ngModel])="r">
+                </div>
+            </div>
+            <div class="col-lg-2 inner-addon">
+                <button type="submit" class="btn btn-success">Guardar</button>
+
+            </div>
+        </form>
     </div>
 
-    <div *ngIf="seleccion === 'Troquelado'">
-        <table class="table table-hover">
-            <thead class="thead-default">
-                <tr>
-                    <th>Código</th>
-                    <th>Referencia</th>
-                    <th>Talla</th>
-                </tr>
-            </thead>
-            <tbody *ngIf="busqueda">
-
-                <tr *ngFor="let registro of tareaUnidad | ingresos: busqueda">
-
-                    <div *ngIf="busqueda === registro.code">
-
-                        <td><input type="hidden" #code value="{{registro.code}}"></td>
-                        <td><input type="hidden" #reference value="{{registro.reference}}"></td>
-                        <td><input type="hidden" #size value="{{registro.size}}"></td>
-                        <td><input type="text" #idWarehouse value="{{registro._id}}"></td>
-
-                    </div>
 
 
-                </tr>
+    <!--SLIDAS POR UNIDAD-->
 
-            </tbody>
+    <div *ngIf="selecSalidas === 'unidad'">
+        <div align="center">Salidas unidad</div>
+        <div class="col-lg-4 inner-addon right-addon">
 
-        </table>
-    </div>
+            <i class="glyphicon glyphicon-barcode"></i>
+            <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Digite código de barras" autofocus>
+            <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false && busqueda">
+                NO SE ENCONTRO EL CÓDIGO {{busqueda}}
+            </div>
+        </div>
 
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
+        <div *ngIf="seleccion">
+            <table class="table table-hover">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Código</th>
+                        <th>Referencia</th>
+                        <th>Talla</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="busqueda">
 
-                <div class="top">
+                    <tr *ngFor="let registro of tareaUnidad | ingresos: busqueda">
 
-                    <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)">
+                        <div *ngIf="busqueda === registro.code">
+
+                            <td><input type="hidden" #code value="{{registro.code}}"></td>
+                            <td><input type="hidden" #reference value="{{registro.reference}}"></td>
+                            <td><input type="hidden" #size value="{{registro.size}}"></td>
+                            <td><input type="text" #idWarehouse value="{{registro._id}}"></td>
+
+                        </div>
 
 
-                        <!-- <div class="fields">
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="top">
+
+                        <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)">
+
+
+                            <!-- <div class="fields">
                             <input type="text" [ngModel]="idAlmacen" placeholder="id" formControlName="idWare">
 
                         </div> -->
-                        <div class="form-group">
-                            <div id=addresBlock formArrayName="registros">
-                                <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
-                                    <div class="col-lg-10">
-                                        <div class="col-lg-4 inner-addon right-addon">
-                                            <input class="form-control" type="text" [ngModel]="codigo[i]" placeholder="código" formControlName="code">
-                                        </div>
-                                        <div class="col-lg-3 inner-addon right-addon">
-                                            <input class="form-control" type="text" [ngModel]="referencia[i]" placeholder="referencia" formControlName="reference">
-                                        </div>
-                                        <div class="col-lg-2 inner-addon right-addon">
-                                            <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
-                                        </div>
-                                        <div class="col-lg-2 inner-addon right-addon">
-                                            <input class="form-control" type="text" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
-                                        </div>
-                                        <span>
+                            <div class="form-group">
+                                <div id=addresBlock formArrayName="registros">
+                                    <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
+                                        <div class="col-lg-10">
+                                            <div class="col-lg-4 inner-addon right-addon">
+                                                <input class="form-control" type="text" [ngModel]="codigo[i]" placeholder="código" formControlName="code">
+                                            </div>
+                                            <div class="col-lg-3 inner-addon right-addon">
+                                                <input class="form-control" type="text" [ngModel]="referencia[i]" placeholder="referencia" formControlName="reference">
+                                            </div>
+                                            <div class="col-lg-2 inner-addon right-addon">
+                                                <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
+                                            </div>
+                                            <div class="col-lg-2 inner-addon right-addon">
+                                                <input class="form-control" type="text" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
+                                            </div>
+                                            <span>
 
                                             <a class="btn btn-danger" (click)="removeAddress([i])">Eliminar</a>{{' ' + [i+1]}}
                                         </span>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
 
-                        </div>
+                            <div class="col-lg-2 inner-addon">
+                                <button type="submit" class="btn btn-success">Guardar</button>
 
-                        <div class="col-lg-2 inner-addon">
-                            <button type="submit" class="btn btn-success">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
 
-                        </div>
-                    </form>
                 </div>
-
             </div>
         </div>
     </div>

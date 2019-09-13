@@ -17,6 +17,10 @@ import { Guarnecida } from '../../../models/guarnecida';
 import { GuarnecidaService } from '../../../services/guarnecida.service';
 import { Operator } from '../../../models/operator';
 import { OperatorService } from '../../../services/operator.service';
+import { TerminationService } from '../../../services/termination.service';
+import { Termination } from '../../../models/termination';
+
+
 
 
 
@@ -29,10 +33,47 @@ import { OperatorService } from '../../../services/operator.service';
   selector: 'app-out-warehouse1',
   templateUrl: './out-warehouse1.component.html',
   styleUrls: ['./out-warehouse1.component.css'],
-  providers: [OperatorService]
+  providers: [OperatorService, Warehouse1Service]
 })
 export class OutWarehouse1Component implements OnInit {
+ // BUSQUEDA POR UNIDAD
+  @ViewChild('code') code: ElementRef;
+  @ViewChild('reference') reference: ElementRef;
+  @ViewChild('size') size: ElementRef;
+  @ViewChild('idWarehouse') idWarehouse: ElementRef;
+
+  // BUSQUEDA POR CANASTA
+  @ViewChild('idCanasta') idCanasta: ElementRef;
+  @ViewChild('registros') registros: ElementRef;
+  @ViewChild('selecOperario') selecOperario: ElementRef;
+
+  
+
   public operators: Operator[];
+  public warehouse1: Warehouse1;
+  public tareaUnidad: TareaUnidad;
+  public guarnecida: Guarnecida;
+  public operator: Operator;
+  public warehouse: Warehouse1[];
+  public termination: Termination;
+  public token;
+  public busqueda;
+  public busqueda2;
+  public codigo: string[];
+  public referencia: string[];
+  public talla: string[];
+  public idAlmacen: string[];
+  public canasta: string[];
+  public status;
+  public warehouses: any[];
+  public seleccion;
+  public salidas: any[];
+  public selecSalidas;
+  public mesa: any[];
+  public regis: string[];
+
+
+  formData: FormGroup;
   
 
   constructor(
@@ -43,27 +84,38 @@ export class OutWarehouse1Component implements OnInit {
     private guarnecidaService: GuarnecidaService,
     private _userService: UserService,
     private operatorService: OperatorService,
+    private terminationService: TerminationService,
     private http: HttpClient,
 
     private fb: FormBuilder
   ) {
     this.token = this._userService.getToken();
-    // this.warehouse1 = new Warehouse1('', '', []);
+    this.warehouse1 = new Warehouse1('', '', []);
     this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
     this.guarnecida = new Guarnecida('', '', []);
+    this.termination = new Termination('', '', '', []);
     // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
+    this.canasta = new Array();
     this.status = true;
     this.warehouses = [
     'Troquelado',
     'Reproceso'
   ];
+    this.salidas = [
+      'unidad',
+      'canasta'
+    ];
 
-    this.warehouse = [];
+    
     this.seleccion = '';
+    this.selecSalidas = '';
+    this.mesa = new Array();
+    this.regis = new Array();
+    
 
 
 
@@ -80,45 +132,64 @@ export class OutWarehouse1Component implements OnInit {
 
     return this.formData.get('registros') as FormArray;
   }
-  @ViewChild('code') code: ElementRef;
-  @ViewChild('reference') reference: ElementRef;
-  @ViewChild('size') size: ElementRef;
-  @ViewChild('idWarehouse') idWarehouse: ElementRef;
 
-
-
-  public warehouse1: Warehouse1;
-  public tareaUnidad: TareaUnidad;
-  public guarnecida: Guarnecida;
-  public operator: Operator;
-  public warehouse: [];
-  public token;
-  public busqueda;
-  public codigo: string[];
-  public referencia: string[];
-  public talla: string[];
-  public idAlmacen: string[];
-  public status;
-  public warehouses: any[];
-  public seleccion;
-
-
-
-
-  formData: FormGroup;
-error;
 
   ngOnInit() {
      this.HomeworkUnit();
-     // this.getWarehouses();
      this.getOperator();
-     console.log('tareaU', this.operator);
-
-
-    // Instruccion que no permite insertar items vacios
+     this.getWarehouses();
+    
+     
+     
+     // Instruccion que no permite insertar items vacios
      const control = this.addressListArray.controls;
      control.splice(1[0]);
   }
+
+  addCanasta() {
+    // this.canasta.push(this.idCanasta.nativeElement.value); 
+    var numeroCanasta = this.idCanasta.nativeElement.value;
+    this._warehouse1Service.getWarehouses1().subscribe(
+      response => {
+        if (!response.warehouse1) {
+            this.status = false;
+        } else {
+          this.warehouse1 = response.warehouse1;
+          for (const i of response.warehouse1) {
+            numeroCanasta = JSON.parse(numeroCanasta);
+            this.termination = i;
+            this.termination.operator = 'jorge';
+            if ( i._id === numeroCanasta ) {
+              
+
+                console.log('terminacion', this.selecOperario.nativeElement.value);
+              
+
+              this.terminationService.addTermination(this.token, this.termination).subscribe(
+                response => {
+
+                },
+                error => {
+                  console.log(error as any);
+                }
+              );
+
+            }
+
+          }
+        }
+      }
+    );
+    // this._warehouse1Service.addWarehouse1(this.token, this.formData.value).subscribe(
+    //   response => {
+       
+    //     console.log('addreslistArray', this.formData.value);
+    //   },
+    //   error  => {
+    //     console.log(error as any);
+    //   }
+    //   );
+    }
 
 
   addAddress() {
@@ -171,6 +242,22 @@ error;
     );
   }
 
+
+  getWarehouses() {
+    this._warehouse1Service.getWarehouses1().subscribe(
+      response => {
+        if (!response.warehouse1) {
+            this.status = false;
+            console.log('status unidad', this.status);
+            
+        } else {
+          this.warehouse1 = response.warehouse1;
+          console.log('warehouse1', this.warehouse1);
+        }
+      }
+    );
+  }
+
   getOperator() {
     this.operatorService.getOperators().subscribe(
       response => {
@@ -206,6 +293,22 @@ error;
             );
           }
 
+  }
+
+
+  deleteWarehouse(id) {
+    
+    this._warehouse1Service.deleteWarehouse(this.token, id).subscribe(
+      response => {
+        if(!response.warehouse1){
+          console.log('Error en el servidor');
+        }
+          // this.getHomeworks();
+      },
+      error => {
+        alert('Error en el servidor');
+      }
+    );
   }
 
 
