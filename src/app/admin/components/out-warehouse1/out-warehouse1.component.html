@@ -4,10 +4,12 @@
 
             <span>Operario </span>
         </div>
-        <select [(ngModel)]="seleccion" #selecOperario>   
+        <select [(ngModel)]="selecOperator" (change)="capturar()" #selecOperario>   
         <option value="">Elija operario</option>
-        <option *ngFor="let operario of operators"  [value]="operario">{{operario.name}}</option>
+        <option *ngFor="let operario of operators" id="opcion"  [value]="operario.name">{{operario.name}}</option>
+
     </select>
+        <input type="text" [(ngModel)]="selecOperator">
     </div>
 
     <div class="col-lg-4 inner-addon ">

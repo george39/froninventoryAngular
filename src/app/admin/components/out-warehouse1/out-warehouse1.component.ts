@@ -19,6 +19,7 @@ import { Operator } from '../../../models/operator';
 import { OperatorService } from '../../../services/operator.service';
 import { TerminationService } from '../../../services/termination.service';
 import { Termination } from '../../../models/termination';
+import { TestObject } from 'protractor/built/driverProviders';
 
 
 
@@ -49,7 +50,7 @@ export class OutWarehouse1Component implements OnInit {
 
   
 
-  public operators: Operator[];
+  public operators:  Operator[];
   public warehouse1: Warehouse1;
   public tareaUnidad: TareaUnidad;
   public guarnecida: Guarnecida;
@@ -69,6 +70,8 @@ export class OutWarehouse1Component implements OnInit {
   public seleccion;
   public salidas: any[];
   public selecSalidas;
+  public selecOperator;
+  public varSeleccion;
   public mesa: any[];
   public regis: string[];
 
@@ -113,6 +116,8 @@ export class OutWarehouse1Component implements OnInit {
     
     this.seleccion = '';
     this.selecSalidas = '';
+    this.selecOperator = '';
+    this.varSeleccion = '';
     this.mesa = new Array();
     this.regis = new Array();
     
@@ -146,9 +151,16 @@ export class OutWarehouse1Component implements OnInit {
      control.splice(1[0]);
   }
 
+  capturar() {
+    this.varSeleccion = this.selecOperator;
+    // this.varSeleccion = JSON.stringify(this.varSeleccion);
+    const code = document.getElementById('opcion');
+    console.log('sel', this.varSeleccion);
+  }
+
   addCanasta() {
     // this.canasta.push(this.idCanasta.nativeElement.value); 
-    var numeroCanasta = this.idCanasta.nativeElement.value;
+    let numeroCanasta = this.idCanasta.nativeElement.value;
     this._warehouse1Service.getWarehouses1().subscribe(
       response => {
         if (!response.warehouse1) {
@@ -158,14 +170,14 @@ export class OutWarehouse1Component implements OnInit {
           for (const i of response.warehouse1) {
             numeroCanasta = JSON.parse(numeroCanasta);
             this.termination = i;
-            this.termination.operator = 'jorge';
+            this.termination.operator = this.selecOperator;
             if ( i._id === numeroCanasta ) {
               
 
                 console.log('terminacion', this.selecOperario.nativeElement.value);
               
 
-              this.terminationService.addTermination(this.token, this.termination).subscribe(
+                this.terminationService.addTermination(this.token, this.termination).subscribe(
                 response => {
 
                 },
