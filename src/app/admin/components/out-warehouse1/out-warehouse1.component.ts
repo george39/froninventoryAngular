@@ -143,6 +143,7 @@ export class OutWarehouse1Component implements OnInit {
      this.HomeworkUnit();
      this.getOperator();
      this.getWarehouses();
+     console.log('idalamacen', this.idWarehouse);
     
      
      
@@ -159,7 +160,7 @@ export class OutWarehouse1Component implements OnInit {
   }
 
   addCanasta() {
-    // this.canasta.push(this.idCanasta.nativeElement.value); 
+    
     let numeroCanasta = this.idCanasta.nativeElement.value;
     this._warehouse1Service.getWarehouses1().subscribe(
       response => {
@@ -192,15 +193,7 @@ export class OutWarehouse1Component implements OnInit {
         }
       }
     );
-    // this._warehouse1Service.addWarehouse1(this.token, this.formData.value).subscribe(
-    //   response => {
-       
-    //     console.log('addreslistArray', this.formData.value);
-    //   },
-    //   error  => {
-    //     console.log(error as any);
-    //   }
-    //   );
+    
     }
 
 
@@ -333,8 +326,11 @@ export class OutWarehouse1Component implements OnInit {
 
 
 
-    this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
+    this.terminationService.addTermination(this.token, data).subscribe(
                 response => {
+
+                  this.termination.operator = this.selecOperator;
+
                   console.log('data',  this.formData.value);
                   this.formData.reset();
                   const control = this.addressListArray.controls;

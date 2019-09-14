@@ -4,12 +4,12 @@
 
             <span>Operario </span>
         </div>
-        <select [(ngModel)]="selecOperator" (change)="capturar()" #selecOperario>   
+        <select class="form-control" [(ngModel)]="selecOperator" (change)="capturar()" #selecOperario>   
         <option value="">Elija operario</option>
         <option *ngFor="let operario of operators" id="opcion"  [value]="operario.name">{{operario.name}}</option>
 
     </select>
-        <input type="text" [(ngModel)]="selecOperator">
+
     </div>
 
     <div class="col-lg-4 inner-addon ">
@@ -22,6 +22,18 @@
         <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
     </select>
     </div>
+
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+
+        <label class="btn btn-secundary active">
+          <input type="radio" name="options" id="option2" autocomplete="off" checked> Primeras
+        </label>
+        <label class="btn btn-secundary">
+          <input type="radio" name="options" id="option3" autocomplete="off"> Segundas
+        </label>
+    </div>
+
+    <hr>
 
 
 
@@ -97,7 +109,7 @@
             </div>
         </div>
 
-        <div *ngIf="seleccion">
+        <div>
             <table class="table table-hover">
                 <thead class="thead-default">
                     <tr>
@@ -108,15 +120,17 @@
                 </thead>
                 <tbody *ngIf="busqueda">
 
-                    <tr *ngFor="let registro of tareaUnidad | ingresos: busqueda">
+                    <tr *ngFor="let registro of warehouse1 ">
+                        <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
 
-                        <div *ngIf="busqueda === registro.code">
+                            <div *ngIf="busqueda === codigo.code ">
 
-                            <td><input type="hidden" #code value="{{registro.code}}"></td>
-                            <td><input type="hidden" #reference value="{{registro.reference}}"></td>
-                            <td><input type="hidden" #size value="{{registro.size}}"></td>
-                            <td><input type="text" #idWarehouse value="{{registro._id}}"></td>
+                                <td><input type="hidden" #code value="{{codigo.code}}"></td>
+                                <td><input type="hidden" #reference value="{{codigo.reference}}"></td>
+                                <td><input type="hidden" #size value="{{codigo.size}}"></td>
+                                <td><input type="text" #idWarehouse value="{{registro._id}}"></td>
 
+                            </div>
                         </div>
 
 
@@ -134,7 +148,9 @@
                     <div class="top">
 
                         <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)">
-
+                            <div class="col-lg-2 inner-addon right-addon">
+                                <input class="form-control" type="text" [ngModel]="selecOperator" placeholder="operario" formControlName="operator">
+                            </div>
 
                             <!-- <div class="fields">
                             <input type="text" [ngModel]="idAlmacen" placeholder="id" formControlName="idWare">

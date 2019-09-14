@@ -103,7 +103,7 @@ error;
      console.log('tareaU', this.tareaUnidad);
 
 
-    // Instruccion que no permite insertar items vacios
+    // INSTRUCCION QUE NO PERMITE INSERTAR ITEMS VACIOS
      const control = this.addressListArray.controls;
      control.splice(1[0]);
   }
@@ -158,59 +158,7 @@ error;
     );
   }
 
-  // getWarehouses() {
-
-    
-    
-  //   this._warehouse1Service.getWarehouses1().subscribe(
-  //     response => {
-  //       if (!response.warehouse1) {
-
-  //       } else {
-  //         this.warehouse = response.warehouse1;
-
-          
-  //         var a = [];
-  //         this.warehouse = response.warehouse1;
-  //         console.log('1', this.warehouse);
-  //           for ( const i of response.warehouse1) {
-  //           // console.log('i', i._id);
-  //           for ( const s of i.registros) {
-  //             a.push(s);
-  //             for ( const c of this.codigo) {
-  //               console.log('c', c);
-  //               a.splice(4, 1);
-                
-  //               if ( s.code === c ) {
-                  
-                 
-  //               // this.warehouse = response.warehouse1;
-                
-  //             }
-  //             // console.log('i', s);
-  //           }
-  //           }
-  //         }
-  //         //  const ware = new Warehouse1('', '', []);
-  //         //  console.log('warehouse', ware);
-         
-  //         //  for ( var i = 0; i <= ware.registros.length; i++) {
-  //         //   for ( const r of this.codigo) {
-  //         //     console.log('codigo', i);
-  //         //     if (ware.registros[i] === r) {
-  //         //       this.warehouse1.registros.splice(i, 1);
-  //         //     }
-  //         //   }
-  //         // }
-
-          
-
-
-  //         console.log('i', a);
-  //       }
-  //     }
-  //   );
-  // }
+  
 
 
   deleteItem(dat) {
@@ -226,7 +174,7 @@ error;
 
               },
               error => {
-                console.log(<any>error);
+                console.log(error as any);
               }
             );
           }
