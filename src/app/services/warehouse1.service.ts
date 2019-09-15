@@ -49,11 +49,20 @@ export class Warehouse1Service {
 		return this._http.put(this.url + 'updatewarehouse1/', params, { headers});
 	}
 
-	deleteWarehouse(token, id): Observable<any>{
-		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-									   .set('Authorization', token);
+	deleteWarehouse(token, warehouse1): Observable<any> {
+		const params = JSON.stringify(warehouse1);
+		const headers = new HttpHeaders({'Content-Type': 'application/json',
+			Authorization: token
+		});
 
-	 return this._http.delete(this.url+'deletewarehouse1/' + id, {headers});								   
+		return this._http.delete(this.url + 'deletewarehouse1/', params, { headers});
 	}
+
+	// deleteWarehouse(token, id): Observable<any>{
+	// 	let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+	// 								   .set('Authorization', token);
+
+	//  return this._http.delete(this.url + 'deletewarehouse1/', {headers});								   
+	// }
 
 }

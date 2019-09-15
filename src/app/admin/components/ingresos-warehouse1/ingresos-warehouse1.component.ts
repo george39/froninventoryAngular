@@ -186,11 +186,7 @@ error;
 
 
   onSubmit(data) {
-    console.log('final', data);
-    console.log('addreslistArray', this.formData.value);  // this.formData.value
-
-
-
+    
     this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
                 response => {
                   console.log('data',  this.formData.value);

@@ -39,7 +39,7 @@
 
 
 
-    <!--Salidas por canasta-->
+    <!--SALIDAS POR CANASTA-->
     <div *ngIf="selecSalidas === 'canasta'">
         <div class="col-lg-4 inner-addon right-addon">
             <div align="center">Salidas canasta</div>
@@ -68,7 +68,7 @@
                             <td><input type="hidden" #idCanasta value="{{registro._id}}"></td>
                             <td><input type="hidden" #reference value="{{registro.reference}}"></td>
                             <td><input type="hidden" #size value="{{registro.size}}"></td>
-                            <td><input type="text" #registros value="{{registro.registros}}"></td>
+                            <td><input type="text" #registros value="{{registro._id}}"></td>
 
                         </div>
 
@@ -81,10 +81,10 @@
         </div>
 
 
-        <form #register="ngForm" (ngSubmit)="addCanasta()">
+        <form #register="ngForm" (ngSubmit)="addCanasta(); deleteWarehouse()">
             <div *ngFor="let reg of warehouse">
                 <div *ngFor="let r of reg.registros">
-                    <input type="text" name="name" ([ngModel])="r">
+                    <input type="text" name="name" ([ngModel])="idCanasta">
                 </div>
             </div>
             <div class="col-lg-2 inner-addon">
@@ -148,14 +148,13 @@
                     <div class="top">
 
                         <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)">
+
+
                             <div class="col-lg-2 inner-addon right-addon">
                                 <input class="form-control" type="text" [ngModel]="selecOperator" placeholder="operario" formControlName="operator">
                             </div>
 
-                            <!-- <div class="fields">
-                            <input type="text" [ngModel]="idAlmacen" placeholder="id" formControlName="idWare">
 
-                        </div> -->
                             <div class="form-group">
                                 <div id=addresBlock formArrayName="registros">
                                     <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">

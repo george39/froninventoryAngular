@@ -159,42 +159,7 @@ export class OutWarehouse1Component implements OnInit {
     console.log('sel', this.varSeleccion);
   }
 
-  addCanasta() {
-    
-    let numeroCanasta = this.idCanasta.nativeElement.value;
-    this._warehouse1Service.getWarehouses1().subscribe(
-      response => {
-        if (!response.warehouse1) {
-            this.status = false;
-        } else {
-          this.warehouse1 = response.warehouse1;
-          for (const i of response.warehouse1) {
-            numeroCanasta = JSON.parse(numeroCanasta);
-            this.termination = i;
-            this.termination.operator = this.selecOperator;
-            if ( i._id === numeroCanasta ) {
-              
-
-                console.log('terminacion', this.selecOperario.nativeElement.value);
-              
-
-                this.terminationService.addTermination(this.token, this.termination).subscribe(
-                response => {
-
-                },
-                error => {
-                  console.log(error as any);
-                }
-              );
-
-            }
-
-          }
-        }
-      }
-    );
-    
-    }
+  
 
 
   addAddress() {
@@ -280,38 +245,41 @@ export class OutWarehouse1Component implements OnInit {
   
 
 
-  deleteItem(dat) {
-    const a =  this.formData.value;
-    // tslint:disable-next-line:forin
-    for (let i = 0; i <= dat.registros.length; i++) {
-      console.log('ware', dat.registros[i]);
-            
-
-      this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
-              response => {
-                this.warehouse1 = a;
-
-              },
-              error => {
-                console.log(error as any);
-              }
-            );
-          }
-
-  }
+  
 
 
-  deleteWarehouse(id) {
+
+  // ================================================
+  // GUARDAR UNA CANASTA EN TERMINADO 
+  // ================================================
+  addCanasta() {
     
-    this._warehouse1Service.deleteWarehouse(this.token, id).subscribe(
+    let numeroCanasta = this.idCanasta.nativeElement.value;
+    this._warehouse1Service.getWarehouses1().subscribe(
       response => {
-        if(!response.warehouse1){
-          console.log('Error en el servidor');
+        if (!response.warehouse1) {
+            this.status = false;
+        } else {
+          this.warehouse1 = response.warehouse1;
+          for (const i of response.warehouse1) {
+            numeroCanasta = JSON.parse(numeroCanasta);
+            this.termination = i;
+            this.termination.operator = this.selecOperator;
+            if ( i._id === numeroCanasta ) {
+
+                this.terminationService.addTermination(this.token, this.termination).subscribe(
+                response => {
+
+                },
+                error => {
+                  console.log(error as any);
+                }
+              );
+
+            }
+
+          }
         }
-          // this.getHomeworks();
-      },
-      error => {
-        alert('Error en el servidor');
       }
     );
   }
@@ -319,13 +287,11 @@ export class OutWarehouse1Component implements OnInit {
 
 
 
-
+// ================================================
+// GUARDAR UNA UNIDAD EN TERMINADO
+// ================================================
   onSubmit(data) {
-    console.log('final', data);
-    console.log('addreslistArray', this.formData.value);  // this.formData.value
-
-
-
+    
     this.terminationService.addTermination(this.token, data).subscribe(
                 response => {
 
@@ -348,6 +314,55 @@ export class OutWarehouse1Component implements OnInit {
                 );
 
     }
+
+
+
+  // ================================================
+  // ELIMINAR UN ITEM EN UNA CANASTA DEL ALMACEN 1
+  // ================================================
+  deleteItem(dat) {
+    const a =  this.formData.value;
+    // tslint:disable-next-line:forin
+    for (let i = 0; i <= dat.registros.length; i++) {
+      console.log('ware', dat.registros[i]);
+            
+
+      this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.warehouse1 = a;
+
+              },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA CANASTA EN EL ALMACEN 1
+  // ================================================
+  deleteWarehouse() {
+    let numeroCanasta = this.idCanasta.nativeElement.value;
+    numeroCanasta = JSON.parse(numeroCanasta);
+    console.log('idcanasta', numeroCanasta );
+    
+    this._warehouse1Service.deleteWarehouse(this.token, numeroCanasta).subscribe(
+      response => {
+        if (!response.warehouse1) {
+          console.log('Error en el servidor');
+        }
+          // this.getHomeworks();
+      },
+      error => {
+        alert('Error en el servidor');
+      }
+    );
+  }
+   
 
 
     eliminarGuarnecida() {
