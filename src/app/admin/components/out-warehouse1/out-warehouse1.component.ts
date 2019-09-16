@@ -47,6 +47,7 @@ export class OutWarehouse1Component implements OnInit {
   @ViewChild('idCanasta') idCanasta: ElementRef;
   @ViewChild('registros') registros: ElementRef;
   @ViewChild('selecOperario') selecOperario: ElementRef;
+  @ViewChild('canasta') canasta: ElementRef;
 
   
 
@@ -64,7 +65,7 @@ export class OutWarehouse1Component implements OnInit {
   public referencia: string[];
   public talla: string[];
   public idAlmacen: string[];
-  public canasta: string[];
+  
   public status;
   public warehouses: any[];
   public seleccion;
@@ -74,6 +75,7 @@ export class OutWarehouse1Component implements OnInit {
   public varSeleccion;
   public mesa: any[];
   public regis: string[];
+  public numeroCanasta: string[];
 
 
   formData: FormGroup;
@@ -102,7 +104,7 @@ export class OutWarehouse1Component implements OnInit {
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
-    this.canasta = new Array();
+    
     this.status = true;
     this.warehouses = [
     'Troquelado',
@@ -120,6 +122,8 @@ export class OutWarehouse1Component implements OnInit {
     this.varSeleccion = '';
     this.mesa = new Array();
     this.regis = new Array();
+    this.numeroCanasta = new Array();
+
     
 
 
@@ -143,7 +147,7 @@ export class OutWarehouse1Component implements OnInit {
      this.HomeworkUnit();
      this.getOperator();
      this.getWarehouses();
-     console.log('idalamacen', this.idWarehouse);
+     
     
      
      
@@ -159,7 +163,9 @@ export class OutWarehouse1Component implements OnInit {
     console.log('sel', this.varSeleccion);
   }
 
-  
+  agregarCanasta() {
+    this.numeroCanasta.push(this.canasta.nativeElement.value);
+  }
 
 
   addAddress() {
@@ -222,7 +228,7 @@ export class OutWarehouse1Component implements OnInit {
             
         } else {
           this.warehouse1 = response.warehouse1;
-          console.log('warehouse1', this.warehouse1);
+          // console.log('warehouse1', this.warehouse1);
         }
       }
     );
@@ -250,7 +256,7 @@ export class OutWarehouse1Component implements OnInit {
 
 
   // ================================================
-  // GUARDAR UNA CANASTA EN TERMINADO 
+  // GUARDAR UNA CANASTA EN TERMINADO
   // ================================================
   addCanasta() {
     
@@ -269,6 +275,12 @@ export class OutWarehouse1Component implements OnInit {
 
                 this.terminationService.addTermination(this.token, this.termination).subscribe(
                 response => {
+                  this.selecSalidas = '';
+                  this.selecOperator = '';
+                  this.busqueda2 = '';
+                  
+                  
+                  // this.warehouse1 = new Warehouse1('', '', []);
 
                 },
                 error => {
@@ -345,38 +357,20 @@ export class OutWarehouse1Component implements OnInit {
   // ================================================
   // ELIMINA UNA CANASTA EN EL ALMACEN 1
   // ================================================
-  deleteWarehouse() {
-    let numeroCanasta = this.idCanasta.nativeElement.value;
-    numeroCanasta = JSON.parse(numeroCanasta);
-    console.log('idcanasta', numeroCanasta );
-    
-    this._warehouse1Service.deleteWarehouse(this.token, numeroCanasta).subscribe(
+  deleteWarehouse(id) {
+   
+    this._warehouse1Service.deleteWarehouse(this.token, id).subscribe(
       response => {
-        if (!response.warehouse1) {
+        if (!response.warehouse1 ){
           console.log('Error en el servidor');
         }
-          // this.getHomeworks();
+        this.getWarehouses();
       },
       error => {
         alert('Error en el servidor');
       }
     );
-  }
-   
-
-
-    eliminarGuarnecida() {
-
-      this.guarnecidaService.updateGuarnecida(this.token, this.warehouse1).subscribe(
-        response =>  {
-
-
-            },
-            error => {
-              console.log(error as any);
-            }
-            );
-          }
+  }   
 
 
 
