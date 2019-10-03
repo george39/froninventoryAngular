@@ -43,58 +43,52 @@
     <!--SALIDAS POR CANASTA-->
 
     <div *ngIf="selecSalidas === 'canasta'">
-        <div class="col-lg-4 inner-addon right-addon">
+        <div class="row">
+        <div class=" col-lg-4 inner-addon right-addon">
             <div align="center">Salidas canasta</div>
-            <input type="text" #bus="ngModel" class="form-control" #canasta autofocus name="busqueda2" [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta()" placeholder="Digite número de canasta y presione enter" autofocus>
+            <input type="text"  class="form-control" #canasta autofocus name="busqueda2"
+             [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta(); 
+             getWarehouses()" placeholder="Digite número de canasta y presione enter" autofocus>
 
             <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false && busqueda2">
                 NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
             </div>
 
         </div>
+    </div>
         <hr>
 
 
 
 
 
-        <div *ngIf="selecSalidas">
+        <div class="row" *ngIf="selecSalidas">
 
             <div *ngIf="busqueda2">
 
                 <div *ngFor="let registro of warehouse1 | register: busqueda2">
-
-
-
+                    <div class="row">
                     <div><input type="hidden" #idCanasta value="{{registro._id}}"></div>
-
-
-
-
-
                     <div class="container">
-
-                        <div class="col-lg-4" align="center">Referencia</div>
-                        <div class="col-lg-4" align="center">Talla</div>
+                        <b><div class="col-lg-3" >Referencia</div></b>
+                        <b><div class="col-lg-3" >Talla</div></b>
+                        <b><div class="col-lg-3" >Cantidad</div></b>
                     </div>
-                    <div *ngFor="let canasta of registro.registros">
+                </div>
+                    <div *ngFor="let canasta of registro.registros | dinamica : canasta">
 
                         <div class="container">
-                            <div class="col-lg-4"></div>
-                            <div class="col-lg-4">{{canasta.reference}}</div>
-                            <div class="col-lg-4">{{canasta.size}}</div>
+
+                            <div class="row">
+                            <div class="col-lg-3">{{canasta.reference}}</div>
+                            <div class="col-lg-3">{{canasta.size}}</div> 
+                            <div class="col-lg-3">{{canasta.quantity}}</div> 
+                            <!-- <div class="col-lg-4">{{[i+1]}}</div>  -->
                         </div>
-
-
+                        </div>
                     </div>
-
-
-
                 </div>
-
             </div>
-
-
         </div>
 
 
@@ -102,7 +96,7 @@
 
             <div class="col-lg-2 inner-addon">
 
-                <button type="submit" (click)="deleteWarehouse(numeroCanasta); agregarCanasta()" class="btn btn-success">Guardar</button>
+                <button type="submit" (click)="deleteWarehouse(numeroCanasta)" class="btn btn-success">Guardar</button>
 
             </div>
         </form>

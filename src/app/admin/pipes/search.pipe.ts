@@ -13,7 +13,7 @@ export class SearchPipe implements PipeTransform{
 		
 		
 		return items.filter(function(item){
-			return item._id.toLowerCase().includes(term.toLowerCase());
+			return item.name.toLowerCase().includes(term.toLowerCase());
 			
 		});
 	}

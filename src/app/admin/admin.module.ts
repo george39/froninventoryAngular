@@ -14,6 +14,7 @@ import { AdminGuard } from '../services/admin.guard';
 import { SearchPipe } from './pipes/search.pipe';
 import { RegisterPipe } from './pipes/register.pipe';
 import { BarcodeWarehouse1 } from './pipes/barcodewarehouse1.pipe';
+import { DinamicaPipe } from './pipes/dinamica.pipe';
 
 
 // Componentes
@@ -70,7 +71,8 @@ import { OutWarehouse1Component } from './components/out-warehouse1/out-warehous
 		IngresosWarehouse1Pipe,
 		AddTareaUnidadComponent,
 		AddGuarnecidaComponent,
-		OutWarehouse1Component
+		OutWarehouse1Component,
+		DinamicaPipe
 		
 		
 		

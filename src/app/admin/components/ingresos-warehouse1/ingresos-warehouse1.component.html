@@ -11,47 +11,51 @@
     <div class="col-lg-5 inner-addon right-addon">
 
         <i class="glyphicon glyphicon-barcode"></i>
-        <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Leer código de barras por canasta">
+        <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura"
+         (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Lea el código de barras">
         <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false">
             NO SE ENCONTRO EL CÓDIGO {{busqueda}}
         </div>
     </div>
+    <hr>
 
     <div *ngIf="seleccion === 'Troquelado'">
-        <table class="table table-hover">
-            <thead class="thead-default">
-                <tr>
-                    <th>Código</th>
-                    <th>Referencia</th>
-                    <th>Talla</th>
-                </tr>
-            </thead>
-            <tbody *ngIf="busqueda">
+        
+            <div class="container">
+                <div class="row top">
+                    <b><div class="col-lg-3">Código</div></b>
+                    <b><div class="col-lg-2">Referencia</div></b>
+                    <b><div class="" >Talla</div></b>
+                </div>
+            </div>
+            
+            
 
-                <tr *ngFor="let registro of tareaUnidad | ingresos: busqueda">
+                <div *ngFor="let registro of tareaUnidad | ingresos: busqueda">
 
                     <div *ngIf="busqueda === registro.code">
+                        <div class="row">
 
-                        <td><input type="hidden" #code value="{{registro.code}}"></td>
-                        <td><input type="hidden" #reference value="{{registro.reference}}"></td>
-                        <td><input type="hidden" #size value="{{registro.size}}"></td>
-                        <td><input type="text" #idWarehouse value="{{registro._id}}"></td>
-
+                        <div><input type="hidden" #code value="{{registro.code}}"></div>
+                        <div><input type="hidden" #reference value="{{registro.reference}}"></div>
+                        <div><input type="hidden" #size value="{{registro.size}}"></div>
+                        <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                    </div>
                     </div>
 
 
-                </tr>
+                </div>
 
-            </tbody>
+            
 
-        </table>
-    </div>
+        
+    
 
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
 
-                <div class="top">
+                <div class="row">
 
                     <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)">
 
@@ -63,18 +67,18 @@
                         <div class="form-group">
                             <div id=addresBlock formArrayName="registros">
                                 <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
-                                    <div class="col-lg-10">
-                                        <div class="col-lg-4 inner-addon right-addon">
+                                    <div class="">
+                                        <div class="col-lg-4 ">
                                             <input class="form-control" type="text" [ngModel]="codigo[i]" placeholder="código" formControlName="code">
                                         </div>
-                                        <div class="col-lg-3 inner-addon right-addon">
+                                        <div class="col-lg-3 ">
                                             <input class="form-control" type="text" [ngModel]="referencia[i]" placeholder="referencia" formControlName="reference">
                                         </div>
-                                        <div class="col-lg-2 inner-addon right-addon">
+                                        <div class="col-lg-2 ">
                                             <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
                                         </div>
-                                        <div class="col-lg-2 inner-addon right-addon">
-                                            <input class="form-control" type="text" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
+                                        <div class="col-lg-2 ">
+                                            <input class="form-control" type="hidden" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
                                         </div>
                                         <span>
 

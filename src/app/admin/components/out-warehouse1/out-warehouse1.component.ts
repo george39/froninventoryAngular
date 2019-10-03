@@ -49,9 +49,9 @@ export class OutWarehouse1Component implements OnInit {
   @ViewChild('selecOperario') selecOperario: ElementRef;
   @ViewChild('canasta') canasta: ElementRef;
 
-  
 
-  public operators:  Operator[];
+
+  public operators: Operator[];
   public warehouse1: Warehouse1;
   public tareaUnidad: TareaUnidad;
   public guarnecida: Guarnecida;
@@ -65,7 +65,7 @@ export class OutWarehouse1Component implements OnInit {
   public referencia: string[];
   public talla: string[];
   public idAlmacen: string[];
-  
+
   public status;
   public warehouses: any[];
   public seleccion;
@@ -76,14 +76,16 @@ export class OutWarehouse1Component implements OnInit {
   public mesa: any[];
   public regis: string[];
   public numeroCanasta: string[];
+  public resultado : string[];
+  
 
 
   formData: FormGroup;
-  
+
 
   constructor(
     private _route: ActivatedRoute,
-  	private _router: Router,
+  	 private _router: Router,
     private tareaUnidadService: TareaUnidadService,
     private _warehouse1Service: Warehouse1Service,
     private guarnecidaService: GuarnecidaService,
@@ -104,7 +106,8 @@ export class OutWarehouse1Component implements OnInit {
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
-    
+    this.resultado = new Array();
+
     this.status = true;
     this.warehouses = [
     'Troquelado',
@@ -115,7 +118,7 @@ export class OutWarehouse1Component implements OnInit {
       'canasta'
     ];
 
-    
+
     this.seleccion = '';
     this.selecSalidas = '';
     this.selecOperator = '';
@@ -123,8 +126,9 @@ export class OutWarehouse1Component implements OnInit {
     this.mesa = new Array();
     this.regis = new Array();
     this.numeroCanasta = new Array();
+   
 
-    
+
 
 
 
@@ -146,15 +150,20 @@ export class OutWarehouse1Component implements OnInit {
   ngOnInit() {
      this.HomeworkUnit();
      this.getOperator();
-     this.getWarehouses();
-     
-    
-     
-     
+     // this.getWarehouses();
+
+
+
+
      // Instruccion que no permite insertar items vacios
      const control = this.addressListArray.controls;
      control.splice(1[0]);
   }
+
+
+ 
+
+
 
   capturar() {
     this.varSeleccion = this.selecOperator;
@@ -209,7 +218,7 @@ export class OutWarehouse1Component implements OnInit {
         if (!response.tareaUnidad) {
             this.status = false;
             console.log('status unidad', this.status);
-            
+
         } else {
           this.tareaUnidad = response.tareaUnidad;
           console.log('tareaUnidad', this.tareaUnidad);
@@ -225,10 +234,27 @@ export class OutWarehouse1Component implements OnInit {
         if (!response.warehouse1) {
             this.status = false;
             console.log('status unidad', this.status);
-            
+
         } else {
           this.warehouse1 = response.warehouse1;
-          // console.log('warehouse1', this.warehouse1);
+          for (const i of response.warehouse1) {
+            for ( const r of i.registros) {
+
+              let canas = this.canasta.nativeElement.value;
+              canas = JSON.parse(canas);
+              const indice = [];
+              let a = 0;
+
+
+              a += 1;
+              if (canas === i._id && r.code === '543') {
+
+                    console.log('warehouse1', a);
+
+              }
+
+          }
+        }
         }
       }
     );
@@ -248,10 +274,10 @@ export class OutWarehouse1Component implements OnInit {
     );
   }
 
-  
 
 
-  
+
+
 
 
 
@@ -259,7 +285,7 @@ export class OutWarehouse1Component implements OnInit {
   // GUARDAR UNA CANASTA EN TERMINADO
   // ================================================
   addCanasta() {
-    
+
     let numeroCanasta = this.idCanasta.nativeElement.value;
     this._warehouse1Service.getWarehouses1().subscribe(
       response => {
@@ -278,8 +304,11 @@ export class OutWarehouse1Component implements OnInit {
                   this.selecSalidas = '';
                   this.selecOperator = '';
                   this.busqueda2 = '';
+                  this.canasta.nativeElement.value = '';
+                  this.numeroCanasta.splice(0, this.numeroCanasta.length);
                   
-                  
+
+
                   // this.warehouse1 = new Warehouse1('', '', []);
 
                 },
@@ -303,7 +332,7 @@ export class OutWarehouse1Component implements OnInit {
 // GUARDAR UNA UNIDAD EN TERMINADO
 // ================================================
   onSubmit(data) {
-    
+
     this.terminationService.addTermination(this.token, data).subscribe(
                 response => {
 
@@ -319,6 +348,7 @@ export class OutWarehouse1Component implements OnInit {
                   this.codigo.splice(data);
                   this.referencia.splice(data);
                   this.talla.splice(data);
+                  
                 },
                 error  => {
                   console.log(error as any);
@@ -337,7 +367,7 @@ export class OutWarehouse1Component implements OnInit {
     // tslint:disable-next-line:forin
     for (let i = 0; i <= dat.registros.length; i++) {
       console.log('ware', dat.registros[i]);
-            
+
 
       this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
               response => {
@@ -358,19 +388,21 @@ export class OutWarehouse1Component implements OnInit {
   // ELIMINA UNA CANASTA EN EL ALMACEN 1
   // ================================================
   deleteWarehouse(id) {
-   
+
     this._warehouse1Service.deleteWarehouse(this.token, id).subscribe(
       response => {
-        if (!response.warehouse1 ){
+        if (!response.warehouse1 ) {
           console.log('Error en el servidor');
         }
-        this.getWarehouses();
+       // this.getWarehouses();
+        this.canasta.nativeElement.value = '';
+        this.numeroCanasta.splice(0, this.numeroCanasta.length);
       },
       error => {
         alert('Error en el servidor');
       }
     );
-  }   
+  }
 
 
 

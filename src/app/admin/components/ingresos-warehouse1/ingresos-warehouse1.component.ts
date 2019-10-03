@@ -139,7 +139,7 @@ error;
       code: [''],
       reference: [''],
       size: [''],
-      _id: [''],
+      quantity: 0.5
     });
   }
 
