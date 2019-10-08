@@ -1,4 +1,4 @@
-<div class="top col-lg-8">
+<div class="col-lg-offset-1  top col-lg-4">
     <h1 align="center">{{title}}</h1>
     <form #formAddHomework="ngForm" (ngSubmit)="onSubmit()">
         <p>
@@ -15,32 +15,65 @@
 			El nombre de la tarea es obligatorio
 		</span>
         </p>
+
         <p>
-            <label>Código referencia</label>
-            <input type="text" name="reference" #reference="ngModel" [(ngModel)]="homework.reference" class="form-control" required>
-            <span *ngIf="!reference.valid && reference.touched">
-			La referencia es obligatoria
+            <label>Referencia</label>
+            <input type="text" name="name" #name="ngModel" [(ngModel)]="homework.reference" class="form-control" required>
+            <span *ngIf="!name.valid && name.touched">
+			El nombre de la referencia es obligatorio
 		</span>
         </p>
-        <p>
-            <label>Talla</label>
-            <input type="text" name="size" #size="ngModel" [(ngModel)]="homework.size" class="form-control" required>
-            <span *ngIf="!size.valid && size.touched">
-			La referencia es obligatoria
-		</span>
-        </p>
-        <p>
-            <label>Cantidad</label>
-            <input type="number" name="quantity" #quantity="ngModel" [(ngModel)]="homework.quantity" class="form-control" required>
-            <span *ngIf="!quantity.valid && quantity.touched">
-			La cantidad es obligatoria
-		</span>
-        </p>
+
+        <br>
+
+        <table class="table table-hover">
+            <thead class="thead thead-default">
+                <tr>
+                    <th>33</th>
+                    <th>34</th>
+                    <th>35</th>
+                    <th>36</th>
+                    <th>37</th>
+                    <th>38</th>
+                    <th>39</th>
+                    <th>40</th>
+                    <th>41</th>
+                    <th>42</th>
+                    <th>43</th>
+                    <th>44</th>
+                    <th>45</th>
+                    <th>46</th>
+                    <th>47</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" name="treintaytres" size="1"    #treintaytres="ngModel"    [(ngModel)]="homework.treintaytres" class=""></td>
+                    <td><input type="text" name="treintaycuatro" size="1"  #treintaycuatro="ngModel"  [(ngModel)]="homework.treintaycuatro" class=""></td>
+                    <td><input type="text" name="treintaycinco" size="1"   #treintaycinco="ngModel"   [(ngModel)]="homework.treintaycinco" class=""></td>
+                    <td><input type="text" name="treintayseis" size="1"    #treintayseis="ngModel"    [(ngModel)]="homework.treintayseis" class=""></td>
+                    <td><input type="text" name="treintaysiete" size="1"   #treintaysiete="ngModel"   [(ngModel)]="homework.treintaysiete" class=""></td>
+                    <td><input type="text" name="treintayocho" size="1"    #treintayocho="ngModel"    [(ngModel)]="homework.treintayocho" class=""></td>
+                    <td><input type="text" name="treintaynueve" size="1"   #treintaynueve="ngModel"   [(ngModel)]="homework.treintaynueve" class=""></td>
+                    <td><input type="text" name="cuarenta" size="1"        #cuarenta="ngModel"        [(ngModel)]="homework.cuarenta" class=""></td>
+                    <td><input type="text" name="cuarentayuno" size="1"    #cuarentayuno="ngModel"    [(ngModel)]="homework.cuarentayuno" class=""></td>
+                    <td><input type="text" name="cuarentaydos" size="1"    #cuarentaydos="ngModel"    [(ngModel)]="homework.cuarentaydos" class=""></td>
+                    <td><input type="text" name="cuarentaytres" size="1"   #cuarentaytres="ngModel"   [(ngModel)]="homework.cuarentaytres" class=""></td>
+                    <td><input type="text" name="cuarentaycuatro" size="1" #cuarentaycuatro="ngModel" [(ngModel)]="homework.cuarentaycuatro" class=""></td>
+                    <td><input type="text" name="cuarentaycinco" size="1"  #cuarentaycinco="ngModel"  [(ngModel)]="homework.cuarentaycinco" class=""></td>
+                    <td><input type="text" name="cuarentayseis" size="1"   #cuarentayseis="ngModel"   [(ngModel)]="homework.cuarentayseis" class=""></td>
+                    <td><input type="text" name="cuarentaysite" size="1"   #cuarentaysiete="ngModel"  [(ngModel)]="homework.cuarentaysiete" class=""></td>
+                </tr>
+            </tbody>
+        </table>      
+       
 
         <input type="submit" value="{{title}}" class="btn btn-success">
     </form>
 
 </div>
+
+
 <!-- <div>
     <app-add-tarea-unidad [unidades]="homework"></app-add-tarea-unidad>
 </div> -->

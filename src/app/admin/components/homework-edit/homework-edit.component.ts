@@ -28,7 +28,7 @@ export class HomeworkEditComponent implements OnInit {
   	private _homeworkService: HomeworkService
   ) {
   	this.title = 'Modificar tarea';
-  	this.homework = new Homework('','','','', 0,'');
+  	this.homework = new Homework('', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   	this.indentity = this._userService.getIdentity();
   	this.token = this._userService.getToken();
   	this.url = GLOBAL.url;

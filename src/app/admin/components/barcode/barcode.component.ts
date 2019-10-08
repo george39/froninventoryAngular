@@ -32,7 +32,7 @@ export class BarcodeComponent implements OnInit{
     
 	){
 		this.title = 'Código de barras';
-	  this.homework = new Homework('','','','', 0 , '');
+	 this.homework = new Homework('', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     
     
  
@@ -56,7 +56,12 @@ export class BarcodeComponent implements OnInit{
 						this._router.navigate(['admin-panel/listado-tareas'])
 					}else{
 						this.homework = response.homework;            
-            this.codes = new Array(this.homework.quantity);  // this.homework.quantity
+      this.codes = new Array(
+        this.homework.treintaytres + this.homework.treintaycuatro + this.homework.treintaycinco
+         + this.homework.treintayseis + this.homework.treintaysiete + this.homework.treintayocho
+         + this.homework.treintaynueve + this.homework.cuarenta + this.homework.cuarentayuno
+         + this.homework.cuarentaydos + this.homework.cuarentaytres + this.homework.cuarentaycuatro
+         + this.homework.cuarentaycinco + this.homework.cuarentayseis + this.homework.cuarentaysiete);  // this.homework.quantity
             
 						//var arr = Object.keys(this.homework).map(key => ({type: key, value: this.homework[key]}));
 						

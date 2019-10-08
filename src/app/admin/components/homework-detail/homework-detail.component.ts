@@ -35,7 +35,7 @@ export class HomeworkDetailComponent implements OnInit {
   ) {
     this.url = GLOBAL.url;
     this.token = _userService.getToken();
-    this.homework = new Homework('', '', '', '', 0 , '');
+    this.homework = new Homework('', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
 
 

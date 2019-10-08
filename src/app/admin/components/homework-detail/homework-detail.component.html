@@ -18,7 +18,8 @@
                         <td>{{tarea._id}}</td>
                         <td name="o">{{tarea.operator}}</td>
                         <td>{{tarea.reference}}</td>
-                        <td>{{tarea.size}}</td>
+                        <td *ngIf="tarea.tresocho > 0">38/{{tarea.tresocho}}</td>
+                        <td *ngIf="tarea.tresnueve > 0">39/{{tarea.tresnueve}}</td>
                         <td>{{tarea.quantity}}</td>
                     </tr>
                 </tbody>
