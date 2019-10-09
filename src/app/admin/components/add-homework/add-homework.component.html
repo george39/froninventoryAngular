@@ -18,8 +18,8 @@
 
         <p>
             <label>Referencia</label>
-            <input type="text" name="name" #name="ngModel" [(ngModel)]="homework.reference" class="form-control" required>
-            <span *ngIf="!name.valid && name.touched">
+            <input type="text" name="reference" #reference="ngModel" [(ngModel)]="homework.reference" class="form-control" required>
+            <span *ngIf="!reference.valid && reference.touched">
 			El nombre de la referencia es obligatorio
 		</span>
         </p>

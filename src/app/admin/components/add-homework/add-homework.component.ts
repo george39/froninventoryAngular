@@ -31,7 +31,7 @@ export class AddHomeworkComponent implements OnInit {
 	public token;
 	public url: string;
 	public status;
-	public r;
+	public sizes: number;
 
   constructor(
   	private _route: ActivatedRoute,
@@ -41,12 +41,14 @@ export class AddHomeworkComponent implements OnInit {
 	private _tareaUnidadService: TareaUnidadService,
 	private troqueladoService: TroqueladoService
   ) {
+	this.sizes = '';
   	this.title = 'Crear tarea';
-  	this.homework = new Homework('', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	this.homework = new Homework('', '', '', '', this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes,
+	  this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes);
   	this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
   	this.identityd = this._userService.getIdentity();
   	this.token = this._userService.getToken();
-	  this.url = GLOBAL.url;
+	this.url = GLOBAL.url;
 	  
    }
 

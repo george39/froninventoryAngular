@@ -1,6 +1,6 @@
 <div class="top homework-box col-lg-11" *ngIf="homework">
 
-    <div id="print-section">
+    <!-- <div id="print-section">
         <div class="homework-data col-lg-10">
             <h1>{{homework.name}}</h1>
             <table class="table table-hover">
@@ -18,17 +18,63 @@
                         <td>{{tarea._id}}</td>
                         <td name="o">{{tarea.operator}}</td>
                         <td>{{tarea.reference}}</td>
-                        <td *ngIf="tarea.tresocho > 0">38/{{tarea.tresocho}}</td>
-                        <td *ngIf="tarea.tresnueve > 0">39/{{tarea.tresnueve}}</td>
+                        <td *ngIf="tarea.treintayocho > 0">38/{{tarea.treintayocho}}</td>
+                        <td *ngIf="tarea.treintaynueve > 0">39/{{tarea.treintaynueve}}</td>
                         <td>{{tarea.quantity}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div> -->
+
+<div id="print-section">
+    <div *ngFor="let nombres of [homework]">
+        {{nombres._id}}
+        {{nombres.name}}
     </div>
-
-
+    <table class="table table-hover">
+                <thead class="thead thead-default">
+                    <tr *ngFor="let cabecera of [homework]">
+                        <th *ngIf="cabecera.treintaytres > 0">33</th>
+                        <th *ngIf="cabecera.treintaycuatro > 0">34</th>
+                        <th *ngIf="cabecera.treintaycinco > 0">35</th>
+                        <th *ngIf="cabecera.treintayseis > 0">36</th>
+                        <th *ngIf="cabecera.treintaysiete > 0">37</th>
+                        <th *ngIf="cabecera.treintayocho > 0">38</th>
+                        <th *ngIf="cabecera.treintaynueve > 0">39</th>
+                        <th *ngIf="cabecera.cuarenta > 0">40</th>
+                        <th *ngIf="cabecera.cuarentayuno > 0">41</th>
+                        <th *ngIf="cabecera.cuarentaydos > 0">42</th>
+                        <th *ngIf="cabecera.cuarentaytres > 0">43</th>
+                        <th *ngIf="cabecera.cuarentaycuatro > 0">44</th>
+                        <th *ngIf="cabecera.cuarentaycinco > 0">45</th>
+                        <th *ngIf="cabecera.cuarentayseis > 0">46</th>
+                        <th *ngIf="cabecera.cuarentaysiete > 0">47</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tarea of [homework]">
+                        <td *ngIf="tarea.treintaytres > 0">{{tarea.treintaytres}}</td>
+                        <td *ngIf="tarea.treintaycuatro > 0">{{tarea.treintaycuatro}}</td>
+                        <td *ngIf="tarea.treintaycinco > 0">{{tarea.treintaycinco}}</td>
+                        <td *ngIf="tarea.treintayseis > 0">{{tarea.treintayseis}}</td>
+                        <td *ngIf="tarea.treintaysiete > 0">{{tarea.treintaysiete}}</td>
+                        <td *ngIf="tarea.treintayocho > 0">{{tarea.treintayocho}}</td>
+                        <td *ngIf="tarea.treintaynueve > 0">{{tarea.treintaynueve}}</td>
+                        <td *ngIf="tarea.cuarenta > 0">{{tarea.cuarenta}}</td>
+                        <td *ngIf="tarea.cuarentayuno > 0">{{tarea.cuarentayuno}}</td>
+                        <td *ngIf="tarea.cuarentaydos > 0">{{tarea.cuarentaydos}}</td>
+                        <td *ngIf="tarea.cuarentaytres > 0">{{tarea.cuarentaytres}}</td>
+                        <td *ngIf="tarea.cuarentaycuatro > 0">{{tarea.cuarentaycuatro}}</td>
+                        <td *ngIf="tarea.cuarentaycinco > 0">{{tarea.cuarentaycinco}}</td>
+                        <td *ngIf="tarea.cuarentayseis > 0">{{tarea.cuarentayseis}}</td>
+                        <td *ngIf="tarea.cuarentaysiete > 0">{{tarea.cuarentaysiete}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
 </div>
+
 
 <hr>
 <div *ngFor="let t of [homework]">
