@@ -31,7 +31,7 @@ export class AddHomeworkComponent implements OnInit {
 	public token;
 	public url: string;
 	public status;
-	public sizes: number;
+	public sizes: any;
 
   constructor(
   	private _route: ActivatedRoute,
