@@ -29,8 +29,9 @@
 
 <div id="print-section">
     <div *ngFor="let nombres of [homework]">
-        {{nombres._id}}
-        {{nombres.name}}
+        <label for="">Número tarea: {{nombres._id}}</label>
+        <br>
+        <label for="">Nombre tarea: {{nombres.name}}</label>
     </div>
     <table class="table table-hover">
                 <thead class="thead thead-default">

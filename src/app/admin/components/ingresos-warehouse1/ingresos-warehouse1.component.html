@@ -7,7 +7,21 @@
     </select>
     </div>
 
+   
+        
+        
+        <div class="btn-group" data-toggle="buttons" *ngIf="seleccion === 'Reproceso'">
+            <label class="btn btn-default active">
+                <input type="radio" id="primera" name="clasification" value="primera" /> Primera
+            </label> 
+            <label class="btn btn-default">
+                <input type="radio" id="segunda" name="clasification" value="segunda" /> Segunda
+            </label>                 
+        </div>
+    
+        <hr>
 
+    <div class="row col-lg-offset-3">    
     <div class="col-lg-5 inner-addon right-addon">
 
         <i class="glyphicon glyphicon-barcode"></i>
@@ -17,7 +31,7 @@
             NO SE ENCONTRO EL CÓDIGO {{busqueda}}
         </div>
     </div>
-    <hr>
+</div>
 
     <div *ngIf="seleccion === 'Troquelado'">
         
