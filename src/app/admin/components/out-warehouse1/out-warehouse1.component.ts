@@ -188,6 +188,12 @@ export class OutWarehouse1Component implements OnInit {
 
 
   addAddress() {
+
+    // Me pone el scroll al principio
+    var scrol = document.getElementById('caja');
+    // scrol.innerHTML = html;
+    scrol.scrollTop = scrol.scrollHeight;
+
     const code = document.getElementById('code');
     console.log('busqueda', this.warehouse1);
 

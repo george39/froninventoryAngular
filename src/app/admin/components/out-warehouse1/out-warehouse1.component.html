@@ -48,11 +48,7 @@
     
             </div>
         </div>
-            <hr>
-    
-    
-    
-    
+            <hr>   
     
             <div class="row" *ngIf="selecSalidas">
     
@@ -121,47 +117,47 @@
             </div>
     
             <div>
-                <table class="table table-hover">
-                    <thead class="thead-default">
-                        <tr>
-                            <th>Código</th>
-                            <th>Referencia</th>
-                            <th>Talla</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="busqueda">
+                
+                    <div class="container">
+                        <div class="row top">
+                            <b><div class="col-lg-1 codigo">Código</div></b>
+                            <b><div class="col-lg-1 referencia">Referencia</div></b>
+                            <b><div class="col-lg-1 talla" >Talla</div></b>
+                        </div>
+                    </div>
+                    <div *ngIf="busqueda">
     
-                        <tr *ngFor="let registro of warehouse1 ">
+                        <div *ngFor="let registro of warehouse1 ">
                             <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
-                                    {{codigo.code}}
+                                    
     
                                 <div *ngIf="busqueda === codigo.code ">
     
-                                    <td><input type="hidden" id="code" #code value="{{codigo.code}}"></td>
-                                    <td><input type="hidden" #reference value="{{codigo.reference}}"></td>
-                                    <td><input type="hidden" #size value="{{codigo.size}}"></td>
-                                    <td><input type="hidden" #idWarehouse value="{{registro._id}}"></td>
+                                    <div><input type="hidden" id="code" #code value="{{codigo.code}}"></div>
+                                    <div><input type="hidden" #reference value="{{codigo.reference}}"></div>
+                                    <div><input type="hidden" #size value="{{codigo.size}}"></div>
+                                    <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
                                 </div>
                             </div>
     
     
-                        </tr>
+                        </div>
     
-                    </tbody>
+                    </div>
     
-                </table>
+                
             </div>
     
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" id="caja">
     
-                        <div class="top">
+                        <div class="row caja" >
     
-                            <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)">
+                            <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)" >
     
-                                <div class="form-group">
-                                    <div id=addresBlock formArrayName="registros">
+                                <div class="form-group" >
+                                    <div id=addresBlock formArrayName="registros" >
                                         <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
                                             <div class="col-lg-10">
                                                 <div class="col-lg-4 inner-addon right-addon">

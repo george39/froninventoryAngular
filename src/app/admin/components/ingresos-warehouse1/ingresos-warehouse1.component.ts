@@ -119,6 +119,12 @@ error;
 
 
   addAddress() {
+    // Me pone el scroll al principio
+    var scrol = document.getElementById('caja');
+    // scrol.innerHTML = html;
+    scrol.scrollTop = scrol.scrollHeight;
+
+
     const code = document.getElementById('code');
     console.log('code', code);
     if ( code === null) {

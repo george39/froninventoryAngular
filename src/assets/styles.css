@@ -78,3 +78,34 @@ nav.navbar ul.nav a {
   pointer-events: none;
 }
 
+/* ESTILOS PARA LA CAJA DE LOS ITEMS AGREGADOS */
+#caja{
+	width: 95%;
+	max-width: 800px;
+	height: 300px;	
+	overflow: scroll;
+	border: 1px solid #eee;
+	box-shadow: 0px 0px 20px #ccc inset;
+	border-radius: 5px;
+}
+
+.caja{
+	margin: 25px;
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	background: rgb(196, 195, 195);
+}
+
+.codigo{
+	margin-left: 70px;
+}
+
+.referencia{
+	margin-left: 85px;
+}
+
+
+.talla{
+	margin-left: 40px;
+}
