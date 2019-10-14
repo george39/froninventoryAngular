@@ -35,6 +35,7 @@ export class IngresosWarehouse1Component implements OnInit {
     private guarnecidaService: GuarnecidaService,
     private _userService: UserService,
     private http: HttpClient,
+    
 
     private fb: FormBuilder
   ) {
@@ -46,7 +47,10 @@ export class IngresosWarehouse1Component implements OnInit {
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
+    
+    this.clasificacion = new Array();
     this.status = true;
+   
     this.warehouses = [
     'Troquelado',
     'Reproceso'
@@ -74,6 +78,8 @@ export class IngresosWarehouse1Component implements OnInit {
   @ViewChild('reference') reference: ElementRef;
   @ViewChild('size') size: ElementRef;
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
+  @ViewChild('primera') primera: ElementRef;
+  @ViewChild('segunda') segunda: ElementRef;
 
 
 
@@ -90,6 +96,8 @@ export class IngresosWarehouse1Component implements OnInit {
   public status;
   public warehouses: any[];
   public seleccion;
+  public clasificacion: any[];
+  
 
 
 
@@ -100,7 +108,8 @@ error;
   ngOnInit() {
      this.HomeworkUnit();
      // this.getWarehouses();
-     console.log('tareaU', this.tareaUnidad);
+     
+     
 
 
     // INSTRUCCION QUE NO PERMITE INSERTAR ITEMS VACIOS
@@ -111,7 +120,7 @@ error;
 
   addAddress() {
     const code = document.getElementById('code');
-
+    console.log('code', code);
     if ( code === null) {
       this.status = false;
     }
@@ -125,9 +134,26 @@ error;
       this.referencia.push(this.reference.nativeElement.value);
       this.talla.push(this.size.nativeElement.value);
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
+      // this.clasificacion.push(this.clasification.nativeElement.value);
       this.busqueda = '';
       this.status = true;
-      console.log('datos', control);
+
+      var primera = document.getElementById('primera') as HTMLInputElement;
+      var segunda = document.getElementById('segunda') as HTMLInputElement;
+      
+      
+      if (primera.checked) {
+        this.clasificacion.push(this.primera.nativeElement.value);
+         
+        }
+
+      if (segunda.checked) {
+        this.clasificacion.push(this.segunda.nativeElement.value);
+           
+          }
+
+      
+      console.log('clasifiacion', this.clasificacion);
 
 
     }
@@ -139,7 +165,8 @@ error;
       code: [''],
       reference: [''],
       size: [''],
-      quantity: 0.5
+      quantity: 0.5,     
+      clasification: ['']
     });
   }
 
@@ -199,6 +226,7 @@ error;
                   this.codigo.splice(data);
                   this.referencia.splice(data);
                   this.talla.splice(data);
+                  this.clasificacion.splice(data);
                 },
                 error  => {
                   console.log(error as any);

@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, DoCheck} from '@angular/core';
 import { Warehouse1 } from '../../../models/warehouse1';
 
 
@@ -43,6 +43,9 @@ export class OutWarehouse1Component implements OnInit {
   @ViewChild('size') size: ElementRef;
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
 
+  @ViewChild('primera') primera: ElementRef;
+  @ViewChild('segunda') segunda: ElementRef;
+
   // BUSQUEDA POR CANASTA
   @ViewChild('idCanasta') idCanasta: ElementRef;
   @ViewChild('registros') registros: ElementRef;
@@ -56,6 +59,7 @@ export class OutWarehouse1Component implements OnInit {
   public tareaUnidad: TareaUnidad;
   public guarnecida: Guarnecida;
   public operator: Operator;
+  public operario: string[];
   public warehouse: Warehouse1[];
   public termination: Termination;
   public token;
@@ -65,6 +69,7 @@ export class OutWarehouse1Component implements OnInit {
   public referencia: string[];
   public talla: string[];
   public idAlmacen: string[];
+  public idCan;
 
   public status;
   public warehouses: any[];
@@ -76,7 +81,8 @@ export class OutWarehouse1Component implements OnInit {
   public mesa: any[];
   public regis: string[];
   public numeroCanasta: string[];
-  public resultado : string[];
+  public resultado: string[];
+  public clasificacion: string[];
   
 
 
@@ -85,7 +91,7 @@ export class OutWarehouse1Component implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-  	 private _router: Router,
+  	private _router: Router,
     private tareaUnidadService: TareaUnidadService,
     private _warehouse1Service: Warehouse1Service,
     private guarnecidaService: GuarnecidaService,
@@ -100,13 +106,16 @@ export class OutWarehouse1Component implements OnInit {
     this.warehouse1 = new Warehouse1('', '', []);
     this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
     this.guarnecida = new Guarnecida('', '', []);
-    this.termination = new Termination('', '', '', []);
+    this.termination = new Termination('', '', []);
     // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
     this.resultado = new Array();
+    this.clasificacion = new Array();
+    this.operario = new Array();
+    this.idCan = '';
 
     this.status = true;
     this.warehouses = [
@@ -146,13 +155,14 @@ export class OutWarehouse1Component implements OnInit {
     return this.formData.get('registros') as FormArray;
   }
 
+ 
 
   ngOnInit() {
      this.HomeworkUnit();
      this.getOperator();
-     // this.getWarehouses();
+     this.getWarehouses();
 
-
+  
 
 
      // Instruccion que no permite insertar items vacios
@@ -179,12 +189,25 @@ export class OutWarehouse1Component implements OnInit {
 
   addAddress() {
     const code = document.getElementById('code');
+    console.log('busqueda', this.warehouse1);
 
     if ( code === null) {
       this.status = false;
     }
 
     if ( this.code.nativeElement) {
+      var primera = document.getElementById('primera') as HTMLInputElement;
+      var segunda = document.getElementById('segunda') as HTMLInputElement;
+      
+      if (primera.checked) {
+        this.clasificacion.push(this.primera.nativeElement.value);
+         
+        }
+  
+      if (segunda.checked) {
+        this.clasificacion.push(this.segunda.nativeElement.value);
+           
+          }
 
       this.addressListArray.push(this.getaddress());
       const control = this.formData.controls.registros;
@@ -193,9 +216,13 @@ export class OutWarehouse1Component implements OnInit {
       this.referencia.push(this.reference.nativeElement.value);
       this.talla.push(this.size.nativeElement.value);
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
+      this.operario.push(this.selecOperario.nativeElement.value);
       this.busqueda = '';
+      
+      
       this.status = true;
-      console.log('datos', control);
+      
+      console.log('idalmacen', this.warehouse);
 
 
     }
@@ -208,6 +235,8 @@ export class OutWarehouse1Component implements OnInit {
       reference: [''],
       size: [''],
       _id: [''],
+      operator: [''],
+      clasification: ['']
     });
   }
 
@@ -237,24 +266,25 @@ export class OutWarehouse1Component implements OnInit {
 
         } else {
           this.warehouse1 = response.warehouse1;
-          for (const i of response.warehouse1) {
-            for ( const r of i.registros) {
+         
+        //   for (const i of response.warehouse1) {
+        //     for ( const r of i.registros) {
 
-              let canas = this.canasta.nativeElement.value;
-              canas = JSON.parse(canas);
-              const indice = [];
-              let a = 0;
+        //       let canas = this.canasta.nativeElement.value;
+        //       canas = JSON.parse(canas);
+        //       const indice = [];
+        //       let a = 0;
 
 
-              a += 1;
-              if (canas === i._id && r.code === '543') {
+        //       a += 1;
+        //       if (canas === i._id && r.code === '543') {
 
-                    console.log('warehouse1', a);
+        //             console.log('warehouse1', a);
 
-              }
+        //       }
 
-          }
-        }
+        //   }
+        // }
         }
       }
     );
@@ -305,6 +335,7 @@ export class OutWarehouse1Component implements OnInit {
                   this.selecOperator = '';
                   this.busqueda2 = '';
                   this.canasta.nativeElement.value = '';
+                  
                   this.numeroCanasta.splice(0, this.numeroCanasta.length);
                   
 
@@ -331,14 +362,16 @@ export class OutWarehouse1Component implements OnInit {
 // ================================================
 // GUARDAR UNA UNIDAD EN TERMINADO
 // ================================================
+ 
   onSubmit(data) {
+    
 
     this.terminationService.addTermination(this.token, data).subscribe(
                 response => {
 
                   this.termination.operator = this.selecOperator;
 
-                  console.log('data',  this.formData.value);
+                  console.log('busqueda',  this.busqueda);
                   this.formData.reset();
                   const control = this.addressListArray.controls;
                   control.splice(data);
@@ -348,7 +381,15 @@ export class OutWarehouse1Component implements OnInit {
                   this.codigo.splice(data);
                   this.referencia.splice(data);
                   this.talla.splice(data);
+                  this.selecSalidas = '';
+                  this.clasificacion.splice(data);
+                  this.idAlmacen.splice(data);
+                  this.operario.splice(data);
+                  this.selecOperator = '';
+                  this.busqueda = '';
+                  this.getWarehouses();
                   
+                  console.log('idalmacen', this.idAlmacen);
                 },
                 error  => {
                   console.log(error as any);

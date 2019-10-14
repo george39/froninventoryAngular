@@ -20,6 +20,7 @@ export class IngresosWarehouse1Pipe implements PipeTransform {
     for ( const post of items ) {
       if (post.code === term) {
         resultadoConsulta.push(post);
+        
         }
     }
     return resultadoConsulta;

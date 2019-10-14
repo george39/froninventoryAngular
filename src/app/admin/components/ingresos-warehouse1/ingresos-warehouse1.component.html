@@ -6,26 +6,32 @@
         <option *ngFor="let o of warehouses" [value]="o">{{o}}</option>
     </select>
     </div>
+    
+    
+    <div class="radio-inline"> 
+        <label>        
+            <input type="radio" name="clasificacion" id="primera" #primera value="primera" checked>Primera        
+        </label>           
+    </div>
 
+    <div class="radio-inline">
+        <label>        
+            <input type="radio" name="clasificacion" id="segunda" #segunda value="segunda">Segunda        
+        </label>        
+    </div>
+
+        
+    
    
-        
-        
-        <div class="btn-group" data-toggle="buttons" *ngIf="seleccion === 'Reproceso'">
-            <label class="btn btn-default active">
-                <input type="radio" id="primera" name="clasification" value="primera" /> Primera
-            </label> 
-            <label class="btn btn-default">
-                <input type="radio" id="segunda" name="clasification" value="segunda" /> Segunda
-            </label>                 
-        </div>
+    
     
         <hr>
 
-    <div class="row col-lg-offset-3">    
+    <div class="row col-lg-offset-3"></div>    
     <div class="col-lg-5 inner-addon right-addon">
 
         <i class="glyphicon glyphicon-barcode"></i>
-        <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura"
+        <input type="text" #bus="ngModel"  class="form-control" #lectura autofocus name="lectura"
          (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Lea el código de barras">
         <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false">
             NO SE ENCONTRO EL CÓDIGO {{busqueda}}
@@ -33,7 +39,7 @@
     </div>
 </div>
 
-    <div *ngIf="seleccion === 'Troquelado'">
+    <div *ngIf="seleccion === 'Troquelado' ">
         
             <div class="container">
                 <div class="row top">
@@ -54,6 +60,7 @@
                         <div><input type="hidden" #reference value="{{registro.reference}}"></div>
                         <div><input type="hidden" #size value="{{registro.size}}"></div>
                         <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                        <div><input type="hidden"   value="{{registro.clasification}}"></div>
                     </div>
                     </div>
 
@@ -72,7 +79,7 @@
                 <div class="row">
 
                     <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)">
-
+                        
 
                         <!-- <div class="fields">
                             <input type="text" [ngModel]="idAlmacen" placeholder="id" formControlName="idWare">
@@ -91,8 +98,9 @@
                                         <div class="col-lg-2 ">
                                             <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
                                         </div>
+                                        
                                         <div class="col-lg-2 ">
-                                            <input class="form-control" type="hidden" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
+                                            <input class="form-control" type="hidden" [ngModel]="clasificacion[i]" placeholder="id" formControlName="clasification">
                                         </div>
                                         <span>
 
