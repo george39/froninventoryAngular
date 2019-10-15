@@ -1,5 +1,5 @@
 
-<div class="row top">
+<div class="row top salida-unidad ingresos">
     <div class="col-lg-5 inner-addon ">
         <span>Almacen de salida </span>
         <select [(ngModel)]="seleccion">   
@@ -25,7 +25,7 @@
         <hr>
 
     <div class="row col-lg-offset-3"></div>    
-    <div class="col-lg-5 inner-addon right-addon">
+    <div class="col-lg-5 inner-addon right-addon ">
 
         <i class="glyphicon glyphicon-barcode"></i>
         <input type="text" #bus="ngModel"  class="form-control" #lectura autofocus name="lectura"
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-    <div *ngIf="seleccion === 'Troquelado' ">        
+    <div *ngIf="seleccion === 'Troquelado' " >        
             <div class="container">
                 <div class="row ">
                     <b><div class="col-lg-1 codigo">Código</div></b>
@@ -47,13 +47,12 @@
                 <div *ngFor="let registro of tareaUnidad | ingresos: busqueda">
                     <div *ngIf="busqueda === registro.code">
                         <div class="row">
-
-                        <div><input type="hidden" #code value="{{registro.code}}"></div>
-                        <div><input type="hidden" #reference value="{{registro.reference}}"></div>
-                        <div><input type="hidden" #size value="{{registro.size}}"></div>
-                        <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
-                        <div><input type="hidden"   value="{{registro.clasification}}"></div>
-                    </div>
+                            <div><input type="hidden" #code value="{{registro.code}}"></div>
+                            <div><input type="hidden" #reference value="{{registro.reference}}"></div>
+                            <div><input type="hidden" #size value="{{registro.size}}"></div>
+                            <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                            <div><input type="hidden"   value="{{registro.clasification}}"></div>
+                        </div>
                     </div>
                 </div>    
 
