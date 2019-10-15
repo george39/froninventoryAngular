@@ -22,11 +22,7 @@
             <option value="">Elija salida</option>
             <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
         </select>
-        </div>
-    
-       
-    
-        <hr>
+        </div>    
     
     
     
@@ -42,7 +38,7 @@
                  [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta(); 
                  getWarehouses()" placeholder="Digite número de canasta y presione enter" autofocus>
     
-                <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false && busqueda2">
+                <div class="col-lg-8 alert alert-danger" role="alert" *ngIf="status === false && busqueda2">
                     NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
                 </div>
     
@@ -106,87 +102,82 @@
                     <input type="radio" name="clasificacion" id="segunda" #segunda value="segunda">Segunda        
                 </label>        
             </div>
-            <div align="center">Salidas unidad</div>
-            <div class="col-lg-4 inner-addon right-addon">
+
+            <hr>
+
+            
+            <!-- <div class="row col-lg-offset-3"></div>  -->
+            <div class=" row col-lg-5 inner-addon right-addon">
     
                 <i class="glyphicon glyphicon-barcode"></i>
                 <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Digite código de barras" autofocus>
-                <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false && busqueda">
+                <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda">
                     NO SE ENCONTRO EL CÓDIGO {{busqueda}}
                 </div>
             </div>
     
-            <div>
-                
-                    <div class="container">
-                        <div class="row top">
-                            <b><div class="col-lg-1 codigo">Código</div></b>
-                            <b><div class="col-lg-1 referencia">Referencia</div></b>
-                            <b><div class="col-lg-1 talla" >Talla</div></b>
-                        </div>
-                    </div>
-                    <div *ngIf="busqueda">
-    
-                        <div *ngFor="let registro of warehouse1 ">
-                            <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
-                                    
-    
-                                <div *ngIf="busqueda === codigo.code ">
-    
+             <div class="container">                  
+                <div class="row col-lg-12">
+                    <b><div class="col-lg-1 codigo">Código</div></b>
+                    <b><div class="col-lg-1 referencia">Referencia</div></b>
+                    <b><div class="col-lg-1 talla" >Talla</div></b>                        
+                </div>
+            </div>
+                <div *ngIf="busqueda">
+                    <div *ngFor="let registro of warehouse1 ">
+                        <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
+                                
+
+                            <div *ngIf="busqueda === codigo.code ">
+                                <div class="row">
                                     <div><input type="hidden" id="code" #code value="{{codigo.code}}"></div>
                                     <div><input type="hidden" #reference value="{{codigo.reference}}"></div>
                                     <div><input type="hidden" #size value="{{codigo.size}}"></div>
                                     <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
                                 </div>
                             </div>
-    
-    
                         </div>
-    
                     </div>
+                </div>
     
                 
-            </div>
+            
     
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body" id="caja">
-    
-                        <div class="row caja" >
-    
+                    <div class="card-body" id="caja">    
+                        <div class="row caja" >    
                             <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)" >
     
                                 <div class="form-group" >
                                     <div id=addresBlock formArrayName="registros" >
                                         <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
-                                            <div class="col-lg-10">
-                                                <div class="col-lg-4 inner-addon right-addon">
+                                            <div class="">
+                                                <div class="col-lg-4">
                                                     <input class="form-control" type="text" [ngModel]="codigo[i]" placeholder="código" formControlName="code">
                                                 </div>
-                                                <div class="col-lg-3 inner-addon right-addon">
+                                                <div class="col-lg-3">
                                                     <input class="form-control" type="text" [ngModel]="referencia[i]" placeholder="referencia" formControlName="reference">
                                                 </div>
-                                                <div class="col-lg-2 inner-addon right-addon">
+                                                <div class="col-lg-2">
                                                     <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
                                                 </div>
-                                                <div class="col-lg-2 inner-addon right-addon">
+                                                <div class="col-lg-2">
                                                         <input class="form-control" type="hidden" [ngModel]="clasificacion[i]" placeholder="id" formControlName="clasification">
                                                 </div>
-                                                <div class="col-lg-2 inner-addon right-addon">
-                                                    <input class="form-control" type="hidden" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
+                                                <div class="">
+                                                    <input class="" type="hidden" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
                                                 </div>
-                                                <div class="col-lg-2 inner-addon right-addon">
-                                                    <input class="form-control" type="hidden" [ngModel]="operario[i]" placeholder="id" formControlName="operator">
+                                                <div class="">
+                                                    <input class="" type="hidden" [ngModel]="operario[i]" placeholder="id" formControlName="operator">
                                                 </div>
                                                 
-                                                <span>
-    
-                                                <a class="btn btn-danger" (click)="removeAddress([i])">Eliminar</a>{{' ' + [i+1]}}
-                                            </span>
+                                                <span>    
+                                                    <a class="btn btn-danger" (click)="removeAddress([i])">Eliminar</a>{{' ' + [i+1]}}
+                                                </span>
                                             </div>
                                         </div>
-                                    </div>
-    
+                                    </div>    
                                 </div>
     
                                 <div class="col-lg-2 inner-addon">
