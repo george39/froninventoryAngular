@@ -1,51 +1,114 @@
 <div class="row top">
-    <input type="text" #input (keyup.enter)="buscarWarehouse(input.value); addMarca()" placeholder="código de barras">
+    <form (ngsubmit)="onsubmit()">
+        <div class="container">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="">Código</label>
+                    <input type="text" class="form-control" [(ngModel)]="guarnecida.name">
+
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+<!-- <div class="row top">
+    <input type="text" #input (keyup.enter)=" addMarca()" #busqueda placeholder="código de barras">
 
     <br>
-    <table class="table table-hover">
-        <thead class="thead-default">
-            <tr>
+    <div class="container">
+        <div class="row">
+            
                 <th>Operario</th>
                 <th>Nombre</th>
                 <th>Referencia</th>
                 <th>Talla</th>
                 <th>Registros</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let registro of warehouse">
-                <div>
-                    <td><input type="text" name="operator" #fondovalor value="{{registro.operator}}"></td>
-                    <td><input type="text" #size value="{{registro.name}}"></td>
-                    <td>{{registro.reference}}</td>
-                    <td>{{registro.size}}</td>
+            
+        </div>
+        
 
-                </div>
-            </tr>
-        </tbody>
-
-    </table>
+    </div>
     <div class="card">
         <div class="card-body">
 
+                <div class="container">
+                        <div class="row ">
+                            <b><div class="col-lg-1 codigo">Código</div></b>
+                            <b><div class="col-lg-1 referencia">Referencia</div></b>
+                            <b><div class="col-lg-1 talla" >Talla</div></b>
+                        </div>
+                    </div>
+                        <div *ngFor="let registro of tareaUnidad | ingresos: busqueda">
+                            <div >
+                                <div class="row">
+                                    <div><input type="hidden" #code value="{{registro.code}}"></div>
+                                    <div><input type="hidden" #reference value="{{registro.reference}}"></div>
+                                    <div><input type="hidden" #size value="{{registro.size}}"></div>
+                                    <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                                    <div><input type="hidden"   value="{{registro.clasification}}"></div>
+                                </div>
+                            </div>
+                        </div>
+
 
             <form #registerForm="ngForm" (ngSubmit)="onsubmit(registerForm.value)">
-
-                <ul>
-                    <li *ngFor="let marca of marcas; let indice = index">
+                
+                    <div *ngFor=" let indice = index">
                         {{indice + 1 }}
-                        <input type="text" [ngModel]="regis[indice]" name="name{{indice}}" placeholder="nombre" [(ngModel)]="marca.name">
-                        <input type="text" [ngModel]="regis2[indice]" name="reference{{indice}}" #reference [(ngModel)]="marca.reference" placeholder="referencia">
-                        <input type="text" name="size{{indice}}" #size [(ngModel)]="marca.size" placeholder="referencia">
+                        {{marca.code}}
+                        <input type="text" #code="ngModel" name="code{{indice}}" placeholder="nombre" [(ngModel)]="marca.code">
+                        <input type="text" #refernece="ngModel" name="reference{{indice}}" [(ngModel)]="marca.reference" placeholder="referencia">
+                        <input type="text" #size="ngModel" name="size{{indice}}" placeholder="referencia" [(ngModel)]="marca.size">
 
-                        <button (click)="borrarMarca(indice)" class="btn btn-danger">Borrar</button>
-                    </li>
-                </ul>
+                        <button (divck)="borrarMarca(indice)" class="btn btn-danger">Borrar</button>
+                    </div>
+                
                 <button (click)="addMarca()">Añadir marca</button>
                 <button type="submit" class="btn btn-success">Guardar</button>
             </form>
 
         </div>
     </div>
-</div>
+</div> -->
+
+
+<!-- <form (ngSubmit)="onsubmit()" class="top">
+    <div class="container">
+
+        <div class="form-row" *ngFor="let register of guarnecida; let i = index">
+
+
+
+            <input type="text" placeholder="Operario" name="operator{{i}}" [(ngModel)]="register.operator">
+
+
+
+            <input type="text" placeholder="Nombre" name="name{{i}}" [(ngModel)]="register.name">
+
+
+
+
+            <input type="text" placeholder="Referencia" name="reference{{i}}" [(ngModel)]="register.reference">
+
+
+
+            <input type="text" placeholder="Talla" name="size{{i}}" [(ngModel)]="register.size">
+
+
+            <button (click)="removeForm([i +1])" class="btn btn-danger">eliminar</button>
+
+
+
+        </div>
+
+        <button (click)="addForm()" class="btn btn-success">agregar</button>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+
+</form> -->

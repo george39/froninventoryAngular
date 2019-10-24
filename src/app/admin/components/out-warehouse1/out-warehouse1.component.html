@@ -38,9 +38,9 @@
                  [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta(); 
                  getWarehouses()" placeholder="Digite número de canasta y presione enter" autofocus>
     
-                <div class="col-lg-8 alert alert-danger" role="alert" *ngIf="status === false && busqueda2">
-                    NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
-                </div>
+                 <!-- <div class="col-lg-8 alert alert-danger" role="alert" *ngIf="mostrarReferencia === false ">
+                        NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
+                    </div> -->
     
             </div>
         </div>
@@ -51,9 +51,10 @@
                 <div *ngIf="busqueda2">
     
                     <div *ngFor="let registro of warehouse1 | register: busqueda2">
-                        <div class="row">
+                            
+                        <div class="row" *ngIf="mostrarReferencia === true">
                         <div><input type="hidden" #idCanasta value="{{registro._id}}"></div>
-                        <div class="container">
+                        <div class="container" >
                             <b><div class="col-lg-3" >Referencia</div></b>
                             <b><div class="col-lg-3" >Talla</div></b>
                             <b><div class="col-lg-3" >Cantidad</div></b>
@@ -62,8 +63,9 @@
                         <div *ngFor="let canasta of registro.registros | dinamica : canasta">
     
                             <div class="container">
+                                    
     
-                                <div class="row">
+                                <div class="row" *ngIf="mostrarReferencia === true">
                                 <div class="col-lg-3">{{canasta.reference}}</div>
                                 <div class="col-lg-3">{{canasta.size}}</div> 
                                 <div class="col-lg-3">{{canasta.quantity}}</div> 
@@ -111,7 +113,7 @@
     
                 <i class="glyphicon glyphicon-barcode"></i>
                 <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Digite código de barras" autofocus>
-                <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda">
+                <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda"> 
                     NO SE ENCONTRO EL CÓDIGO {{busqueda}}
                 </div>
             </div>
@@ -181,7 +183,7 @@
                                 </div>
     
                                 <div class="col-lg-2 inner-addon">
-                                    <button type="submit"  class="btn btn-success">Guardar</button>
+                                    <button type="submit"   class="btn btn-success">Guardar</button>
     
                                 </div>
                             </form>

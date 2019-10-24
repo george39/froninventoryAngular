@@ -12,7 +12,7 @@ import { Warehouse1Service } from '../../../services/warehouse1.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { throwError, from } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, subscribeOn } from 'rxjs/operators';
 import { Guarnecida } from '../../../models/guarnecida';
 import { GuarnecidaService } from '../../../services/guarnecida.service';
 import { Operator } from '../../../models/operator';
@@ -59,6 +59,7 @@ export class OutWarehouse1Component implements OnInit {
   public tareaUnidad: TareaUnidad;
   public guarnecida: Guarnecida;
   public operator: Operator;
+  // public canastaVacia: Warehouse1;
   public operario: string[];
   public warehouse: Warehouse1[];
   public termination: Termination;
@@ -83,7 +84,9 @@ export class OutWarehouse1Component implements OnInit {
   public numeroCanasta: string[];
   public resultado: string[];
   public clasificacion: string[];
-  
+  public mostrarReferencia;
+  public canastaVacia: string[];
+
 
 
   formData: FormGroup;
@@ -91,7 +94,7 @@ export class OutWarehouse1Component implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-  	private _router: Router,
+  	 private _router: Router,
     private tareaUnidadService: TareaUnidadService,
     private _warehouse1Service: Warehouse1Service,
     private guarnecidaService: GuarnecidaService,
@@ -116,6 +119,8 @@ export class OutWarehouse1Component implements OnInit {
     this.clasificacion = new Array();
     this.operario = new Array();
     this.idCan = '';
+    this.mostrarReferencia = false;
+    this.canastaVacia = new Array();
 
     this.status = true;
     this.warehouses = [
@@ -135,7 +140,7 @@ export class OutWarehouse1Component implements OnInit {
     this.mesa = new Array();
     this.regis = new Array();
     this.numeroCanasta = new Array();
-   
+
 
 
 
@@ -155,14 +160,16 @@ export class OutWarehouse1Component implements OnInit {
     return this.formData.get('registros') as FormArray;
   }
 
- 
+
 
   ngOnInit() {
      this.HomeworkUnit();
      this.getOperator();
      this.getWarehouses();
 
-  
+
+
+
 
 
      // Instruccion que no permite insertar items vacios
@@ -171,7 +178,7 @@ export class OutWarehouse1Component implements OnInit {
   }
 
 
- 
+
 
 
 
@@ -183,14 +190,16 @@ export class OutWarehouse1Component implements OnInit {
   }
 
   agregarCanasta() {
+    this.mostrarReferencia = true;
     this.numeroCanasta.push(this.canasta.nativeElement.value);
+
   }
 
 
   addAddress() {
-
+    
     // Me pone el scroll al principio
-    var scrol = document.getElementById('caja');
+    const scrol = document.getElementById('caja');
     // scrol.innerHTML = html;
     scrol.scrollTop = scrol.scrollHeight;
 
@@ -202,17 +211,17 @@ export class OutWarehouse1Component implements OnInit {
     }
 
     if ( this.code.nativeElement) {
-      var primera = document.getElementById('primera') as HTMLInputElement;
-      var segunda = document.getElementById('segunda') as HTMLInputElement;
-      
+      const primera = document.getElementById('primera') as HTMLInputElement;
+      const segunda = document.getElementById('segunda') as HTMLInputElement;
+
       if (primera.checked) {
         this.clasificacion.push(this.primera.nativeElement.value);
-         
+
         }
-  
+
       if (segunda.checked) {
         this.clasificacion.push(this.segunda.nativeElement.value);
-           
+
           }
 
       this.addressListArray.push(this.getaddress());
@@ -224,10 +233,10 @@ export class OutWarehouse1Component implements OnInit {
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
       this.operario.push(this.selecOperario.nativeElement.value);
       this.busqueda = '';
-      
-      
+
+      console.log('id',  this.idWarehouse.nativeElement.value);
       this.status = true;
-      
+
       console.log('idalmacen', this.warehouse);
 
 
@@ -272,7 +281,7 @@ export class OutWarehouse1Component implements OnInit {
 
         } else {
           this.warehouse1 = response.warehouse1;
-         
+
         //   for (const i of response.warehouse1) {
         //     for ( const r of i.registros) {
 
@@ -341,9 +350,9 @@ export class OutWarehouse1Component implements OnInit {
                   this.selecOperator = '';
                   this.busqueda2 = '';
                   this.canasta.nativeElement.value = '';
-                  
+
                   this.numeroCanasta.splice(0, this.numeroCanasta.length);
-                  
+
 
 
                   // this.warehouse1 = new Warehouse1('', '', []);
@@ -368,9 +377,9 @@ export class OutWarehouse1Component implements OnInit {
 // ================================================
 // GUARDAR UNA UNIDAD EN TERMINADO
 // ================================================
- 
+
   onSubmit(data) {
-    
+
 
     this.terminationService.addTermination(this.token, data).subscribe(
                 response => {
@@ -394,7 +403,7 @@ export class OutWarehouse1Component implements OnInit {
                   this.selecOperator = '';
                   this.busqueda = '';
                   this.getWarehouses();
-                  
+
                   console.log('idalmacen', this.idAlmacen);
                 },
                 error  => {
@@ -407,26 +416,64 @@ export class OutWarehouse1Component implements OnInit {
 
 
   // ================================================
-  // ELIMINAR UN ITEM EN UNA CANASTA DEL ALMACEN 1
+  // ELIMINAR UNA UNIDAD  EN UNA CANASTA DEL ALMACEN 1
   // ================================================
   deleteItem(dat) {
     const a =  this.formData.value;
     // tslint:disable-next-line:forin
+    
+    var r = '';
     for (let i = 0; i <= dat.registros.length; i++) {
-      console.log('ware', dat.registros[i]);
-
-
       this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
               response => {
-                this.warehouse1 = a;
+                // this.warehouse1 = a;
+                this.deleteCanastaVacia();
 
               },
               error => {
                 console.log(error as any);
               }
-            );
-          }
+              );
+            }
+            
+  }
 
+
+// ================================================
+// ELIMINAR COLECCIONES VACIAS  
+// ================================================
+  deleteCanastaVacia() {
+    this._warehouse1Service.getWarehouses1().subscribe(
+      response => {
+        if (!response.warehouse1 ) {
+          console.log('Error en el servidor');
+        } else {
+
+          for (const i of response.warehouse1) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this._warehouse1Service.deleteWarehouse(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+                
+              } else {
+  
+              }
+            
+          }
+        }
+       
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
   }
 
 
@@ -434,7 +481,7 @@ export class OutWarehouse1Component implements OnInit {
   // ================================================
   // ELIMINA UNA CANASTA EN EL ALMACEN 1
   // ================================================
-  deleteWarehouse(id) {
+deleteWarehouse(id) {
 
     this._warehouse1Service.deleteWarehouse(this.token, id).subscribe(
       response => {
@@ -453,7 +500,7 @@ export class OutWarehouse1Component implements OnInit {
 
 
 
-  removeAddress(index) {
+removeAddress(index) {
       const s = this.formData.value.registros;
       s.splice(index, 1);
 

@@ -87,7 +87,7 @@ export class EnsayoComponent implements OnInit {
 
       this._warehouse1Service.addWarehouse1(this.token, this.marcas[i]).subscribe(
         response => {
-          console.log(this.marcas[i]);
+          console.log('marcas', this.marcas[i]);
 
 
 

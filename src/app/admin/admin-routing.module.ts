@@ -23,6 +23,7 @@ import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea-unidad.component';
 import { AddGuarnecidaComponent } from './components/add-guarnecida/add-guarnecida.component';
 import { OutWarehouse1Component } from './components/out-warehouse1/out-warehouse1.component';
+import { EntradasComponent } from './components/guarnecida/entradas.component';
 
 
 const adminRoutes: Routes = [
@@ -47,7 +48,7 @@ const adminRoutes: Routes = [
 			{path: 'ingresos-almacen1', component: IngresosWarehouse1Component},
 			{path: 'ensayo3', component: Ensayo3Component},
 			{path: 'tarea-unidad', component: AddTareaUnidadComponent},
-			{path: 'addguarnecida', component: AddGuarnecidaComponent},
+			{path: 'addguarnecida', component: EntradasComponent},
 			{path: 'busqueda/:termino', component: BusquedaComponent},
 			{path: 'busqueda/:termino/:todo', component: BusquedaComponent},
 			{path: 'salidas-almacen1', component: OutWarehouse1Component},

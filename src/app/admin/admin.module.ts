@@ -39,8 +39,10 @@ import { Ensayo3Component } from './components/ensayo3/ensayo3.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { IngresosWarehouse1Pipe } from './pipes/ingresos-warehouse1.pipe';
 import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea-unidad.component';
-import { AddGuarnecidaComponent } from './components/add-guarnecida/add-guarnecida.component';
 import { OutWarehouse1Component } from './components/out-warehouse1/out-warehouse1.component';
+
+import { SalidasComponent } from './components/guarnecida/salidas.component';
+import { EntradasComponent } from './components/guarnecida/entradas.component';
 
 
 
@@ -70,9 +72,10 @@ import { OutWarehouse1Component } from './components/out-warehouse1/out-warehous
 		BusquedaComponent,
 		IngresosWarehouse1Pipe,
 		AddTareaUnidadComponent,
-		AddGuarnecidaComponent,
 		OutWarehouse1Component,
-		DinamicaPipe
+		DinamicaPipe,
+		SalidasComponent,
+		EntradasComponent
 		
 		
 		

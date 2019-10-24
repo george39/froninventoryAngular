@@ -57,6 +57,13 @@ export class Warehouse1Service {
 	 return this._http.delete(this.url + 'deletewarehouse1/' + id, {headers});								   
 	}
 
+	deleteVacias(token): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+									   .set('Authorization', token);
+
+	 return this._http.delete(this.url + 'deletevacias/', {headers});								   
+	}
+
 	// deleteWarehouse(token, id): Observable<any>{
 	// 	let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
 	// 								   .set('Authorization', token);

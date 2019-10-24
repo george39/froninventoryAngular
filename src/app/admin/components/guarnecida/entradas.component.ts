@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 
 
@@ -20,11 +21,11 @@ import { GuarnecidaService } from '../../../services/guarnecida.service';
 
 
 @Component({
-  selector: 'app-add-guarnecida',
-  templateUrl: './add-guarnecida.component.html',
-  providers: [UserService]
+  selector: 'app-entradas',
+  templateUrl: './entradas.component.html',
+  styles: []
 })
-export class AddGuarnecidaComponent implements OnInit {
+export class EntradasComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
