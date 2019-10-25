@@ -24,6 +24,8 @@ import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea
 import { AddGuarnecidaComponent } from './components/add-guarnecida/add-guarnecida.component';
 import { OutWarehouse1Component } from './components/out-warehouse1/out-warehouse1.component';
 import { EntradasComponent } from './components/guarnecida/entradas.component';
+import { SalidasComponent } from './components/guarnecida/salidas.component';
+import { AsignarTareaComponent } from './components/guarnecida/asignar-tarea.component';
 
 
 const adminRoutes: Routes = [
@@ -49,6 +51,8 @@ const adminRoutes: Routes = [
 			{path: 'ensayo3', component: Ensayo3Component},
 			{path: 'tarea-unidad', component: AddTareaUnidadComponent},
 			{path: 'addguarnecida', component: EntradasComponent},
+			{path: 'outguarnecida', component: SalidasComponent},
+			{path: 'asignar-tarea-guarnecida', component: AsignarTareaComponent},
 			{path: 'busqueda/:termino', component: BusquedaComponent},
 			{path: 'busqueda/:termino/:todo', component: BusquedaComponent},
 			{path: 'salidas-almacen1', component: OutWarehouse1Component},

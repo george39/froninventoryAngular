@@ -36,7 +36,7 @@
           <div align="center">Salidas canasta</div>
           <input type="text"  class="form-control" #canasta autofocus name="busqueda2"
            [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta(); 
-           getWarehouses()" placeholder="Digite número de canasta y presione enter" autofocus>
+           getGuarnecida()" placeholder="Digite número de canasta y presione enter" autofocus>
 
            <!-- <div class="col-lg-8 alert alert-danger" role="alert" *ngIf="mostrarReferencia === false ">
                   NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
@@ -50,7 +50,7 @@
 
           <div *ngIf="busqueda2">
 
-              <div *ngFor="let registro of warehouse1 | register: busqueda2">
+              <div *ngFor="let registro of guarnecida | register: busqueda2">
                       
                   <div class="row" *ngIf="mostrarReferencia === true">
                   <div><input type="hidden" #idCanasta value="{{registro._id}}"></div>
@@ -78,11 +78,11 @@
       </div>
 
 
-      <form #register="ngForm" (ngSubmit)="addCanasta()">
+      <form #register="ngForm" >
 
           <div class="col-lg-2 inner-addon">
 
-              <button type="submit" (click)="deleteWarehouse(numeroCanasta)" class="btn btn-success">Guardar</button>
+              <button type="submit" (click)="updateCanasta(numeroCanasta)" class="btn btn-success">Guardar</button>
 
           </div>
       </form>
@@ -126,7 +126,7 @@
           </div>
       </div>
           <div *ngIf="busqueda">
-              <div *ngFor="let registro of warehouse1 ">
+              <div *ngFor="let registro of guarnecida ">
                   <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
                           
 

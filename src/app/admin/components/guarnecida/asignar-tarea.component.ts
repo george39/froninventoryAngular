@@ -31,11 +31,11 @@ import { TestObject } from 'protractor/built/driverProviders';
 
 
 @Component({
-  selector: 'app-salidas',
-  templateUrl: './salidas.component.html',  
+  selector: 'app-asignar-tarea',
+  templateUrl: './asignar-tarea.component.html',  
   providers: [OperatorService, Warehouse1Service]
 })
-export class SalidasComponent implements OnInit {
+export class AsignarTareaComponent implements OnInit {
  // BUSQUEDA POR UNIDAD
   @ViewChild('code') code: ElementRef;
   @ViewChild('reference') reference: ElementRef;
@@ -162,9 +162,8 @@ export class SalidasComponent implements OnInit {
 
 
   ngOnInit() {
-     this.HomeworkUnit();
      this.getOperator();
-     this.getWarehouses();
+     this.getGuarnecida();
 
 
      // Instruccion que no permite insertar items vacios
@@ -251,31 +250,18 @@ export class SalidasComponent implements OnInit {
   }
 
 
-  HomeworkUnit() {
-    this.tareaUnidadService.getHomeworkUnit().subscribe(
+  
+
+
+  getGuarnecida() {
+    this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.tareaUnidad) {
+        if (!response.guarnecida) {
             this.status = false;
             
 
         } else {
-          this.tareaUnidad = response.tareaUnidad;
-          
-        }
-      }
-    );
-  }
-
-
-  getWarehouses() {
-    this._warehouse1Service.getWarehouses1().subscribe(
-      response => {
-        if (!response.warehouse1) {
-            this.status = false;
-            
-
-        } else {
-          this.warehouse1 = response.warehouse1;
+          this.guarnecida = response.guarnecida;
         }
       }
     );
@@ -296,31 +282,71 @@ export class SalidasComponent implements OnInit {
   }
 
 
+  updateCanasta(id) {
 
+    let numeroCanasta = this.idCanasta.nativeElement.value;
+    this.guarnecidaService.getGuarnecidas().subscribe(
+      response => {
+        if (!response.guarnecida) {
+            this.status = false;
+        } else {
+          this.guarnecida = response.guarnecida;
+          for (const i of response.guarnecida) {
+            numeroCanasta = JSON.parse(numeroCanasta);
+            this.guarnecida = i;
+            this.guarnecida.operator = this.selecOperator;
+            if ( i._id === numeroCanasta ) {
+
+                this.guarnecidaService.updateCanasta(this.token, id, this.guarnecida).subscribe(
+                response => {
+                  this.selecSalidas = '';
+                  this.selecOperator = '';
+                  this.busqueda2 = '';
+                  this.canasta.nativeElement.value = '';
+
+                  this.numeroCanasta.splice(0, this.numeroCanasta.length);
+
+
+
+                  // this.warehouse1 = new Warehouse1('', '', []);
+
+                },
+                error => {
+                  console.log(error as any);
+                }
+              );
+
+            }
+
+          }
+        }
+      }
+    );
+  }
 
 
 
 
 
   // ================================================
-  // GUARDAR UNA CANASTA EN TERMINADO
+  // ASIGNAR UNA CANASTA EN GUARNECIDA
   // ================================================
   addCanasta() {
 
     let numeroCanasta = this.idCanasta.nativeElement.value;
-    this._warehouse1Service.getWarehouses1().subscribe(
+    this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.warehouse1) {
+        if (!response.guarnecida) {
             this.status = false;
         } else {
-          this.warehouse1 = response.warehouse1;
-          for (const i of response.warehouse1) {
+          this.guarnecida = response.guarnecida;
+          for (const i of response.guarnecida) {
             numeroCanasta = JSON.parse(numeroCanasta);
-            this.termination = i;
-            this.termination.operator = this.selecOperator;
+            this.guarnecida = i;
+            this.guarnecida.operator = this.selecOperator;
             if ( i._id === numeroCanasta ) {
 
-                this.terminationService.addTermination(this.token, this.termination).subscribe(
+                this.guarnecidaService.addGuarnecida(this.token, this.guarnecida).subscribe(
                 response => {
                   this.selecSalidas = '';
                   this.selecOperator = '';
@@ -351,13 +377,13 @@ export class SalidasComponent implements OnInit {
 
 
 // ================================================
-// GUARDAR UNA UNIDAD EN TERMINADO
+// ASIGNAR UNA UNIDAD EN GUARNECIDA
 // ================================================
 
   onSubmit(data) {
 
 
-    this.terminationService.addTermination(this.token, data).subscribe(
+    this.guarnecidaService.addGuarnecida(this.token, data).subscribe(
                 response => {
 
                   this.termination.operator = this.selecOperator;
@@ -378,7 +404,7 @@ export class SalidasComponent implements OnInit {
                   this.operario.splice(data);
                   this.selecOperator = '';
                   this.busqueda = '';
-                  this.getWarehouses();
+                  this.getGuarnecida();
 
                   
                 },
@@ -392,13 +418,11 @@ export class SalidasComponent implements OnInit {
 
 
   // ================================================
-  // ELIMINAR UNA UNIDAD  EN UNA CANASTA DEL ALMACEN 1
+  // ELIMINAR UNA UNIDAD  EN UNA CANASTA DE GUARNECIDA
   // ================================================
   deleteItem(dat) {
-    const a =  this.formData.value;
-    
     for (let i = 0; i <= dat.registros.length; i++) {
-      this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
+      this.guarnecidaService.updateGuarnecida(this.token, dat.registros[i]).subscribe(
               response => {
                 
                 this.deleteCanastaVacia();
@@ -417,17 +441,17 @@ export class SalidasComponent implements OnInit {
 // ELIMINAR COLECCIONES VACIAS  
 // ================================================
   deleteCanastaVacia() {
-    this._warehouse1Service.getWarehouses1().subscribe(
+    this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.warehouse1 ) {
+        if (!response.guarnecida ) {
           console.log('Error en el servidor');
         } else {
 
-          for (const i of response.warehouse1) {
+          for (const i of response.guarnecida) {
               if (i.registros.length === 0) {
                 // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
   
-                this._warehouse1Service.deleteWarehouse(this.token, i._id).subscribe(
+                this.guarnecidaService.deleteGuarnecida(this.token, i._id).subscribe(
                   response => {
   
                   },
@@ -453,13 +477,13 @@ export class SalidasComponent implements OnInit {
 
 
   // ================================================
-  // ELIMINA UNA CANASTA EN EL ALMACEN 1
+  // ELIMINA UNA CANASTA EN GUARNECIDA
   // ================================================
-deleteWarehouse(id) {
+deleteGuarnecida(id) {
 
-    this._warehouse1Service.deleteWarehouse(this.token, id).subscribe(
+    this.guarnecidaService.deleteGuarnecida(this.token, id).subscribe(
       response => {
-        if (!response.warehouse1 ) {
+        if (!response.guarnecida ) {
           console.log('Error en el servidor');
         }
        // this.getWarehouses();

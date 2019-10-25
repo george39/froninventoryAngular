@@ -168,10 +168,6 @@ export class OutWarehouse1Component implements OnInit {
      this.getWarehouses();
 
 
-
-
-
-
      // Instruccion que no permite insertar items vacios
      const control = this.addressListArray.controls;
      control.splice(1[0]);
@@ -186,7 +182,7 @@ export class OutWarehouse1Component implements OnInit {
     this.varSeleccion = this.selecOperator;
     // this.varSeleccion = JSON.stringify(this.varSeleccion);
     const code = document.getElementById('opcion');
-    console.log('sel', this.varSeleccion);
+    
   }
 
   agregarCanasta() {
@@ -204,7 +200,7 @@ export class OutWarehouse1Component implements OnInit {
     scrol.scrollTop = scrol.scrollHeight;
 
     const code = document.getElementById('code');
-    console.log('busqueda', this.warehouse1);
+   
 
     if ( code === null) {
       this.status = false;
@@ -234,10 +230,10 @@ export class OutWarehouse1Component implements OnInit {
       this.operario.push(this.selecOperario.nativeElement.value);
       this.busqueda = '';
 
-      console.log('id',  this.idWarehouse.nativeElement.value);
+      
       this.status = true;
 
-      console.log('idalmacen', this.warehouse);
+      
 
 
     }
@@ -261,11 +257,11 @@ export class OutWarehouse1Component implements OnInit {
       response => {
         if (!response.tareaUnidad) {
             this.status = false;
-            console.log('status unidad', this.status);
+            
 
         } else {
           this.tareaUnidad = response.tareaUnidad;
-          console.log('tareaUnidad', this.tareaUnidad);
+          
         }
       }
     );
@@ -277,29 +273,10 @@ export class OutWarehouse1Component implements OnInit {
       response => {
         if (!response.warehouse1) {
             this.status = false;
-            console.log('status unidad', this.status);
+            
 
         } else {
           this.warehouse1 = response.warehouse1;
-
-        //   for (const i of response.warehouse1) {
-        //     for ( const r of i.registros) {
-
-        //       let canas = this.canasta.nativeElement.value;
-        //       canas = JSON.parse(canas);
-        //       const indice = [];
-        //       let a = 0;
-
-
-        //       a += 1;
-        //       if (canas === i._id && r.code === '543') {
-
-        //             console.log('warehouse1', a);
-
-        //       }
-
-        //   }
-        // }
         }
       }
     );
@@ -310,10 +287,10 @@ export class OutWarehouse1Component implements OnInit {
       response => {
         if (!response.operators) {
             this.status = false;
-            console.log('status', this.status);
+            
         } else {
           this.operators = response.operators;
-          console.log('operator', this.operators);
+          
         }
       }
     );
@@ -386,7 +363,7 @@ export class OutWarehouse1Component implements OnInit {
 
                   this.termination.operator = this.selecOperator;
 
-                  console.log('busqueda',  this.busqueda);
+                  
                   this.formData.reset();
                   const control = this.addressListArray.controls;
                   control.splice(data);
@@ -404,7 +381,7 @@ export class OutWarehouse1Component implements OnInit {
                   this.busqueda = '';
                   this.getWarehouses();
 
-                  console.log('idalmacen', this.idAlmacen);
+                  
                 },
                 error  => {
                   console.log(error as any);
@@ -420,13 +397,11 @@ export class OutWarehouse1Component implements OnInit {
   // ================================================
   deleteItem(dat) {
     const a =  this.formData.value;
-    // tslint:disable-next-line:forin
     
-    var r = '';
     for (let i = 0; i <= dat.registros.length; i++) {
       this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
               response => {
-                // this.warehouse1 = a;
+                
                 this.deleteCanastaVacia();
 
               },
@@ -510,9 +485,6 @@ removeAddress(index) {
       this.referencia.splice(index, 1);
       this.talla.splice(index, 1);
       this.idAlmacen.splice(index, 1);
-      console.log('eliminar', this.formData.value);
-      // this.addressListArray.removeAt(index);
-      console.log('index', index);
 
     }
 

@@ -43,6 +43,7 @@ import { OutWarehouse1Component } from './components/out-warehouse1/out-warehous
 
 import { SalidasComponent } from './components/guarnecida/salidas.component';
 import { EntradasComponent } from './components/guarnecida/entradas.component';
+import { AsignarTareaComponent } from './components/guarnecida/asignar-tarea.component';
 
 
 
@@ -75,7 +76,8 @@ import { EntradasComponent } from './components/guarnecida/entradas.component';
 		OutWarehouse1Component,
 		DinamicaPipe,
 		SalidasComponent,
-		EntradasComponent
+		EntradasComponent,
+		AsignarTareaComponent
 		
 		
 		
