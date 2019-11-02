@@ -1,8 +1,14 @@
 
 import { Component, OnInit, ViewChild, ElementRef, DoCheck} from '@angular/core';
+import { Warehouse1 } from '../../../models/warehouse1';
+
+
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../../services/user.service';
+import { TareaUnidadService } from '../../../services/tarea-unidad.service';
+import { TareaUnidad } from '../../../models/tareaUnidad';
+import { Warehouse1Service } from '../../../services/warehouse1.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { throwError, from } from 'rxjs';
@@ -11,19 +17,25 @@ import { Guarnecida } from '../../../models/guarnecida';
 import { GuarnecidaService } from '../../../services/guarnecida.service';
 import { Operator } from '../../../models/operator';
 import { OperatorService } from '../../../services/operator.service';
+import { TerminationService } from '../../../services/termination.service';
+import { Termination } from '../../../models/termination';
 import { TestObject } from 'protractor/built/driverProviders';
 
 
 
 
 
-@Component({
-  selector: 'app-asignar-tarea',
-  templateUrl: './asignar-tarea.component.html',
-  providers: [OperatorService]
-})
-export class AsignarTareaComponent implements OnInit {
 
+// tslint:disable-next-line:label-position
+
+
+
+@Component({
+  selector: 'app-salidas-warehouse2',
+  templateUrl: './salidas-warehouse2.component.html',  
+  providers: [OperatorService, Warehouse1Service]
+})
+export class SalidasWarehouse2Component implements OnInit {
  // BUSQUEDA POR UNIDAD
   @ViewChild('code') code: ElementRef;
   @ViewChild('reference') reference: ElementRef;
@@ -41,9 +53,15 @@ export class AsignarTareaComponent implements OnInit {
 
 
 
-  public operators: Operator[];  
-  public guarnecida: Guarnecida;    
+  public operators: Operator[];
+  public warehouse1: Warehouse1;
+  public tareaUnidad: TareaUnidad;
+  public guarnecida: Guarnecida;
+  public operator: Operator;
+  // public canastaVacia: Warehouse1;
   public operario: string[];
+  public warehouse: Warehouse1[];
+  public termination: Termination;
   public token;
   public busqueda;
   public busqueda2;
@@ -51,6 +69,8 @@ export class AsignarTareaComponent implements OnInit {
   public referencia: string[];
   public talla: string[];
   public idAlmacen: string[];
+  public idCan;
+
   public status;
   public warehouses: any[];
   public seleccion;
@@ -58,7 +78,10 @@ export class AsignarTareaComponent implements OnInit {
   public selecSalidas;
   public selecOperator;
   public varSeleccion;
-  public numeroCanasta: string[];  
+  public mesa: any[];
+  public regis: string[];
+  public numeroCanasta: string[];
+  public resultado: string[];
   public clasificacion: string[];
   public mostrarReferencia;
   public canastaVacia: string[];
@@ -70,40 +93,52 @@ export class AsignarTareaComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-  	 private _router: Router,    
+  	 private _router: Router,
+    private tareaUnidadService: TareaUnidadService,
+    private _warehouse1Service: Warehouse1Service,
     private guarnecidaService: GuarnecidaService,
     private _userService: UserService,
     private operatorService: OperatorService,
+    private terminationService: TerminationService,
     private http: HttpClient,
 
     private fb: FormBuilder
   ) {
     this.token = this._userService.getToken();
+    this.warehouse1 = new Warehouse1('', '', []);
+    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
     this.guarnecida = new Guarnecida('', '', []);
+    this.termination = new Termination('', '', []);
+    // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
+    this.resultado = new Array();
     this.clasificacion = new Array();
     this.operario = new Array();
+    this.idCan = '';
     this.mostrarReferencia = false;
     this.canastaVacia = new Array();
-    this.numeroCanasta = new Array();
-    this.seleccion = '';
-    this.selecSalidas = '';
-    this.selecOperator = '';
-    this.varSeleccion = '';
+
     this.status = true;
     this.warehouses = [
     'Troquelado',
     'Reproceso'
-    ];
+  ];
     this.salidas = [
       'unidad',
       'canasta'
     ];
 
 
+    this.seleccion = '';
+    this.selecSalidas = '';
+    this.selecOperator = '';
+    this.varSeleccion = '';
+    this.mesa = new Array();
+    this.regis = new Array();
+    this.numeroCanasta = new Array();
 
 
 
@@ -127,8 +162,9 @@ export class AsignarTareaComponent implements OnInit {
 
 
   ngOnInit() {
+     this.HomeworkUnit();
      this.getOperator();
-     this.getGuarnecida();
+     this.getWarehouses();
 
 
      // Instruccion que no permite insertar items vacios
@@ -139,18 +175,15 @@ export class AsignarTareaComponent implements OnInit {
 
 
 
-// ================================================
-// FUNCION PARA SELECCIONAR UN OPERARIO
-// ================================================
+
+
   capturar() {
     this.varSeleccion = this.selecOperator;
+    // this.varSeleccion = JSON.stringify(this.varSeleccion);
     const code = document.getElementById('opcion');
+    
   }
 
-
-  // ================================================
-  // FUNCION QUE AGREGA UNA CANASTA PARA SER GUARDADA
-  // ================================================
   agregarCanasta() {
     this.mostrarReferencia = true;
     this.numeroCanasta.push(this.canasta.nativeElement.value);
@@ -158,9 +191,6 @@ export class AsignarTareaComponent implements OnInit {
   }
 
 
-// ================================================
-// AGREGA A UNA LISTA CADA VES QUE SE LEA UN CODIGO
-// ================================================
   addAddress() {
     
     // Me pone el scroll al principio
@@ -179,15 +209,15 @@ export class AsignarTareaComponent implements OnInit {
       const primera = document.getElementById('primera') as HTMLInputElement;
       const segunda = document.getElementById('segunda') as HTMLInputElement;
 
-      // if (primera.checked) {
-      //   this.clasificacion.push(this.primera.nativeElement.value);
+      if (primera.checked) {
+        this.clasificacion.push(this.primera.nativeElement.value);
 
-      //   }
+        }
 
-      // if (segunda.checked) {
-      //   this.clasificacion.push(this.segunda.nativeElement.value);
+      if (segunda.checked) {
+        this.clasificacion.push(this.segunda.nativeElement.value);
 
-      //     }
+          }
 
       this.addressListArray.push(this.getaddress());
       const control = this.formData.controls.registros;
@@ -208,10 +238,6 @@ export class AsignarTareaComponent implements OnInit {
     }
   }
 
-
-// ==============================================================
-// CAPTURA EL VALOR DE CADA UNO DE LOS ITEMS AGREGADOS A LA LISTA
-// ==============================================================
   getaddress() {
 
     return this.fb.group({
@@ -225,92 +251,45 @@ export class AsignarTareaComponent implements OnInit {
   }
 
 
-  // ================================================
-  // ELIMINA UN ITEM DE LA LISTA
-  // ================================================
-  removeAddress(index) {
-    const s = this.formData.value.registros;
-    s.splice(index, 1);
-
-    const control = this.addressListArray.controls;
-    control.splice(index, 1);
-    this.codigo.splice(index, 1);
-    this.referencia.splice(index, 1);
-    this.talla.splice(index, 1);
-    this.idAlmacen.splice(index, 1);
-
-  }
-
-
-
-// ================================================
-// GENERA UNA LISTA DE TODO GUARNECIDA
-// ================================================
-  getGuarnecida() {
-    this.guarnecidaService.getGuarnecidas().subscribe(
+  HomeworkUnit() {
+    this.tareaUnidadService.getHomeworkUnit().subscribe(
       response => {
-        if (!response.guarnecida) {
+        if (!response.tareaUnidad) {
             this.status = false;
+            
 
         } else {
-          this.guarnecida = response.guarnecida;
+          this.tareaUnidad = response.tareaUnidad;
+          
         }
       }
     );
   }
 
 
-// ================================================
-// GENERA UNA LISTA DE TODOS LOS OPERARIOS
-// ================================================
+  getWarehouses() {
+    this._warehouse1Service.getWarehouses1().subscribe(
+      response => {
+        if (!response.warehouse1) {
+            this.status = false;
+            
+
+        } else {
+          this.warehouse1 = response.warehouse1;
+        }
+      }
+    );
+  }
+
   getOperator() {
     this.operatorService.getOperators().subscribe(
       response => {
         if (!response.operators) {
             this.status = false;
+            
         } else {
           this.operators = response.operators;
-        }
-      }
-    );
-  }
-
-
-  // ================================================
-  // ASIGNA UN NOMBRE DE OPERARIO A UNA CANASTA
-  // ================================================
-  updateCanasta(id) {
-
-    let numeroCanasta = this.idCanasta.nativeElement.value;
-    this.guarnecidaService.getGuarnecidas().subscribe(
-      response => {
-        if (!response.guarnecida) {
-            this.status = false;
-        } else {
-          this.guarnecida = response.guarnecida;
-          for (const i of response.guarnecida) {
-            numeroCanasta = JSON.parse(numeroCanasta);
-            this.guarnecida = i;
-            this.guarnecida.operator = this.selecOperator;
-            if ( i._id === numeroCanasta ) {
-
-                this.guarnecidaService.updateCanasta(this.token, id, this.guarnecida).subscribe(
-                response => {
-                  this.selecSalidas = '';
-                  this.selecOperator = '';
-                  this.busqueda2 = '';
-                  this.canasta.nativeElement.value = '';
-                  this.numeroCanasta.splice(0, this.numeroCanasta.length);
-
-                },
-                error => {
-                  console.log(error as any);
-                }
-              );
-
-            }
-
-          }
+          
         }
       }
     );
@@ -320,31 +299,39 @@ export class AsignarTareaComponent implements OnInit {
 
 
 
+
+
+
   // ================================================
-  // GUARDA UNA CANASTA EN GUARNECIDA
+  // GUARDAR UNA CANASTA EN TERMINADO
   // ================================================
   addCanasta() {
 
     let numeroCanasta = this.idCanasta.nativeElement.value;
-    this.guarnecidaService.getGuarnecidas().subscribe(
+    this._warehouse1Service.getWarehouses1().subscribe(
       response => {
-        if (!response.guarnecida) {
+        if (!response.warehouse1) {
             this.status = false;
         } else {
-          this.guarnecida = response.guarnecida;
-          for (const i of response.guarnecida) {
+          this.warehouse1 = response.warehouse1;
+          for (const i of response.warehouse1) {
             numeroCanasta = JSON.parse(numeroCanasta);
-            this.guarnecida = i;
-            this.guarnecida.operator = this.selecOperator;
+            this.termination = i;
+            this.termination.operator = this.selecOperator;
             if ( i._id === numeroCanasta ) {
 
-                this.guarnecidaService.addGuarnecida(this.token, this.guarnecida).subscribe(
+                this.terminationService.addTermination(this.token, this.termination).subscribe(
                 response => {
                   this.selecSalidas = '';
                   this.selecOperator = '';
                   this.busqueda2 = '';
                   this.canasta.nativeElement.value = '';
-                  this.numeroCanasta.splice(0, this.numeroCanasta.length);                 // this.warehouse1 = new Warehouse1('', '', []);
+
+                  this.numeroCanasta.splice(0, this.numeroCanasta.length);
+
+
+
+                  // this.warehouse1 = new Warehouse1('', '', []);
 
                 },
                 error => {
@@ -364,12 +351,18 @@ export class AsignarTareaComponent implements OnInit {
 
 
 // ================================================
-// ASIGNAR UNA UNIDAD A UN OPERARIO EN GUARNECIDA
+// GUARDAR UNA UNIDAD EN TERMINADO
 // ================================================
 
-  addUnidad(data) {
-    this.guarnecidaService.addGuarnecida(this.token, data).subscribe(
+  onSubmit(data) {
+
+
+    this.terminationService.addTermination(this.token, data).subscribe(
                 response => {
+
+                  this.termination.operator = this.selecOperator;
+
+                  
                   this.formData.reset();
                   const control = this.addressListArray.controls;
                   control.splice(data);
@@ -385,8 +378,9 @@ export class AsignarTareaComponent implements OnInit {
                   this.operario.splice(data);
                   this.selecOperator = '';
                   this.busqueda = '';
-                  this.getGuarnecida();
+                  this.getWarehouses();
 
+                  
                 },
                 error  => {
                   console.log(error as any);
@@ -398,12 +392,15 @@ export class AsignarTareaComponent implements OnInit {
 
 
   // ================================================
-  // ELIMINAR UNA UNIDAD  EN UNA CANASTA DE GUARNECIDA
+  // ELIMINAR UNA UNIDAD  EN UNA CANASTA DEL ALMACEN 1
   // ================================================
   deleteItem(dat) {
+    const a =  this.formData.value;
+    
     for (let i = 0; i <= dat.registros.length; i++) {
-      this.guarnecidaService.updateGuarnecida(this.token, dat.registros[i]).subscribe(
+      this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
               response => {
+                
                 this.deleteCanastaVacia();
 
               },
@@ -412,37 +409,40 @@ export class AsignarTareaComponent implements OnInit {
               }
               );
             }
+            
   }
 
 
 // ================================================
-// ELIMINAR COLECCIONES VACIAS
+// ELIMINAR COLECCIONES VACIAS  
 // ================================================
   deleteCanastaVacia() {
-    this.guarnecidaService.getGuarnecidas().subscribe(
+    this._warehouse1Service.getWarehouses1().subscribe(
       response => {
-        if (!response.guarnecida ) {
+        if (!response.warehouse1 ) {
           console.log('Error en el servidor');
         } else {
 
-          for (const i of response.guarnecida) {
+          for (const i of response.warehouse1) {
               if (i.registros.length === 0) {
                 // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
-
-              this.guarnecidaService.deleteGuarnecida(this.token, i._id).subscribe(
+  
+                this._warehouse1Service.deleteWarehouse(this.token, i._id).subscribe(
                   response => {
-
+  
                   },
                   error => {
                     console.log(error as any);
                   }
                 );
-
+                
               } else {
-
-            }
+  
+              }
+            
           }
         }
+       
       },
       error => {
         console.log(error as any);
@@ -453,16 +453,16 @@ export class AsignarTareaComponent implements OnInit {
 
 
   // ================================================
-  // ELIMINA UNA CANASTA EN GUARNECIDA
+  // ELIMINA UNA CANASTA EN EL ALMACEN 1
   // ================================================
-  deleteGuarnecida(id) {
+deleteWarehouse(id) {
 
-    this.guarnecidaService.deleteGuarnecida(this.token, id).subscribe(
+    this._warehouse1Service.deleteWarehouse(this.token, id).subscribe(
       response => {
-        if (!response.guarnecida ) {
+        if (!response.warehouse1 ) {
           console.log('Error en el servidor');
         }
-
+       // this.getWarehouses();
         this.canasta.nativeElement.value = '';
         this.numeroCanasta.splice(0, this.numeroCanasta.length);
       },
@@ -473,6 +473,21 @@ export class AsignarTareaComponent implements OnInit {
   }
 
 
-}
 
+removeAddress(index) {
+      const s = this.formData.value.registros;
+      s.splice(index, 1);
+
+      const control = this.addressListArray.controls;
+      control.splice(index, 1);
+      this.codigo.splice(index, 1);
+      this.referencia.splice(index, 1);
+      this.talla.splice(index, 1);
+      this.idAlmacen.splice(index, 1);
+
+    }
+
+
+
+}
 

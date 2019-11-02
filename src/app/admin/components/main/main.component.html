@@ -1,5 +1,5 @@
 <div class="top  col-lg-3" style="background-color: rgb(207, 208, 212)"  *ngIf="identity.role == 'ROLE_ADMIN'">
-    <h1>{{title}}</h1>
+    <h1 class="titulo">{{title}}</h1>
     <div class="sidebar-admin " data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example ">
             <li role="presentation" [routerLinkActive]="['active']">
@@ -31,7 +31,7 @@
 
 <!-- MENU ALMACEN 1-->
 <div class="top col-lg-3 col-sx-3" *ngIf="identity.role == 'ROLE_ALMACEN1' ">
-    <h1>Almacen 1</h1>
+    <h1 class="titulo">Almacen 1</h1>
     <div class="sidebar-admin" data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
             <li role="presentation" [routerLinkActive]="['active']">
@@ -73,7 +73,7 @@
 
 <!-- MENU ALMACEN 2-->
 <div class="top col-lg-3 col-sx-3" *ngIf="identity.role == 'ROLE_ALMACEN2' ">
-    <h1>Almacen 1</h1>
+    <h1 class="titulo">Almacen 2</h1>
     <div class="sidebar-admin" data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
             <li role="presentation" [routerLinkActive]="['active']">
@@ -112,7 +112,7 @@
 
 <!-- MENU GUARNECIDA-->
 <div class="top col-lg-3 col-sx-3" *ngIf="identity.role === 'ROLE_GUARNECIDA' ">
-    <h1>Guarnecida</h1>
+    <h1 class="titulo">Guarnecida</h1>
     <div class="sidebar-admin" data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
             <li role="presentation" [routerLinkActive]="['active']">

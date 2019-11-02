@@ -6,8 +6,6 @@ import { Warehouse1 } from '../../../models/warehouse1';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { TareaUnidadService } from '../../../services/tarea-unidad.service';
-import { TareaUnidad } from '../../../models/tareaUnidad';
 import { Warehouse1Service } from '../../../services/warehouse1.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
@@ -17,8 +15,6 @@ import { Guarnecida } from '../../../models/guarnecida';
 import { GuarnecidaService } from '../../../services/guarnecida.service';
 import { Operator } from '../../../models/operator';
 import { OperatorService } from '../../../services/operator.service';
-import { TerminationService } from '../../../services/termination.service';
-import { Termination } from '../../../models/termination';
 import { TestObject } from 'protractor/built/driverProviders';
 
 
@@ -32,7 +28,7 @@ import { TestObject } from 'protractor/built/driverProviders';
 
 @Component({
   selector: 'app-salidas',
-  templateUrl: './salidas.component.html',  
+  templateUrl: './salidas.component.html',
   providers: [OperatorService, Warehouse1Service]
 })
 export class SalidasComponent implements OnInit {
@@ -55,13 +51,11 @@ export class SalidasComponent implements OnInit {
 
   public operators: Operator[];
   public warehouse1: Warehouse1;
-  public tareaUnidad: TareaUnidad;
   public guarnecida: Guarnecida;
   public operator: Operator;
   // public canastaVacia: Warehouse1;
   public operario: string[];
   public warehouse: Warehouse1[];
-  public termination: Termination;
   public token;
   public busqueda;
   public busqueda2;
@@ -93,23 +87,18 @@ export class SalidasComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-  	 private _router: Router,
-    private tareaUnidadService: TareaUnidadService,
+    private _router: Router,
     private _warehouse1Service: Warehouse1Service,
     private guarnecidaService: GuarnecidaService,
     private _userService: UserService,
     private operatorService: OperatorService,
-    private terminationService: TerminationService,
     private http: HttpClient,
 
     private fb: FormBuilder
   ) {
     this.token = this._userService.getToken();
     this.warehouse1 = new Warehouse1('', '', []);
-    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
     this.guarnecida = new Guarnecida('', '', []);
-    this.termination = new Termination('', '', []);
-    // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
     this.talla = new Array();
@@ -120,10 +109,17 @@ export class SalidasComponent implements OnInit {
     this.idCan = '';
     this.mostrarReferencia = false;
     this.canastaVacia = new Array();
+    this.seleccion = '';
+    this.selecSalidas = '';
+    this.selecOperator = '';
+    this.varSeleccion = '';
+    this.mesa = new Array();
+    this.regis = new Array();
+    this.numeroCanasta = new Array();
 
     this.status = true;
     this.warehouses = [
-    'Troquelado',
+    'Almacen1',
     'Reproceso'
   ];
     this.salidas = [
@@ -132,13 +128,6 @@ export class SalidasComponent implements OnInit {
     ];
 
 
-    this.seleccion = '';
-    this.selecSalidas = '';
-    this.selecOperator = '';
-    this.varSeleccion = '';
-    this.mesa = new Array();
-    this.regis = new Array();
-    this.numeroCanasta = new Array();
 
 
 
@@ -162,9 +151,9 @@ export class SalidasComponent implements OnInit {
 
 
   ngOnInit() {
-     this.HomeworkUnit();
+     
      this.getOperator();
-     this.getWarehouses();
+     
 
 
      // Instruccion que no permite insertar items vacios
@@ -251,35 +240,6 @@ export class SalidasComponent implements OnInit {
   }
 
 
-  HomeworkUnit() {
-    this.tareaUnidadService.getHomeworkUnit().subscribe(
-      response => {
-        if (!response.tareaUnidad) {
-            this.status = false;
-            
-
-        } else {
-          this.tareaUnidad = response.tareaUnidad;
-          
-        }
-      }
-    );
-  }
-
-
-  getWarehouses() {
-    this._warehouse1Service.getWarehouses1().subscribe(
-      response => {
-        if (!response.warehouse1) {
-            this.status = false;
-            
-
-        } else {
-          this.warehouse1 = response.warehouse1;
-        }
-      }
-    );
-  }
 
   getOperator() {
     this.operatorService.getOperators().subscribe(
@@ -303,24 +263,24 @@ export class SalidasComponent implements OnInit {
 
 
   // ================================================
-  // GUARDAR UNA CANASTA EN TERMINADO
+  // GUARDAR UNA CANASTA EN ALMACEN 1
   // ================================================
   addCanasta() {
 
     let numeroCanasta = this.idCanasta.nativeElement.value;
-    this._warehouse1Service.getWarehouses1().subscribe(
+    this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.warehouse1) {
+        if (!response.guarnecida) {
             this.status = false;
         } else {
-          this.warehouse1 = response.warehouse1;
-          for (const i of response.warehouse1) {
+          this.guarnecida = response.guarnecida;
+          for (const i of response.guarnecida) {
             numeroCanasta = JSON.parse(numeroCanasta);
-            this.termination = i;
-            this.termination.operator = this.selecOperator;
+            this.warehouse1 = i;
+
             if ( i._id === numeroCanasta ) {
 
-                this.terminationService.addTermination(this.token, this.termination).subscribe(
+                this._warehouse1Service.addWarehouse1(this.token, this.warehouse1).subscribe(
                 response => {
                   this.selecSalidas = '';
                   this.selecOperator = '';
@@ -351,43 +311,43 @@ export class SalidasComponent implements OnInit {
 
 
 // ================================================
-// GUARDAR UNA UNIDAD EN TERMINADO
+// GUARDAR UNA UNIDAD EN ALMACEN 1
 // ================================================
 
-  onSubmit(data) {
+  // onSubmit(data) {
 
 
-    this.terminationService.addTermination(this.token, data).subscribe(
-                response => {
+  //   this.terminationService.addTermination(this.token, data).subscribe(
+  //               response => {
 
-                  this.termination.operator = this.selecOperator;
-
-                  
-                  this.formData.reset();
-                  const control = this.addressListArray.controls;
-                  control.splice(data);
-                  this.seleccion = '';
-                  const s = this.formData.value.registros;
-                  s.splice(data);
-                  this.codigo.splice(data);
-                  this.referencia.splice(data);
-                  this.talla.splice(data);
-                  this.selecSalidas = '';
-                  this.clasificacion.splice(data);
-                  this.idAlmacen.splice(data);
-                  this.operario.splice(data);
-                  this.selecOperator = '';
-                  this.busqueda = '';
-                  this.getWarehouses();
+  //                 this.termination.operator = this.selecOperator;
 
                   
-                },
-                error  => {
-                  console.log(error as any);
-                }
-                );
+  //                 this.formData.reset();
+  //                 const control = this.addressListArray.controls;
+  //                 control.splice(data);
+  //                 this.seleccion = '';
+  //                 const s = this.formData.value.registros;
+  //                 s.splice(data);
+  //                 this.codigo.splice(data);
+  //                 this.referencia.splice(data);
+  //                 this.talla.splice(data);
+  //                 this.selecSalidas = '';
+  //                 this.clasificacion.splice(data);
+  //                 this.idAlmacen.splice(data);
+  //                 this.operario.splice(data);
+  //                 this.selecOperator = '';
+  //                 this.busqueda = '';
+  //                 this.getWarehouses();
 
-    }
+                  
+  //               },
+  //               error  => {
+  //                 console.log(error as any);
+  //               }
+  //               );
+
+  //   }
 
 
 
@@ -490,5 +450,4 @@ removeAddress(index) {
 
 
 }
-
 

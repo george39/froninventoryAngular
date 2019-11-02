@@ -44,6 +44,11 @@ import { OutWarehouse1Component } from './components/out-warehouse1/out-warehous
 import { SalidasComponent } from './components/guarnecida/salidas.component';
 import { EntradasComponent } from './components/guarnecida/entradas.component';
 import { AsignarTareaComponent } from './components/guarnecida/asignar-tarea.component';
+import { EntradasWarehouse1Component } from './components/warehouse1/entradas-warehouse1.component';
+import { SalidasWarehouse1Component } from './components/warehouse1/salidas-warehouse1.component';
+import { EntradasWarehouse2Component } from './components/warehouse2/entradas-warehouse2.component';
+import { SalidasWarehouse2Component } from './components/warehouse2/salidas-warehouse2.component';
+import { EntradasGuarnecidaExternaComponent } from './components/guarnecidaExterna/entradas-guarnecida-externa.component';
 
 
 
@@ -77,7 +82,13 @@ import { AsignarTareaComponent } from './components/guarnecida/asignar-tarea.com
 		DinamicaPipe,
 		SalidasComponent,
 		EntradasComponent,
-		AsignarTareaComponent
+		AsignarTareaComponent,
+		EntradasWarehouse1Component,
+		SalidasWarehouse1Component,
+		EntradasWarehouse2Component,
+		SalidasWarehouse2Component,
+		EntradasGuarnecidaExternaComponent,
+		
 		
 		
 		

@@ -30,13 +30,13 @@ export class GuarnecidaService {
 			Authorization: token
 		});
 
-  return this.http.put(this.url + 'deleteItem/', params, { headers});
+  return this.http.put(this.url + 'deleteitem/', params, { headers});
   }
 
   getGuarnecidas(): Observable<any>{
-		return this.http.get(this.url + 'getguarnecidas').pipe(map(response => response));
+   return this.http.get(this.url + 'getguarnecidas').pipe(map(response => response));
   }
-  
+
   deleteGuarnecida(token, id): Observable<any>{
 		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
 									   .set('Authorization', token);
