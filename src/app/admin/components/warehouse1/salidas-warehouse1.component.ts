@@ -24,6 +24,12 @@ import { GuarnecidaExterna } from '../../../models/guarnecida-externa';
 import { GuarnecidaExternaService } from '../../../services/guarnecida-externa.service';
 import { OjaleteadoService } from '../../../services/ojaleteado.service';
 import { Ojaleteado } from '../../../models/ojaleteado';
+import { Injection1 } from '../../../models/injection1';
+import { Injection1Service } from '../../../services/injection1.service';
+import { Strobell } from '../../../models/strobell';
+import { StrobellService } from '../../../services/strobell.service';
+import { Reproceso } from '../../../models/reproceso';
+import { ReprocesoService } from '../../../services/reproceso.service';
 
 
 
@@ -63,6 +69,9 @@ export class SalidasWarehouse1Component implements OnInit {
   public tareaUnidad: TareaUnidad;
   public guarnecida: Guarnecida;
   public guarnecidaExterna: GuarnecidaExterna;
+  public injection1: Injection1;
+  public strobell: Strobell;
+  public reproceso: Reproceso;
   public operator: Operator;
   // public canastaVacia: Warehouse1;
   public operario: string[];
@@ -106,6 +115,9 @@ export class SalidasWarehouse1Component implements OnInit {
     private guarnecidaService: GuarnecidaService,
     private guarnecidaExternaService: GuarnecidaExternaService,
     private ojaleteadoService: OjaleteadoService,
+    private injection1Service: Injection1Service,
+    private strobellService: StrobellService,
+    private reprocesoService: ReprocesoService,
     private _userService: UserService,
     private operatorService: OperatorService,
     private terminationService: TerminationService,
@@ -119,7 +131,8 @@ export class SalidasWarehouse1Component implements OnInit {
     this.guarnecida = new Guarnecida('', '', []);
     this.guarnecidaExterna = new GuarnecidaExterna('', '', []);
     this.ojaleteado = new Ojaleteado('', '', []);
-    this.termination = new Termination('', '', []);
+    this.injection1 = new Injection1('', '', []);
+    this.reproceso = new Reproceso('', '', []);
     // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
@@ -136,6 +149,8 @@ export class SalidasWarehouse1Component implements OnInit {
     this.warehouses = [
     'Guarnecida Externa',
     'Ojaleteado',
+    'Inyeccion-Cementado',
+    'Strobell-Virado',
     'Reproceso'
   ];
     this.salidas = [
@@ -331,11 +346,11 @@ export class SalidasWarehouse1Component implements OnInit {
 // ================================================
 // GUARDAR UNA UNIDAD EN OJALETEADO
 // ================================================
-  onSubmit(data) {
+  addOjaleteado(data) {
     this.ojaleteadoService.addOjaleteado(this.token, data).subscribe(
         response => {
 
-          this.termination.operator = this.selecOperator;
+          this.ojaleteado.operator = this.selecOperator;
           this.formData.reset();
           const control = this.addressListArray.controls;
           control.splice(data);
@@ -392,6 +407,100 @@ export class SalidasWarehouse1Component implements OnInit {
     }
 
 
+  // ================================================
+  // GUARDAR UNA UNIDAD EN INYECCÓN 1
+  // ================================================
+  addInjection1(data) {
+    
+    this.injection1Service.addInjection1(this.token, data).subscribe(
+                response => {
+                  console.log('data',  this.formData.value);
+                  this.formData.reset();
+                  const control = this.addressListArray.controls;
+                  control.splice(data);
+                  this.seleccion = '';
+                  const s = this.formData.value.registros;
+                  s.splice(data);
+                  this.codigo.splice(data);
+                  this.referencia.splice(data);
+                  this.talla.splice(data);
+                  this.clasificacion.splice(data);
+                  this.idAlmacen.splice(data);
+                  this.operario.splice(data);
+                  this.selecOperator = '';
+                  this.busqueda = '';
+                },
+                error  => {
+                  console.log(error as any);
+                }
+                );
+
+    }
+
+
+
+  // ================================================
+  // GUARDAR UNA UNIDAD EN STROBELL
+  // ================================================
+  addStrobell(data) {
+    
+    this.strobellService.addStrobell(this.token, data).subscribe(
+                response => {
+                  console.log('data',  this.formData.value);
+                  this.formData.reset();
+                  const control = this.addressListArray.controls;
+                  control.splice(data);
+                  this.seleccion = '';
+                  const s = this.formData.value.registros;
+                  s.splice(data);
+                  this.codigo.splice(data);
+                  this.referencia.splice(data);
+                  this.talla.splice(data);
+                  this.clasificacion.splice(data);
+                  this.idAlmacen.splice(data);
+                  this.operario.splice(data);
+                  this.selecOperator = '';
+                  this.busqueda = '';
+                },
+                error  => {
+                  console.log(error as any);
+                }
+                );
+
+    }
+
+
+  // ================================================
+  // GUARDAR UNA UNIDAD EN REPROCESO
+  // ================================================
+  addReproceso(data) {
+    
+    this.reprocesoService.addReproceso(this.token, data).subscribe(
+                response => {
+                  console.log('data',  this.formData.value);
+                  this.formData.reset();
+                  const control = this.addressListArray.controls;
+                  control.splice(data);
+                  this.seleccion = '';
+                  const s = this.formData.value.registros;
+                  s.splice(data);
+                  this.codigo.splice(data);
+                  this.referencia.splice(data);
+                  this.talla.splice(data);
+                  this.clasificacion.splice(data);
+                  this.idAlmacen.splice(data);
+                  this.operario.splice(data);
+                  this.selecOperator = '';
+                  this.busqueda = '';
+                },
+                error  => {
+                  console.log(error as any);
+                }
+                );
+
+    }  
+
+
 
   // ================================================
   // ELIMINAR UNA UNIDAD  EN UNA CANASTA DEL ALMACEN 1
@@ -411,12 +520,12 @@ export class SalidasWarehouse1Component implements OnInit {
               }
               );
             }
-            
+
   }
 
 
 // ================================================
-// ELIMINAR COLECCIONES VACIAS  
+// ELIMINAR COLECCIONES VACIAS
 // ================================================
   deleteCanastaVacia() {
     this._warehouse1Service.getWarehouses1().subscribe(

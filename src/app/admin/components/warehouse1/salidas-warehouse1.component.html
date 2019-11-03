@@ -163,7 +163,7 @@
           <div class="card">
               <div class="card-body" id="caja">    
                   <div class="row caja" >    
-                      <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value) " > 
+                      <form [formGroup]="formData" (ngSubmit)="deleteItem(formData.value) " > 
 
                           <div class="form-group" >
                               <div id=addresBlock formArrayName="registros" >
@@ -197,11 +197,22 @@
                           </div>
 
                           <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Ojaleteado'">
-                              <button type="submit"   class="btn btn-success">Guardar</button>
+                              <button (click)="addOjaleteado()"   class="btn btn-success">Guardar</button>
                           </div>
 
                           <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Guarnecida Externa'">
                             <button (click)="addGuarnecidaExterna(formData.value)"  class="btn btn-success">Guardar</button>
+                        </div>
+                        <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Inyeccion-Cementado'">
+                            <button (click)="addInjection1(formData.value)"  class="btn btn-success">Guardar</button>
+                        </div>
+
+                        <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Strobell-Virado'">
+                            <button (click)="addStrobell(formData.value)"  class="btn btn-success">Guardar</button>
+                        </div>
+
+                        <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Reproceso'">
+                            <button (click)="addReproceso(formData.value)"  class="btn btn-success">Guardar</button>
                         </div>
                       </form>
                   </div>
