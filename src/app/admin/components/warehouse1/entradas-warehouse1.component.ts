@@ -14,9 +14,22 @@ import { throwError, from } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Guarnecida } from '../../../models/guarnecida';
 import { GuarnecidaService } from '../../../services/guarnecida.service';
+import { StrobellService } from '../../../services/strobell.service';
+import { Strobell } from '../../../models/strobell';
+import { Ojaleteado } from '../../../models/ojaleteado';
+import { OjaleteadoService } from '../../../services/ojaleteado.service';
+import { Reproceso } from '../../../models/reproceso';
+import { ReprocesoService } from '../../../services/reproceso.service';
+import { GuarnecidaExterna } from '../../../models/guarnecida-externa';
+import { GuarnecidaExternaService } from '../../../services/guarnecida-externa.service';
+
+import { Virado } from '../../../models/virado';
+import { ViradoService } from '../../../services/virado.service';
+import { Injection1 } from '../../../models/injection1';
+import { Injection1Service } from '../../../services/injection1.service';
 
 
-// tslint:disable-next-line:label-position
+
 
 
 
@@ -27,12 +40,50 @@ import { GuarnecidaService } from '../../../services/guarnecida.service';
 })
 export class EntradasWarehouse1Component implements OnInit {
 
+  @ViewChild('code') code: ElementRef;
+  @ViewChild('reference') reference: ElementRef;
+  @ViewChild('size') size: ElementRef;
+  @ViewChild('idWarehouse') idWarehouse: ElementRef;
+  @ViewChild('conStrobell') conStrobell: ElementRef;
+  @ViewChild('sinStrobell') sinStrobell: ElementRef;
+  
+  
+  
+  public warehouse1: Warehouse1;
+  public tareaUnidad: TareaUnidad;
+  public guarnecida: Guarnecida;
+  public strobell: Strobell[];
+  public ojaleteado: Ojaleteado[];
+  public reproceso: Reproceso[];
+  public virado: Virado[];
+  public guarnecidaExterna: GuarnecidaExterna[];
+  public injection: Injection1[];
+  public token;
+  public busqueda;
+  public codigo: string[];
+  public referencia: string[];
+  public talla: string[];
+  public idAlmacen: string[];
+  public status;
+  public warehouses: any[];
+  public seleccion;
+  public clasificacion: any[];
+
+  formData: FormGroup;
+
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private tareaUnidadService: TareaUnidadService,
     private _warehouse1Service: Warehouse1Service,
     private guarnecidaService: GuarnecidaService,
+    private strobellService: StrobellService,
+    private ojaleteadoService: OjaleteadoService,
+    private reprocesoService: ReprocesoService,
+    private guarnecidaExternaService: GuarnecidaExternaService,
+    private injectionService: Injection1Service,
+    private viradoService: ViradoService,
     private _userService: UserService,
     private http: HttpClient,
 
@@ -52,11 +103,12 @@ export class EntradasWarehouse1Component implements OnInit {
     this.seleccion = '';
 
     this.warehouses = [
-    'Guarnecida interna',
-    'Guarnecida externa',
+    'Guarnecida-Interna',
+    'Guarnecida-Externa',
     'Strobell',
     'Ojaleteado',
     'Virado',
+    'Inyeccion-Cementado',
     'Reproceso'
     ];
 
@@ -71,35 +123,18 @@ export class EntradasWarehouse1Component implements OnInit {
     });
   }
 
-  @ViewChild('code') code: ElementRef;
-  @ViewChild('reference') reference: ElementRef;
-  @ViewChild('size') size: ElementRef;
-  @ViewChild('idWarehouse') idWarehouse: ElementRef;
-  @ViewChild('conStrobell') conStrobell: ElementRef;
-  @ViewChild('sinStrobell') sinStrobell: ElementRef;
   
-  
-  
-  public warehouse1: Warehouse1;
-  public tareaUnidad: TareaUnidad;
-  public guarnecida: Guarnecida;
-  public token;
-  public busqueda;
-  public codigo: string[];
-  public referencia: string[];
-  public talla: string[];
-  public idAlmacen: string[];
-  public status;
-  public warehouses: any[];
-  public seleccion;
-  public clasificacion: any[];
-
-  formData: FormGroup;
-
 
   ngOnInit() {
     this.getGuarnecida();
-    // this.getWarehouses()
+    this.getGuarnecidaExterna();
+    this.getStrobell();
+    this.getOjaleteado();
+    this.getReproceso();
+    this.getVirado();
+    this.getInjection();
+    
+    
 
     // INSTRUCCION QUE NO PERMITE INSERTAR ITEMS VACIOS
     const control = this.addressListArray.controls;
@@ -114,7 +149,7 @@ export class EntradasWarehouse1Component implements OnInit {
 
 
   // ================================================
-  // AGREGA UNA UNIDAD A LA LISTA PARA SER GUARDADA 
+  // AGREGA UNA UNIDAD A LA LISTA PARA SER GUARDADA
   // ================================================
   addAddress() {
     // Me pone el scroll al principio
@@ -161,6 +196,7 @@ export class EntradasWarehouse1Component implements OnInit {
   }
 
 
+
 // ================================================
 // RECOJE LOS VALORES DE CADA UNO DE LOS ITEMS
 // ================================================
@@ -175,6 +211,9 @@ export class EntradasWarehouse1Component implements OnInit {
       clasification: ['']
     });
   }
+
+
+  
 
 
   // ================================================
@@ -202,13 +241,13 @@ export class EntradasWarehouse1Component implements OnInit {
 // ================================================
 // ELIMINA UNA UNIDAD DE GUARNECIDA
 // ================================================
-  deleteItem(dat) {
+  deleteItemGuarnecida(dat) {
     
     for (let i = 0; i <= dat.registros.length; i++) {
 
       this.guarnecidaService.updateGuarnecida(this.token, dat.registros[i]).subscribe(
               response => {
-                this.deleteCanastaVacia();
+                this.deleteCanastaVaciaGuarnecida();
 
               },
               error => {
@@ -220,50 +259,521 @@ export class EntradasWarehouse1Component implements OnInit {
   }
 
 
-  // ================================================
-// ELIMINAR COLECCIONES VACIAS  
 // ================================================
-deleteCanastaVacia() {
-  this.guarnecidaService.getGuarnecidas().subscribe(
-    response => {
-      if (!response.guarnecida ) {
-        console.log('Error en el servidor');
-      } else {
-
-        for (const i of response.guarnecida) {
-            if (i.registros.length === 0) {
-              // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
-
-              this.guarnecidaService.deleteGuarnecida(this.token, i._id).subscribe(
-                response => {
-
-                },
-                error => {
-                  console.log(error as any);
-                }
-              );
-              
-            } else {
-
-            }
-          
+// ELIMINAR COLECCIONES VACIAS DE GUARNECIDA
+// ================================================
+  deleteCanastaVaciaGuarnecida() {
+    this.guarnecidaService.getGuarnecidas().subscribe(
+      response => {
+        if (!response.guarnecida ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.guarnecida) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.guarnecidaService.deleteGuarnecida(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
         }
+      },
+      error => {
+        console.log(error as any);
       }
-     
-    },
-    error => {
-      console.log(error as any);
-    }
-  );
-}
+    );
+  }
 
 
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN GUARNECIDA EXTERNA
+  // ================================================
+  getGuarnecidaExterna() {
+    this.guarnecidaExternaService.getGuarnecidasExterna().subscribe(
+      response => {
+        if (!response.guarnecidaExterna) {
+          this.status = false;
+          console.log('no entro ', this.status);
+        } else {
+          this.guarnecidaExterna = response.guarnecidaExterna;
+          console.log('guarnecidaExterna', this.guarnecidaExterna);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+// ================================================
+// ELIMINA UNA UNIDAD DE GUARNECIDA EXTERNA
+// ================================================
+  deleteItemGuarnecidaExterna(dat) {
+    
+    for (let i = 0; i <= dat.registros.length; i++) {
+
+      this.guarnecidaExternaService.updateGuarnecidaExterna(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaGuarnecidaExterna();
+
+              },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+
+  }
+
+
+// ================================================
+// ELIMINAR COLECCIONES VACIAS DE GUARNECIDA EXTERNA
+// ================================================
+  deleteCanastaVaciaGuarnecidaExterna() {
+    this.guarnecidaExternaService.getGuarnecidasExterna().subscribe(
+      response => {
+        if (!response.guarnecidaExterna ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.guarnecidaExterna) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.guarnecidaExternaService.deleteGuarnecidaExterna(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN OJALETEADO
+  // ================================================
+  getOjaleteado() {
+    this.ojaleteadoService.getOjaleteados().subscribe(
+      response => {
+        if (!response.ojaleteado) {
+            this.status = false;
+            console.log('status', this.status);
+        } else {
+          this.ojaleteado = response.ojaleteado;
+          console.log('ojaleteado', this.ojaleteado);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE OJALETEADO
+  // ================================================
+  deleteItemOjaleteado(dat) {
+
+    for (let i = 0; i <= dat.registros.length; i++) {
+
+      this.ojaleteadoService.updateOjaleteado(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaOjaleteado();
+
+            },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  }
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE OJALETEADO
+  // ================================================
+  deleteCanastaVaciaOjaleteado() {
+    this.ojaleteadoService.getOjaleteados().subscribe(
+      response => {
+        if (!response.ojaleteado ) {
+          console.log('Error en el servidor');
+        } else {
+
+          for (const i of response.ojaleteado) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+
+                this.ojaleteadoService.deleteOjaleteado(this.token, i._id).subscribe(
+                  response => {
+
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN STROBELL
+  // ================================================
+  getStrobell() {
+    this.strobellService.getStrobells().subscribe(
+      response => {
+        if (!response.strobell) {
+            this.status = false;
+            console.log('status', this.status);
+          } else {
+            this.strobell = response.strobell;
+            console.log('strobell', this.strobell);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE STROBELL
+  // ================================================
+  deleteItemStrobell(dat) {
+
+    for (let i = 0; i <= dat.registros.length; i++) {
+
+      this.strobellService.updateStrobell(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaStrobell();
+
+            },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  }
+
+
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE STROBELL
+  // ================================================
+  deleteCanastaVaciaStrobell() {
+    this.strobellService.getStrobells().subscribe(
+      response => {
+        if (!response.strobell ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.strobell) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.strobellService.deleteStrobell(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN INYECCION
+  // ================================================
+  getInjection() {
+    this.injectionService.getInjections().subscribe(
+      response => {
+        if (!response.injection) {
+            this.status = false;
+            console.log('statusi', this.status);
+          } else {
+            this.injection = response.injection;
+            console.log('injection', this.injection);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE INYECCION
+  // ================================================
+  deleteItemInjection(dat) {
+
+    for (let i = 0; i <= dat.registros.length; i++) {
+
+      this.injectionService.updateInjection(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaInjection();
+
+            },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  }
+
+
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE   INYECCION
+  // ================================================
+  deleteCanastaVaciaInjection() {
+    this.injectionService.getInjections().subscribe(
+      response => {
+        if (!response.injection ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.injection) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.injectionService.deleteInjection1(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  
+
+
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN REPROCESO
+  // ================================================
+  getReproceso() {
+    this.reprocesoService.getReproceso().subscribe(
+      response => {
+        if (!response.reproceso) {
+            this.status = false;
+            console.log('status', this.status);
+        } else {
+          this.reproceso = response.reproceso;
+          console.log('reproceso', this.reproceso);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE REPROCESO
+  // ================================================
+  deleteItemReproceso(dat) {
+      
+    for (let i = 0; i <= dat.registros.length; i++) {
+  
+      this.reprocesoService.updateReproceso(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaReproceso();
+  
+              },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  
+  }
+
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE REPROCESO
+  // ================================================
+  deleteCanastaVaciaReproceso() {
+    this.reprocesoService.getReproceso().subscribe(
+      response => {
+        if (!response.reproceso ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.reproceso) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.reprocesoService.deleteReproceso(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+  
+
+  
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN VIRADO
+  // ================================================
+  getVirado() {
+    this.viradoService.getVirados().subscribe(
+      response => {
+        if (!response.virado) {
+            this.status = false;
+            console.log('status', this.status);
+        } else {
+          this.virado = response.virado;
+          console.log('virado', this.virado);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE VIRADO
+  // ================================================
+  deleteItemVirado(dat) {
+      
+    for (let i = 0; i <= dat.registros.length; i++) {
+  
+      this.viradoService.updateInVirado(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaVirado();
+  
+              },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  
+  }
+
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE VIRADO
+  // ================================================
+  deleteCanastaVaciaVirado() {
+    this.viradoService.getVirados().subscribe(
+      response => {
+        if (!response.virado ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.virado) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.viradoService.deleteVirado(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
 
 
 // ================================================
 // GUARDA UN CONJUNTO DE UNIDADES EN EL ALMACEN 1
 // ================================================
-  onSubmit(data) {
+  addWarehouse1(data) {
     
     this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
                 response => {
@@ -282,6 +792,12 @@ deleteCanastaVacia() {
                   this.clasificacion.splice(data);
                   this.idAlmacen.splice(data);
                   this.getGuarnecida();
+                  this.getReproceso();
+                  this.getStrobell();
+                  this.getOjaleteado();
+                  this.getGuarnecidaExterna();
+                  this.getInjection();
+
                 },
                 error  => {
                   console.log(error as any);

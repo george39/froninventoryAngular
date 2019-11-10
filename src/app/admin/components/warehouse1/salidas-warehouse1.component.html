@@ -1,7 +1,16 @@
 <div class="row top">
 
-    <div class="row col-lg-12 col-lg-offset-1 inner-addon salida-unidad">
-            <div class="col-lg-3 inner-addon">
+    <div class="row col-lg-12 col-lg-offset-1 inner-addon salida-unidad">    
+
+        <div class="col-lg-4 inner-addon ">
+            <span class="titulo">Almacen para donde va </span>
+            <select [(ngModel)]="seleccion">   
+            <option value="">Elija el almacen de destino</option>
+            <option *ngFor="let o of warehouses" [value]="o">{{o}}</option>
+            </select>
+        </div>
+
+        <div class="col-lg-3 inner-addon" *ngIf="seleccion !== 'Guarnecida-Externa'">
             <div>
                 <span class="titulo">Operario </span>
             </div>
@@ -10,16 +19,19 @@
                 <option *ngFor="let operario of operators" id="opcion"  [value]="operario.name">{{operario.name}}</option>
 
             </select>
+        </div>
+
+        <div>
+        <div class="col-lg-3 inner-addon" *ngIf="seleccion === 'Guarnecida-Externa'">
+            <div>
+                <span class="titulo">Operario </span>
             </div>
+            <select  [(ngModel)]="selecOperator"  #selecOperario>   
+                <option value="">Elija operario</option>
+                <option *ngFor="let operario of externos" id="opcion"  [value]="operario">{{operario}}</option>
 
-    
-
-        <div class="col-lg-4 inner-addon ">
-            <span class="titulo">Almacen para donde va </span>
-            <select [(ngModel)]="seleccion">   
-            <option value="">Elija el almacen de destino</option>
-            <option *ngFor="let o of warehouses" [value]="o">{{o}}</option>
             </select>
+        </div>
         </div>
 
         <div class="col-lg-4 inner-addon ">
@@ -38,7 +50,7 @@
      SALIDAS A GUARNECIDA EXTERNA 
      *************************************************************
 -->
-    <div *ngIf="seleccion === 'Guarnecida Externa'">        
+    <div *ngIf="seleccion === 'Guarnecida-Externa'">        
         
             <div *ngFor="let registro of warehouse1 ">
                 <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
@@ -197,22 +209,26 @@
                           </div>
 
                           <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Ojaleteado'">
-                              <button (click)="addOjaleteado()"   class="btn btn-success">Guardar</button>
+                              <button (click)="addOjaleteado(formData.value)"   class="btn btn-success">Guardar</button>
                           </div>
 
-                          <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Guarnecida Externa'">
+                          <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Guarnecida-Externa'">
                             <button (click)="addGuarnecidaExterna(formData.value)"  class="btn btn-success">Guardar</button>
                         </div>
                         <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Inyeccion-Cementado'">
                             <button (click)="addInjection1(formData.value)"  class="btn btn-success">Guardar</button>
                         </div>
 
-                        <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Strobell-Virado'">
+                        <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Strobell'">
                             <button (click)="addStrobell(formData.value)"  class="btn btn-success">Guardar</button>
                         </div>
 
                         <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Reproceso'">
                             <button (click)="addReproceso(formData.value)"  class="btn btn-success">Guardar</button>
+                        </div>
+
+                        <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Virado'">
+                            <button (click)="addVirado(formData.value)"  class="btn btn-success">Guardar</button>
                         </div>
                       </form>
                   </div>

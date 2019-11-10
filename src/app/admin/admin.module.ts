@@ -48,7 +48,6 @@ import { EntradasWarehouse1Component } from './components/warehouse1/entradas-wa
 import { SalidasWarehouse1Component } from './components/warehouse1/salidas-warehouse1.component';
 import { EntradasWarehouse2Component } from './components/warehouse2/entradas-warehouse2.component';
 import { SalidasWarehouse2Component } from './components/warehouse2/salidas-warehouse2.component';
-import { EntradasGuarnecidaExternaComponent } from './components/guarnecidaExterna/entradas-guarnecida-externa.component';
 
 
 
@@ -59,7 +58,7 @@ import { EntradasGuarnecidaExternaComponent } from './components/guarnecidaExter
 		MainComponent,
 		ListComponent,
 		AddComponent,
-		EditComponent,		
+		EditComponent,
 		ListOperatorsComponent,
 		AddReferenceComponent,
 		AddHomeworkComponent,
@@ -87,7 +86,7 @@ import { EntradasGuarnecidaExternaComponent } from './components/guarnecidaExter
 		SalidasWarehouse1Component,
 		EntradasWarehouse2Component,
 		SalidasWarehouse2Component,
-		EntradasGuarnecidaExternaComponent,
+		
 		
 		
 		
@@ -119,7 +118,7 @@ import { EntradasGuarnecidaExternaComponent } from './components/guarnecidaExter
 	providers: [
 		UserService,
 		AdminGuard,
-		Warehouse1Service
+		Warehouse1Service,
 	]
 })
 

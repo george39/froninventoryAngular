@@ -30,6 +30,8 @@ import { Strobell } from '../../../models/strobell';
 import { StrobellService } from '../../../services/strobell.service';
 import { Reproceso } from '../../../models/reproceso';
 import { ReprocesoService } from '../../../services/reproceso.service';
+import { Virado } from '../../../models/virado';
+import { ViradoService } from '../../../services/virado.service';
 
 
 
@@ -78,6 +80,7 @@ export class SalidasWarehouse1Component implements OnInit {
   public warehouse: Warehouse1[];
   public termination: Termination;
   public ojaleteado: Ojaleteado;
+  public virado: Virado;
   public token;
   public busqueda;
   public busqueda2;
@@ -89,6 +92,7 @@ export class SalidasWarehouse1Component implements OnInit {
 
   public status;
   public warehouses: any[];
+  public externos: any[];
   public seleccion;
   public salidas: any[];
   public selecSalidas;
@@ -118,6 +122,7 @@ export class SalidasWarehouse1Component implements OnInit {
     private injection1Service: Injection1Service,
     private strobellService: StrobellService,
     private reprocesoService: ReprocesoService,
+    private viradoService: ViradoService,
     private _userService: UserService,
     private operatorService: OperatorService,
     private terminationService: TerminationService,
@@ -133,6 +138,7 @@ export class SalidasWarehouse1Component implements OnInit {
     this.ojaleteado = new Ojaleteado('', '', []);
     this.injection1 = new Injection1('', '', []);
     this.reproceso = new Reproceso('', '', []);
+    this.virado = new Virado('', '', []);
     // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
@@ -147,12 +153,21 @@ export class SalidasWarehouse1Component implements OnInit {
 
     this.status = true;
     this.warehouses = [
-    'Guarnecida Externa',
+    'Guarnecida-Externa',
     'Ojaleteado',
     'Inyeccion-Cementado',
-    'Strobell-Virado',
+    'Strobell',
+    'Virado',
     'Reproceso'
   ];
+
+    this.externos = [
+      'Enoc',
+      'Viviana',
+      'Carolina',
+      'Fernando',
+      'Ariel'
+    ];
     this.salidas = [
       'unidad',
       'canasta'
@@ -192,6 +207,7 @@ export class SalidasWarehouse1Component implements OnInit {
      this.HomeworkUnit();
      this.getOperator();
      this.getWarehouses();
+     
 
 
      // Instruccion que no permite insertar items vacios
@@ -296,7 +312,7 @@ export class SalidasWarehouse1Component implements OnInit {
 
 
   getGuarnecidaExterna() {
-    this.guarnecidaExternaService.getGuarnecidas().subscribe(
+    this.guarnecidaExternaService.getGuarnecidasExterna().subscribe(
       response => {
         if (!response.guarnecidaExterna) {
             this.status = false;
@@ -382,6 +398,37 @@ export class SalidasWarehouse1Component implements OnInit {
   addGuarnecidaExterna(data) {
     
     this.guarnecidaExternaService.addGuarnecida(this.token, data).subscribe(
+                response => {
+                  console.log('data',  this.formData.value);
+                  this.formData.reset();
+                  const control = this.addressListArray.controls;
+                  control.splice(data);
+                  this.seleccion = '';
+                  const s = this.formData.value.registros;
+                  s.splice(data);
+                  this.codigo.splice(data);
+                  this.referencia.splice(data);
+                  this.talla.splice(data);
+                  this.clasificacion.splice(data);
+                  this.idAlmacen.splice(data);
+                  this.operario.splice(data);
+                  this.selecOperator = '';
+                  this.busqueda = '';
+                },
+                error  => {
+                  console.log(error as any);
+                }
+                );
+
+    }
+
+
+    // ================================================
+  // GUARDAR UNA UNIDAD EN  VIRADO
+  // ================================================
+  addVirado(data) {
+    
+    this.viradoService.addVirado(this.token, data).subscribe(
                 response => {
                   console.log('data',  this.formData.value);
                   this.formData.reset();

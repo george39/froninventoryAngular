@@ -1,4 +1,4 @@
-export class Strobell{
+export class Strobell {
 	constructor(
 	public _id: string,
 	public operator: string,

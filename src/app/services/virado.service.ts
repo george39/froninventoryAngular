@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GLOBAL } from './global';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class Injection1Service {
+export class ViradoService {
   public url: string;
 
   constructor(
@@ -19,45 +19,45 @@ export class Injection1Service {
    }
 
    // ================================================
-   // GUARDAR UNA UNIDAD EN INYECCION 1
+   // GUARDAR UNA UNIDAD EN VIRADO
    // ================================================
-   addInjection1(token, injection1): Observable<any> {
-     const params = JSON.stringify(injection1);
+   addVirado(token, virado): Observable<any> {
+     const params = JSON.stringify(virado);
      const headers = new HttpHeaders({'Content-Type': 'application/json',
            Authorization: token});
 
-     return this.http.post(this.url + 'addinjection1', params, {headers});
+     return this.http.post(this.url + 'virado', params, {headers});
    }
 
 
    // ================================================
-   // ELIMINAR UNA UNIDAD EN INYECCION 1
+   // ELIMINAR UNA UNIDAD EN VIRADO
    // ================================================
-   updateInjection(token, injection1): Observable<any> {
-     const params = JSON.stringify(injection1);
+   updateInVirado(token, virado): Observable<any> {
+     const params = JSON.stringify(virado);
      const headers = new HttpHeaders({'Content-Type': 'application/json',
            Authorization: token});
 
-     return this.http.put(this.url + 'delete-item-injection1', params, {headers});
+     return this.http.put(this.url + 'delete-item-virado', params, {headers});
    }
 
 
    // ================================================
-   // LISTAR LAS COLECCIONES DE INYECCION 1
+   // LISTAR LAS COLECCIONES DE VIRADO
    // ================================================
-   getInjections(): Observable<any> {
-     return this.http.get(this.url + 'getinjection1').pipe(map(response => response));
+   getVirados(): Observable<any> {
+     return this.http.get(this.url + 'getvirado').pipe(map(response => response));
    }
 
 
    // ================================================
    // ELIMINAR UNA COLECCION DE INYECCIÓN 1
    // ================================================
-   deleteInjection1(token, id): Observable<any> {
+   deleteVirado(token, id): Observable<any> {
      const headers = new HttpHeaders({'Content-Type': 'application/json',
            Authorization: token});
 
-     return this.http.delete(this.url + 'deleteinjection1/' + id, {headers});
+     return this.http.delete(this.url + 'deletevirado/' + id, {headers});
    }
 
 }

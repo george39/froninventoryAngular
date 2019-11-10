@@ -16,41 +16,46 @@ export class OjaleteadoService {
     this.url = GLOBAL.url;
    }
 
+   // ================================================
+   // GUARDAR UNA UNIDAD EN OJALETEADO
+   // ================================================
    addOjaleteado(token, ojaleteado): Observable<any> {
-     const params = JSON.stringify(ojaleteado);
-     const headers = new HttpHeaders({'Content-Type': 'application/json',
-           Authorization: token});
+    const params = JSON.stringify(ojaleteado);
+    const headers = new HttpHeaders({'Content-Type': 'application/json',
+          Authorization: token});
 
-     return this.http.post(this.url + 'ojaleteado', params, {headers});
-   }
-
-   updateGuarnecida(token, guarnecida): Observable<any> {
-		const params = JSON.stringify(guarnecida);
-		const headers = new HttpHeaders({'Content-Type': 'application/json',
-			Authorization: token
-		});
-
-  return this.http.put(this.url + 'deleteitem/', params, { headers});
+    return this.http.post(this.url + 'ojaleteado', params, {headers});
   }
 
-  getGuarnecidas(): Observable<any>{
-   return this.http.get(this.url + 'getguarnecidas').pipe(map(response => response));
+
+  // ================================================
+  // ELIMINAR UNA UNIDAD EN OJALETEADO
+  // ================================================
+  updateOjaleteado(token, ojaleteado): Observable<any> {
+    const params = JSON.stringify(ojaleteado);
+    const headers = new HttpHeaders({'Content-Type': 'application/json',
+          Authorization: token});
+
+    return this.http.put(this.url + 'delete-item-ojaleteado', params, {headers});
   }
 
-  deleteGuarnecida(token, id): Observable<any>{
-		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-									   .set('Authorization', token);
 
-	 return this.http.delete(this.url + 'deleteguarnecida/' + id, {headers});
+  // ================================================
+  // LISTAR LAS COLECCIONES DE OJALETEADO
+  // ================================================
+  getOjaleteados(): Observable<any> {
+    return this.http.get(this.url + 'getojaleteado').pipe(map(response => response));
   }
-  
-  updateCanasta(token, id, guarnecida): Observable<any>{
-		let params = JSON.stringify(guarnecida);
-		let headers = new HttpHeaders({'Content-Type': 'application/json',
-			'Authorization': token
-		});
 
-		return this.http.put(this.url + 'update-canasta/' + id, params, {headers});
-	}
+
+  // ================================================
+  // ELIMINAR UNA COLECCION DE OJALETEADO
+  // ================================================
+  deleteOjaleteado(token, id): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json',
+          Authorization: token});
+
+    return this.http.delete(this.url + 'deleteojaleteado/' + id, {headers});
+  }
 	
 }

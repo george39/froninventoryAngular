@@ -57,7 +57,7 @@
      ENTRADAS DE GUARNECIDA INTERNA 
      *************************************************************
     -->
-  <div *ngIf="seleccion === 'Guarnecida interna'">        
+  <div *ngIf="seleccion === 'Guarnecida-Interna'">        
           <div class="container">
               <div class="row ">
                   <b><div class="col-lg-1 codigo titulo">Código</div></b>
@@ -78,13 +78,181 @@
                   </div>
                 </div>
               </div> 
-    </div>         
+    </div>
+
+
+    <!-- *************************************************************
+     ENTRADAS DE GUARNECIDA EXTERNA
+     *************************************************************
+    -->
+  <div *ngIf="seleccion === 'Guarnecida-Externa'">        
+    <div class="container">
+        <div class="row ">
+            <b><div class="col-lg-1 codigo titulo">Código</div></b>
+            <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
+            <b><div class="col-lg-1 talla titulo" >Talla</div></b>
+        </div>
+    </div>
+        <div *ngFor="let registro of guarnecidaExterna ">
+            <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
+            <div *ngIf="busqueda === unidad.code">
+                <div class="row">
+                    <div><input type="hidden" #code value="{{unidad.code}}"></div>
+                    <div><input type="hidden" #reference value="{{unidad.reference}}"></div>
+                    <div><input type="hidden" #size value="{{unidad.size}}"></div>
+                    <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                    <div><input type="hidden"   value="{{unidad.clasification}}"></div>
+                </div>
+            </div>
+          </div>
+        </div> 
+</div>
+    
+    
+    <!-- *************************************************************
+     ENTRADAS DE OJALETEADO 
+     *************************************************************
+    -->
+    <div *ngIf="seleccion === 'Ojaleteado'">        
+        <div class="container">
+            <div class="row ">
+                <b><div class="col-lg-1 codigo titulo">Código</div></b>
+                <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
+                <b><div class="col-lg-1 talla titulo" >Talla</div></b>
+            </div>
+        </div>
+        <div *ngFor="let registro of ojaleteado ">
+            <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
+                <div *ngIf="busqueda === unidad.code">
+                    <div class="row">
+                        <div><input type="hidden" #code value="{{unidad.code}}"></div>
+                        <div><input type="hidden" #reference value="{{unidad.reference}}"></div>
+                        <div><input type="hidden" #size value="{{unidad.size}}"></div>
+                        <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                        <div><input type="hidden"   value="{{unidad.clasification}}"></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+
+
+    <!-- *************************************************************
+     ENTRADAS DE STROBELL 
+     *************************************************************
+    -->
+    <div *ngIf="seleccion === 'Strobell'">        
+        <div class="container">
+            <div class="row ">
+                <b><div class="col-lg-1 codigo titulo">Código</div></b>
+                <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
+                <b><div class="col-lg-1 talla titulo" >Talla</div></b>
+            </div>
+        </div>
+        <div *ngFor="let registro of strobell ">
+            <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
+                <div *ngIf="busqueda === unidad.code">
+                    <div class="row">
+                        <div><input type="hidden" #code value="{{unidad.code}}"></div>
+                        <div><input type="hidden" #reference value="{{unidad.reference}}"></div>
+                        <div><input type="hidden" #size value="{{unidad.size}}"></div>
+                        <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                        <div><input type="hidden"   value="{{unidad.clasification}}"></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+
+    <!-- *************************************************************
+     ENTRADAS DE VIRADO
+     *************************************************************
+    -->
+    <div *ngIf="seleccion === 'Virado'">        
+        <div class="container">
+            <div class="row ">
+                <b><div class="col-lg-1 codigo titulo">Código</div></b>
+                <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
+                <b><div class="col-lg-1 talla titulo" >Talla</div></b>
+            </div>
+        </div>
+        <div *ngFor="let registro of virado ">
+            <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
+                <div *ngIf="busqueda === unidad.code">
+                    <div class="row">
+                        <div><input type="hidden" #code value="{{unidad.code}}"></div>
+                        <div><input type="hidden" #reference value="{{unidad.reference}}"></div>
+                        <div><input type="hidden" #size value="{{unidad.size}}"></div>
+                        <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                        <div><input type="hidden"   value="{{unidad.clasification}}"></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+
+    <!-- *************************************************************
+     ENTRADAS DE INJECTION
+     *************************************************************
+    -->
+    <div *ngIf="seleccion === 'Inyeccion-Cementado'">        
+        <div class="container">
+            <div class="row ">
+                <b><div class="col-lg-1 codigo titulo">Código</div></b>
+                <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
+                <b><div class="col-lg-1 talla titulo" >Talla</div></b>
+            </div>
+        </div>
+        <div *ngFor="let registro of injection ">
+            <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
+                <div *ngIf="busqueda === unidad.code">
+                    <div class="row">
+                        <div><input type="hidden" #code value="{{unidad.code}}"></div>
+                        <div><input type="hidden" #reference value="{{unidad.reference}}"></div>
+                        <div><input type="hidden" #size value="{{unidad.size}}"></div>
+                        <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                        <div><input type="hidden"   value="{{unidad.clasification}}"></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+
+    <!-- *************************************************************
+     ENTRADAS DE REPROCESO
+     *************************************************************
+    -->
+    <div *ngIf="seleccion === 'Reproceso'">        
+        <div class="container">
+            <div class="row ">
+                <b><div class="col-lg-1 codigo titulo">Código</div></b>
+                <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
+                <b><div class="col-lg-1 talla titulo" >Talla</div></b>
+            </div>
+        </div>
+            <div *ngFor="let registro of reproceso ">
+                <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
+                <div *ngIf="busqueda === unidad.code">
+                    <div class="row">
+                        <div><input type="hidden" #code value="{{unidad.code}}"></div>
+                        <div><input type="hidden" #reference value="{{unidad.reference}}"></div>
+                        <div><input type="hidden" #size value="{{unidad.size}}"></div>
+                        <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                        <div><input type="hidden"   value="{{unidad.clasification}}"></div>
+                    </div>
+                </div>
+            </div>
+            </div> 
+    </div>
 
   <div class="col-lg-12">
       <div class="card">
           <div class="card-body" id="caja">
               <div class="row caja" >
-                  <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)" >
+                  <form [formGroup]="formData"  >
                     
                       <div class="form-group ">
                           <div id=addresBlock formArrayName="registros">
@@ -116,10 +284,40 @@
 
                       </div>
 
-                      <div class="col-lg-2 inner-addon">
-                          <button type="submit" class="btn btn-success">Guardar</button>
-
+                      <!-- GUARDO EN ALMACEN 1 Y ELIMINO EN GUARNECIDA INTERNA -->
+                      <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Guarnecida-Interna'">
+                          <button (click)="addWarehouse1(formData.value); deleteItemGuarnecida(formData.value)" class="btn btn-success">Guardar</button>
                       </div>
+
+                      <!-- GUARDO EN ALMACEN 1 Y ELIMINO EN GUARNECIDA EXTERNA -->
+                      <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Guarnecida-Externa'">
+                        <button (click)="addWarehouse1(formData.value); deleteItemGuarnecidaExterna(formData.value)" class="btn btn-success">Guardar</button>
+                    </div>
+
+                      <!-- GUARDO EN ALMACEN 1 Y ELIMINO EN  STROBELL -->
+                      <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Strobell'">
+                        <button (click)="addWarehouse1(formData.value); deleteItemStrobell(formData.value)" class="btn btn-success">Guardar</button>
+                    </div>
+
+                    <!-- GUARDO EN ALMACEN 1 Y ELIMINO EN  OJALETEADO -->
+                    <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Ojaleteado'">
+                        <button (click)="addWarehouse1(formData.value); deleteItemOjaleteado(formData.value)" class="btn btn-success">Guardar</button>
+                    </div>
+
+                    <!-- GUARDO EN ALMACEN 1 Y ELIMINO EN  VIRADO -->
+                    <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Virado'">
+                        <button (click)="addWarehouse1(formData.value); deleteItemVirado(formData.value)" class="btn btn-success">Guardar</button>
+                    </div>
+
+                     <!-- GUARDO EN ALMACEN 1 Y ELIMINO EN  INYECCION -->
+                     <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Inyeccion-Cementado'">
+                        <button (click)="addWarehouse1(formData.value); deleteItemInjection(formData.value)" class="btn btn-success">Guardar</button>
+                    </div>
+
+                    <!-- GUARDO EN ALMACEN 1 Y ELIMINO EN  REPROCESO-->
+                    <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Reproceso'">
+                        <button (click)="addWarehouse1(formData.value); deleteItemReproceso(formData.value)" class="btn btn-success">Guardar</button>
+                    </div>
                   </form>
               </div>
 
