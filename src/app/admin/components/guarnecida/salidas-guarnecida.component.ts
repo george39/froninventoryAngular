@@ -27,11 +27,11 @@ import { TestObject } from 'protractor/built/driverProviders';
 
 
 @Component({
-  selector: 'app-salidas',
-  templateUrl: './salidas.component.html',
+  selector: 'app-salidas-guarnecida',
+  templateUrl: './salidas-guarnecida.component.html',
   providers: [OperatorService, Warehouse1Service]
 })
-export class SalidasComponent implements OnInit {
+export class SalidasGuarnecidaComponent implements OnInit {
  // BUSQUEDA POR UNIDAD
   @ViewChild('code') code: ElementRef;
   @ViewChild('reference') reference: ElementRef;
@@ -50,7 +50,7 @@ export class SalidasComponent implements OnInit {
 
 
   public operators: Operator[];
-  public warehouse1: Warehouse1;
+  // public warehouse1: Warehouse1;
   public guarnecida: Guarnecida;
   public operator: Operator;
   // public canastaVacia: Warehouse1;
@@ -80,9 +80,7 @@ export class SalidasComponent implements OnInit {
   public mostrarReferencia;
   public canastaVacia: string[];
 
-
-
-  formData: FormGroup;
+  public formData: FormGroup;
 
 
   constructor(
@@ -97,7 +95,7 @@ export class SalidasComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.token = this._userService.getToken();
-    this.warehouse1 = new Warehouse1('', '', []);
+    // this.warehouse1 = new Warehouse1('', '', []);
     this.guarnecida = new Guarnecida('', '', []);
     this.codigo = new Array();
     this.referencia = new Array();
@@ -122,17 +120,6 @@ export class SalidasComponent implements OnInit {
     'Almacen1',
     'Reproceso'
   ];
-    this.salidas = [
-      'unidad',
-      'canasta'
-    ];
-
-
-
-
-
-
-
 
     this.formData = this.fb.group({
       operator: [''],
@@ -205,21 +192,6 @@ export class SalidasComponent implements OnInit {
       this.busqueda = '';
       this.status = true;
 
-      var primera = document.getElementById('primera') as HTMLInputElement;
-      var segunda = document.getElementById('segunda') as HTMLInputElement;
-      
-      
-      if (primera.checked) {
-        this.clasificacion.push(this.primera.nativeElement.value);
-         
-        }
-
-      if (segunda.checked) {
-        this.clasificacion.push(this.segunda.nativeElement.value);
-           
-          }
-
-      
       console.log('clasifiacion', this.clasificacion);
 
 

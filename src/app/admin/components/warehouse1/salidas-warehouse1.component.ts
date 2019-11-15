@@ -414,6 +414,7 @@ export class SalidasWarehouse1Component implements OnInit {
                   this.operario.splice(data);
                   this.selecOperator = '';
                   this.busqueda = '';
+                  this.getWarehouses();
                 },
                 error  => {
                   console.log(error as any);
@@ -445,6 +446,7 @@ export class SalidasWarehouse1Component implements OnInit {
                   this.operario.splice(data);
                   this.selecOperator = '';
                   this.busqueda = '';
+                  this.getWarehouses();
                 },
                 error  => {
                   console.log(error as any);
@@ -476,6 +478,7 @@ export class SalidasWarehouse1Component implements OnInit {
                   this.operario.splice(data);
                   this.selecOperator = '';
                   this.busqueda = '';
+                  this.getWarehouses();
                 },
                 error  => {
                   console.log(error as any);
@@ -508,6 +511,7 @@ export class SalidasWarehouse1Component implements OnInit {
                   this.operario.splice(data);
                   this.selecOperator = '';
                   this.busqueda = '';
+                  this.getWarehouses();
                 },
                 error  => {
                   console.log(error as any);
@@ -539,6 +543,7 @@ export class SalidasWarehouse1Component implements OnInit {
                   this.operario.splice(data);
                   this.selecOperator = '';
                   this.busqueda = '';
+                  this.getWarehouses();
                 },
                 error  => {
                   console.log(error as any);

@@ -53,6 +53,11 @@ nav.navbar ul.nav a {
 	color: rgb(232, 235, 240);
 }
 
+/*COLOR DE LETRA PARA LOS INPUTS CREAR TAREA*/
+.negro {
+	color: rgb(6, 7, 7);
+}
+
 
 
 /* ILUMINAR LOS LINKS DEL PANEL DE ADMINISTRACION */
@@ -155,4 +160,40 @@ nav.navbar ul.nav a {
 	border: 1px solid #eee;
 	box-shadow: 0px 0px 20px #ccc inset;
 	border-radius: 5px;
+}
+
+
+/* ESTILOS PARA FORMULARIO CREAR TAREA */
+#crear-tarea{
+	width: 100%;
+	width: 900px;
+	height: 330px;	
+	border: 1px solid #eee;
+	box-shadow: 0px 0px 20px #ccc inset;
+	border-radius: 5px;
+	margin-left: 18px;
+}
+
+/* ESTILOS PARA FORMULARIO CREAR TAREA */
+.login{
+	width: 100%;
+	width: 300px;
+	height: 270px;	
+	border: 1px solid #eee;
+	box-shadow: 0px 0px 20px #ccc inset;
+	border-radius: 5px;
+	margin-left: 400px;
+	margin-top: 150px;
+}
+
+
+/* ESTILOS PARA MENU ALMACEN 1 */
+.almacen1{
+	width: 100%;
+	width: 250px;
+	height: 300px;	
+	border: 1px solid #eee;
+	box-shadow: 0px 0px 20px #ccc inset;
+	border-radius: 5px;
+	margin-left: 18px;
 }

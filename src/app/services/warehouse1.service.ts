@@ -20,7 +20,7 @@ export class Warehouse1Service {
 			Authorization: token
 		});
 
-		return this._http.post(this.url + 'add-register', params, {headers});
+		return this._http.post(this.url + 'warehouse1', params, {headers});
 	}
 
 	getWarehouses1(): Observable<any> {

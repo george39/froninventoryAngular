@@ -48,6 +48,9 @@ import { EntradasWarehouse1Component } from './components/warehouse1/entradas-wa
 import { SalidasWarehouse1Component } from './components/warehouse1/salidas-warehouse1.component';
 import { EntradasWarehouse2Component } from './components/warehouse2/entradas-warehouse2.component';
 import { SalidasWarehouse2Component } from './components/warehouse2/salidas-warehouse2.component';
+import { SalidasStrobellComponent } from './components/strobell/salidas-strobell.component';
+import { SalidasOjaleteadoComponent } from './components/ojaleteado/salidas-ojaleteado.component';
+import { SalidasGuarnecidaComponent } from './components/guarnecida/salidas-guarnecida.component';
 
 
 
@@ -86,6 +89,9 @@ import { SalidasWarehouse2Component } from './components/warehouse2/salidas-ware
 		SalidasWarehouse1Component,
 		EntradasWarehouse2Component,
 		SalidasWarehouse2Component,
+		SalidasStrobellComponent,
+		SalidasOjaleteadoComponent,
+		SalidasGuarnecidaComponent,
 		
 		
 		

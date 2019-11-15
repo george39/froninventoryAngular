@@ -1,14 +1,12 @@
 
 import { Component, OnInit, ViewChild, ElementRef, DoCheck} from '@angular/core';
-import { Warehouse1 } from '../../../models/warehouse1';
+import { Warehouse2 } from '../../../models/warehouse2';
 
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { TareaUnidadService } from '../../../services/tarea-unidad.service';
-import { TareaUnidad } from '../../../models/tareaUnidad';
-import { Warehouse1Service } from '../../../services/warehouse1.service';
+import { Warehouse2Service } from '../../../services/warehouse2.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { throwError, from } from 'rxjs';
@@ -20,6 +18,9 @@ import { OperatorService } from '../../../services/operator.service';
 import { TerminationService } from '../../../services/termination.service';
 import { Termination } from '../../../models/termination';
 import { TestObject } from 'protractor/built/driverProviders';
+import { Reproceso } from '../../../models/reproceso';
+import { ReprocesoService } from '../../../services/reproceso.service';
+import { Injection1Service } from '../../../services/injection1.service';
 
 
 
@@ -32,8 +33,8 @@ import { TestObject } from 'protractor/built/driverProviders';
 
 @Component({
   selector: 'app-salidas-warehouse2',
-  templateUrl: './salidas-warehouse2.component.html',  
-  providers: [OperatorService, Warehouse1Service]
+  templateUrl: './salidas-warehouse2.component.html',
+  providers: [OperatorService]
 })
 export class SalidasWarehouse2Component implements OnInit {
  // BUSQUEDA POR UNIDAD
@@ -54,13 +55,12 @@ export class SalidasWarehouse2Component implements OnInit {
 
 
   public operators: Operator[];
-  public warehouse1: Warehouse1;
-  public tareaUnidad: TareaUnidad;
+  public reproceso: Reproceso;
   public guarnecida: Guarnecida;
   public operator: Operator;
   // public canastaVacia: Warehouse1;
   public operario: string[];
-  public warehouse: Warehouse1[];
+  public warehouse2: Warehouse2[];
   public termination: Termination;
   public token;
   public busqueda;
@@ -94,21 +94,21 @@ export class SalidasWarehouse2Component implements OnInit {
   constructor(
     private _route: ActivatedRoute,
   	 private _router: Router,
-    private tareaUnidadService: TareaUnidadService,
-    private _warehouse1Service: Warehouse1Service,
+    private injectionService: Injection1Service,
+    private warehouse2Service: Warehouse2Service,
     private guarnecidaService: GuarnecidaService,
     private _userService: UserService,
     private operatorService: OperatorService,
     private terminationService: TerminationService,
+    private reprocesoService: ReprocesoService,
     private http: HttpClient,
 
     private fb: FormBuilder
   ) {
     this.token = this._userService.getToken();
-    this.warehouse1 = new Warehouse1('', '', []);
-    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
     this.guarnecida = new Guarnecida('', '', []);
     this.termination = new Termination('', '', []);
+    this.reproceso = new Reproceso('', '', []);
     // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
@@ -123,7 +123,8 @@ export class SalidasWarehouse2Component implements OnInit {
 
     this.status = true;
     this.warehouses = [
-    'Troquelado',
+    'Terminado',
+    'Inyeccion',
     'Reproceso'
   ];
     this.salidas = [
@@ -162,7 +163,6 @@ export class SalidasWarehouse2Component implements OnInit {
 
 
   ngOnInit() {
-     this.HomeworkUnit();
      this.getOperator();
      this.getWarehouses();
 
@@ -251,31 +251,15 @@ export class SalidasWarehouse2Component implements OnInit {
   }
 
 
-  HomeworkUnit() {
-    this.tareaUnidadService.getHomeworkUnit().subscribe(
-      response => {
-        if (!response.tareaUnidad) {
-            this.status = false;
-            
-
-        } else {
-          this.tareaUnidad = response.tareaUnidad;
-          
-        }
-      }
-    );
-  }
-
-
   getWarehouses() {
-    this._warehouse1Service.getWarehouses1().subscribe(
+    this.warehouse2Service.getWarehouses2().subscribe(
       response => {
-        if (!response.warehouse1) {
+        if (!response.warehouse2) {
             this.status = false;
             
 
         } else {
-          this.warehouse1 = response.warehouse1;
+          this.warehouse2 = response.warehouse2;
         }
       }
     );
@@ -308,13 +292,13 @@ export class SalidasWarehouse2Component implements OnInit {
   addCanasta() {
 
     let numeroCanasta = this.idCanasta.nativeElement.value;
-    this._warehouse1Service.getWarehouses1().subscribe(
+    this.warehouse2Service.getWarehouses2().subscribe(
       response => {
         if (!response.warehouse1) {
             this.status = false;
         } else {
-          this.warehouse1 = response.warehouse1;
-          for (const i of response.warehouse1) {
+          this.warehouse2 = response.warehouse2;
+          for (const i of response.warehouse2) {
             numeroCanasta = JSON.parse(numeroCanasta);
             this.termination = i;
             this.termination.operator = this.selecOperator;
@@ -353,10 +337,7 @@ export class SalidasWarehouse2Component implements OnInit {
 // ================================================
 // GUARDAR UNA UNIDAD EN TERMINADO
 // ================================================
-
-  onSubmit(data) {
-
-
+  addTerminado(data) {
     this.terminationService.addTermination(this.token, data).subscribe(
                 response => {
 
@@ -391,17 +372,84 @@ export class SalidasWarehouse2Component implements OnInit {
 
 
 
+// ================================================
+// GUARDAR UNA UNIDAD EN INYECCION
+// ================================================
+  addInjection(data) {
+    this.injectionService.addInjection1(this.token, data).subscribe(
+                response => {
+                  this.formData.reset();
+                  const control = this.addressListArray.controls;
+                  control.splice(data);
+                  this.seleccion = '';
+                  const s = this.formData.value.registros;
+                  s.splice(data);
+                  this.codigo.splice(data);
+                  this.referencia.splice(data);
+                  this.talla.splice(data);
+                  this.selecSalidas = '';
+                  this.clasificacion.splice(data);
+                  this.idAlmacen.splice(data);
+                  this.operario.splice(data);
+                  this.selecOperator = '';
+                  this.busqueda = '';
+                  this.getWarehouses();
+
+                  
+                },
+                error  => {
+                  console.log(error as any);
+                }
+                );
+
+    } 
+
+
+    
+// ================================================
+// GUARDAR UNA UNIDAD EN REPROCESO
+// ================================================
+  addReproceso(data) {
+    this.reprocesoService.addReproceso(this.token, data).subscribe(
+                response => {
+                  this.formData.reset();
+                  const control = this.addressListArray.controls;
+                  control.splice(data);
+                  this.seleccion = '';
+                  const s = this.formData.value.registros;
+                  s.splice(data);
+                  this.codigo.splice(data);
+                  this.referencia.splice(data);
+                  this.talla.splice(data);
+                  this.selecSalidas = '';
+                  this.clasificacion.splice(data);
+                  this.idAlmacen.splice(data);
+                  this.operario.splice(data);
+                  this.selecOperator = '';
+                  this.busqueda = '';
+                  this.getWarehouses();
+
+                },
+                error  => {
+                  console.log(error as any);
+                }
+                );
+
+    }
+
+
+
   // ================================================
-  // ELIMINAR UNA UNIDAD  EN UNA CANASTA DEL ALMACEN 1
+  // ELIMINAR UNA UNIDAD  EN UNA CANASTA DEL ALMACEN 2
   // ================================================
-  deleteItem(dat) {
+  deleteItemWarehouse2(dat) {
     const a =  this.formData.value;
     
     for (let i = 0; i <= dat.registros.length; i++) {
-      this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
+      this.warehouse2Service.updateWarehouse2(this.token, dat.registros[i]).subscribe(
               response => {
                 
-                this.deleteCanastaVacia();
+                this.deleteCanastaVaciaWarehouse2();
 
               },
               error => {
@@ -414,20 +462,20 @@ export class SalidasWarehouse2Component implements OnInit {
 
 
 // ================================================
-// ELIMINAR COLECCIONES VACIAS  
+// ELIMINAR COLECCIONES VACIAS EN ALMACEN 2
 // ================================================
-  deleteCanastaVacia() {
-    this._warehouse1Service.getWarehouses1().subscribe(
+  deleteCanastaVaciaWarehouse2() {
+    this.warehouse2Service.getWarehouses2().subscribe(
       response => {
-        if (!response.warehouse1 ) {
+        if (!response.warehouse2 ) {
           console.log('Error en el servidor');
         } else {
 
-          for (const i of response.warehouse1) {
+          for (const i of response.warehouse2) {
               if (i.registros.length === 0) {
                 // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
   
-                this._warehouse1Service.deleteWarehouse(this.token, i._id).subscribe(
+                this.warehouse2Service.deleteWarehouse2(this.token, i._id).subscribe(
                   response => {
   
                   },
@@ -453,13 +501,13 @@ export class SalidasWarehouse2Component implements OnInit {
 
 
   // ================================================
-  // ELIMINA UNA CANASTA EN EL ALMACEN 1
+  // ELIMINA UNA CANASTA EN EL ALMACEN 2
   // ================================================
 deleteWarehouse(id) {
 
-    this._warehouse1Service.deleteWarehouse(this.token, id).subscribe(
+    this.warehouse2Service.deleteWarehouse2(this.token, id).subscribe(
       response => {
-        if (!response.warehouse1 ) {
+        if (!response.warehouse2 ) {
           console.log('Error en el servidor');
         }
        // this.getWarehouses();

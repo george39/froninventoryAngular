@@ -1,19 +1,20 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import { Warehouse1 } from '../../../models/warehouse1';
-
-
+import { Warehouse2 } from '../../../models/warehouse2';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { TareaUnidadService } from '../../../services/tarea-unidad.service';
-import { TareaUnidad } from '../../../models/tareaUnidad';
-import { Warehouse1Service } from '../../../services/warehouse1.service';
+import { Warehouse2Service } from '../../../services/warehouse2.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
 import { throwError, from } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Guarnecida } from '../../../models/guarnecida';
 import { GuarnecidaService } from '../../../services/guarnecida.service';
+import { Injection1 } from '../../../models/injection1';
+import { Injection1Service } from '../../../services/injection1.service';
+import { Reproceso } from '../../../models/reproceso';
+import { ReprocesoService } from '../../../services/reproceso.service';
+import { Termination } from '../../../models/termination';
+import { TerminationService } from '../../../services/termination.service';
 
 
 // tslint:disable-next-line:label-position
@@ -27,37 +28,53 @@ import { GuarnecidaService } from '../../../services/guarnecida.service';
 })
 export class EntradasWarehouse2Component implements OnInit {
 
+  public warehouse2: Warehouse2;
+  public injection: Injection1[];
+  public reproceso: Reproceso[];
+  public termination: Termination[];
+  public guarnecida: Guarnecida[];
+  public token;
+  public busqueda;
+  public codigo: string[];
+  public referencia: string[];
+  public talla: string[];
+  public idAlmacen: string[];
+  public status;
+  public warehouses: any[];
+  public seleccion;
+  public clasificacion: any[];
+  public formData: FormGroup;
+
   constructor(
     private _route: ActivatedRoute,
   	 private _router: Router,
-    private tareaUnidadService: TareaUnidadService,
-    private _warehouse1Service: Warehouse1Service,
+    private injectionService: Injection1Service,
+    private warehouse2Service: Warehouse2Service,
     private guarnecidaService: GuarnecidaService,
-    private _userService: UserService,
+    private reprocesoService: ReprocesoService,
+    private terminationService: TerminationService,
+    private userService: UserService,
     private http: HttpClient,
     
 
     private fb: FormBuilder
   ) {
-    this.token = this._userService.getToken();
-    // this.warehouse1 = new Warehouse1('', '', []);
-    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
-    this.guarnecida = new Guarnecida('', '', []);
+    this.token = this.userService.getToken();
+    this.warehouse2 = new Warehouse2('', '', []);
     this.codigo = new Array();
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
-    
+    this.seleccion = '';
     this.clasificacion = new Array();
     this.status = true;
    
     this.warehouses = [
-    'Troquelado',
+    'Inyeccion',
+    'Terminacion',
+    'Guarnecida',
     'Reproceso'
-  ];
-
-    this.warehouse = [];
-    this.seleccion = '';
+    ];
 
 
 
@@ -81,40 +98,20 @@ export class EntradasWarehouse2Component implements OnInit {
   @ViewChild('primera') primera: ElementRef;
   @ViewChild('segunda') segunda: ElementRef;
 
-
-
-  public warehouse1: Warehouse1;
-  public tareaUnidad: TareaUnidad;
-  public guarnecida: Guarnecida;
-  public warehouse: [];
-  public token;
-  public busqueda;
-  public codigo: string[];
-  public referencia: string[];
-  public talla: string[];
-  public idAlmacen: string[];
-  public status;
-  public warehouses: any[];
-  public seleccion;
-  public clasificacion: any[];
   
 
 
 
 
-  formData: FormGroup;
-error;
-
   ngOnInit() {
-     this.HomeworkUnit();
-     // this.getWarehouses();
-     
-     
-
+    this.getInjection();
+    this.getReproceso();
+    this.getTermination();
+    this.getGuarnecida();
 
     // INSTRUCCION QUE NO PERMITE INSERTAR ITEMS VACIOS
-     const control = this.addressListArray.controls;
-     control.splice(1[0]);
+    const control = this.addressListArray.controls;
+    control.splice(1[0]);
   }
 
 
@@ -146,19 +143,16 @@ error;
 
       var primera = document.getElementById('primera') as HTMLInputElement;
       var segunda = document.getElementById('segunda') as HTMLInputElement;
-      
-      
+
       if (primera.checked) {
         this.clasificacion.push(this.primera.nativeElement.value);
-         
+
         }
 
       if (segunda.checked) {
         this.clasificacion.push(this.segunda.nativeElement.value);
-           
-          }
 
-      
+          }
       console.log('clasifiacion', this.clasificacion);
 
 
@@ -171,56 +165,341 @@ error;
       code: [''],
       reference: [''],
       size: [''],
-      quantity: 0.5,     
+      _id: [''],
+      quantity: 0.5,
       clasification: ['']
     });
   }
 
 
-  HomeworkUnit() {
-    this.tareaUnidadService.getHomeworkUnit().subscribe(
-      response => {
-        if (!response.tareaUnidad) {
-            this.status = false;
-            console.log('status', this.status);
-        } else {
-          this.tareaUnidad = response.tareaUnidad;
-          console.log('tareaUnidad', this.tareaUnidad);
-        }
-      }
-    );
-  }
+  
 
   
 
 
-  deleteItem(dat) {
-    const a =  this.formData.value;
-    // tslint:disable-next-line:forin
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN INYECCION
+  // ================================================
+  getInjection() {
+    this.injectionService.getInjections().subscribe(
+      response => {
+        if (!response.injection) {
+            this.status = false;
+            console.log('statusi', this.status);
+          } else {
+            this.injection = response.injection;
+            console.log('injection', this.injection);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE INYECCION
+  // ================================================
+  deleteItemInjection(dat) {
+
     for (let i = 0; i <= dat.registros.length; i++) {
-      console.log('ware', dat.registros[i]);
-            
 
-      this._warehouse1Service.updateWarehouse(this.token, dat.registros[i]).subscribe(
+      this.injectionService.updateInjection(this.token, dat.registros[i]).subscribe(
               response => {
-                this.warehouse1 = a;
+                this.deleteCanastaVaciaInjection();
 
+            },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  }
+
+
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE   INYECCION
+  // ================================================
+  deleteCanastaVaciaInjection() {
+    this.injectionService.getInjections().subscribe(
+      response => {
+        if (!response.injection ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.injection) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.injectionService.deleteInjection1(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN TERMINADO
+  // ================================================
+  getTermination() {
+    this.terminationService.getTerminations().subscribe(
+      response => {
+        if (!response.termination) {
+            this.status = false;
+            console.log('status', this.status);
+        } else {
+          this.termination = response.termination;
+          console.log('termination', this.termination);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE TERMINADO
+  // ================================================
+  deleteItemTermination(dat) {
+      
+    for (let i = 0; i <= dat.registros.length; i++) {
+  
+      this.terminationService.updateTermination(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaTermination();
+  
               },
               error => {
                 console.log(error as any);
               }
             );
           }
+  
+  }
 
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE TERMINADO
+  // ================================================
+  deleteCanastaVaciaTermination() {
+    this.terminationService.getTerminations().subscribe(
+      response => {
+        if (!response.termination ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.termination) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.terminationService.deleteTermination(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN REPROCESO
+  // ================================================
+  getReproceso() {
+    this.reprocesoService.getReproceso().subscribe(
+      response => {
+        if (!response.reproceso) {
+            this.status = false;
+            console.log('status', this.status);
+        } else {
+          this.reproceso = response.reproceso;
+          console.log('reproceso', this.reproceso);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE REPROCESO
+  // ================================================
+  deleteItemReproceso(dat) {
+      
+    for (let i = 0; i <= dat.registros.length; i++) {
+  
+      this.reprocesoService.updateReproceso(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaReproceso();
+  
+              },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  
+  }
+
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE REPROCESO
+  // ================================================
+  deleteCanastaVaciaReproceso() {
+    this.reprocesoService.getReproceso().subscribe(
+      response => {
+        if (!response.reproceso ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.reproceso) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.reprocesoService.deleteReproceso(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN GUARNECIDA
+  // ================================================
+  getGuarnecida() {
+    this.guarnecidaService.getGuarnecidas().subscribe(
+      response => {
+        if (!response.guarnecida) {
+            this.status = false;
+            console.log('status', this.status);
+        } else {
+          this.guarnecida = response.guarnecida;
+          console.log('guarnecida', this.guarnecida);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE GUARNECIDA
+  // ================================================
+  deleteItemGuarnecida(dat) {
+      
+    for (let i = 0; i <= dat.registros.length; i++) {
+  
+      this.guarnecidaService.updateGuarnecida(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaGuarnecida();
+  
+              },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  
+  }
+
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE GUARNECIDA
+  // ================================================
+  deleteCanastaVaciaGuarnecida() {
+    this.guarnecidaService.getGuarnecidas().subscribe(
+      response => {
+        if (!response.guarnecida ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.guarnecida) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.guarnecidaService.deleteGuarnecida(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
   }
 
 
 
 
 
-  onSubmit(data) {
+  addWarehouse2(data) {
     
-    this._warehouse1Service.addWarehouse1(this.token, data).subscribe(
+    this.warehouse2Service.addWarehouse2(this.token, data).subscribe(
                 response => {
                   console.log('data',  this.formData.value);
                   this.formData.reset();
@@ -233,6 +512,12 @@ error;
                   this.referencia.splice(data);
                   this.talla.splice(data);
                   this.clasificacion.splice(data);
+                  this.busqueda = '';
+                  this.idAlmacen.splice(data);
+                  this.getInjection();
+                  this.getReproceso();
+                  this.getTermination();
+                  this.getGuarnecida();
                 },
                 error  => {
                   console.log(error as any);
@@ -242,18 +527,7 @@ error;
     }
 
 
-    eliminarGuarnecida() {
-
-      this.guarnecidaService.updateGuarnecida(this.token, this.warehouse1).subscribe(
-        response =>  {
-
-
-            },
-            error => {
-              console.log(error as any);
-            }
-            );
-          }
+    
 
 
 

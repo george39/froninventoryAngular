@@ -1,5 +1,5 @@
-<div class="col-lg-6 col-md-offset-4">
-	<h1>{{title}}</h1>
+<div class="col-lg-12 login titulo">
+	<h1 align="center">{{title}}</h1>
 
 	<div class="alert alert-success" *ngIf="status == 'success'">
 		Bienvenido {{user.name}}
@@ -8,7 +8,7 @@
 		El usuario o la contraseña no coinciden
 	</div>
 
-	<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-7">
+	<form #loginForm="ngForm" (ngSubmit)="onSubmit()" >
 		<p>
 			<label>Nombre usuario</label>
 			<input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" class="form-control" required>

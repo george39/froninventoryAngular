@@ -1,237 +1,254 @@
 <div class="row top">
+        <div class="col-lg-4 inner-addon ">
+                <span class="titulo">Almacen para donde va </span>
+                <select [(ngModel)]="seleccion">   
+                <option value="">Elija el almacen de destino</option>
+                <option *ngFor="let o of warehouses" [value]="o">{{o}}</option>
+                </select>
+            </div>
 
-  <div class="col-lg-4 inner-addon ">
-      <div>
+    <div class="col-lg-4 inner-addon " *ngIf="seleccion === 'Terminado'">
+        <div>
 
-          <span class="titulo">Operario </span>
-      </div>
-      <select  [(ngModel)]="selecOperator" (change)="capturar()" #selecOperario>   
-      <option value="">Elija operario</option>
-      <option *ngFor="let operario of operators" id="opcion"  [value]="operario.name">{{operario.name}}</option>
+            <span>Operario </span>
+        </div>
+        <select  [(ngModel)]="selecOperator" (change)="capturar()" #selecOperario>   
+        <option value="">Elija operario</option>
+        <option *ngFor="let operario of operators" id="opcion"  [value]="operario.name">{{operario.name}}</option>
 
-  </select>
+    </select>
 
-  </div>
+    </div>
 
-  <div class="col-lg-4 inner-addon ">
-      <div>
+    <div class="col-lg-4 inner-addon ">
+        <div>
 
-          <span class="salidas">Salidas </span>
-      </div>
-      <select [(ngModel)]="selecSalidas">   
-      <option value="">Elija salida</option>
-      <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
-  </select>
-  </div>    
-
-
-
-
-
-  <!--SALIDAS POR CANASTA-->
-
-  <div *ngIf="selecSalidas === 'canasta'">
-      <div class="row">
-      <div class=" col-lg-4 inner-addon right-addon">
-          <div align="center" class="titulo">Salidas canasta</div>
-          <input type="text"  class="form-control" #canasta autofocus name="busqueda2"
-           [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta(); 
-           getWarehouses()" placeholder="Digite número de canasta y presione enter" autofocus>
-
-           <!-- <div class="col-lg-8 alert alert-danger" role="alert" *ngIf="mostrarReferencia === false ">
-                  NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
-              </div> -->
-
-      </div>
-  </div>
-      <hr>   
-
-      <div class="row" *ngIf="selecSalidas">
-
-          <div *ngIf="busqueda2">
-
-              <div *ngFor="let registro of warehouse1 | register: busqueda2">
-                      
-                  <div class="row" *ngIf="mostrarReferencia === true">
-                  <div><input type="hidden" #idCanasta value="{{registro._id}}"></div>
-                  <div class="container" >
-                      <b><div class="col-lg-3 titulo" >Referencia</div></b>
-                      <b><div class="col-lg-3 titulo" >Talla</div></b>
-                      <b><div class="col-lg-3 titulo" >Cantidad</div></b>
-                  </div>
-              </div>
-                  <div *ngFor="let canasta of registro.registros | dinamica : canasta">
-
-                      <div class="container">
-                              
-
-                          <div class="row" *ngIf="mostrarReferencia === true">
-                          <div class="col-lg-3">{{canasta.reference}}</div>
-                          <div class="col-lg-3">{{canasta.size}}</div> 
-                          <div class="col-lg-3">{{canasta.quantity}}</div> 
-                          <!-- <div class="col-lg-4">{{[i+1]}}</div>  -->
-                      </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-      <form #register="ngForm" (ngSubmit)="addCanasta()">
-
-          <div class="col-lg-2 inner-addon">
-
-              <button type="submit" (click)="deleteWarehouse(numeroCanasta)" class="btn btn-success">Guardar</button>
-
-          </div>
-      </form>
-  </div>
+            <span>Salidas </span>
+        </div>
+        <select [(ngModel)]="selecSalidas">   
+        <option value="">Elija salida</option>
+        <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
+    </select>
+    </div>    
 
 
 
-  <!--SALIDAS POR UNIDAD-->
 
-  <div *ngIf="selecSalidas === 'unidad'" class="salida-unidad"> 
-      <div class="radio-inline"> 
-          <label>        
-              <input type="radio" name="clasificacion" id="primera" #primera value="primera" checked>Primera        
-          </label>           
-      </div>
-  
-      <div class="radio-inline">
-          <label>        
-              <input type="radio" name="clasificacion" id="segunda" #segunda value="segunda">Segunda        
-          </label>        
-      </div>
 
-      <hr>
+    <!--SALIDAS POR CANASTA-->
 
-      
-      <div class="row col-lg-offset-3"></div> 
-      <div class="col-lg-5 inner-addon right-addon">
+    <div *ngIf="selecSalidas === 'canasta'">
+        <div class="row">
+        <div class=" col-lg-4 inner-addon right-addon">
+            <div align="center">Salidas canasta</div>
+            <input type="text"  class="form-control" #canasta autofocus name="busqueda2"
+             [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta(); 
+             getWarehouses()" placeholder="Digite número de canasta y presione enter" autofocus>
 
-          <i class="glyphicon glyphicon-barcode"></i>
-          <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Digite código de barras" autofocus>
-          <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda"> 
-              NO SE ENCONTRO EL CÓDIGO {{busqueda}}
-          </div>
-      </div>
+             <!-- <div class="col-lg-8 alert alert-danger" role="alert" *ngIf="mostrarReferencia === false ">
+                    NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
+                </div> -->
 
-       <div class="container">                  
-          <div class="row col-lg-11">
-              <b><div class="col-lg-1 codigo titulo">Código</div></b>
-              <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
-              <b><div class="col-lg-1 talla titulo" >Talla</div></b>                        
-          </div>
-      </div>
-          <div *ngIf="busqueda">
-              <div *ngFor="let registro of warehouse1 ">
-                  <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
-                          
+        </div>
+    </div>
+        <hr>   
 
-                      <div *ngIf="busqueda === codigo.code ">
-                          <div class="row">
-                              <div><input type="hidden" id="code" #code value="{{codigo.code}}"></div>
-                              <div><input type="hidden" #reference value="{{codigo.reference}}"></div>
-                              <div><input type="hidden" #size value="{{codigo.size}}"></div>
-                              <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+        <div class="row" *ngIf="selecSalidas">
 
-          
-      
+            <div *ngIf="busqueda2">
 
-      <div class="col-lg-12">
-          <div class="card">
-              <div class="card-body" id="caja">    
-                  <div class="row caja" >    
-                      <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)" >
+                <div *ngFor="let registro of warehouse2 | register: busqueda2">
+                        
+                    <div class="row" *ngIf="mostrarReferencia === true">
+                    <div><input type="hidden" #idCanasta value="{{registro._id}}"></div>
+                    <div class="container" >
+                        <b><div class="col-lg-3" >Referencia</div></b>
+                        <b><div class="col-lg-3" >Talla</div></b>
+                        <b><div class="col-lg-3" >Cantidad</div></b>
+                    </div>
+                </div>
+                    <div *ngFor="let canasta of registro.registros | dinamica : canasta">
 
-                          <div class="form-group" >
-                              <div id=addresBlock formArrayName="registros" >
-                                  <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
-                                      <div class="">
-                                          <div class="col-lg-4">
-                                              <input class="form-control" type="text" [ngModel]="codigo[i]" placeholder="código" formControlName="code">
-                                          </div>
-                                          <div class="col-lg-3">
-                                              <input class="form-control" type="text" [ngModel]="referencia[i]" placeholder="referencia" formControlName="reference">
-                                          </div>
-                                          <div class="col-lg-2">
-                                              <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
-                                          </div>
-                                          <div class="col-lg-2">
-                                                  <input class="form-control" type="hidden" [ngModel]="clasificacion[i]" placeholder="id" formControlName="clasification">
-                                          </div>
-                                          <div class="">
-                                              <input class="" type="hidden" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
-                                          </div>
-                                          <div class="">
-                                              <input class="" type="hidden" [ngModel]="operario[i]" placeholder="id" formControlName="operator">
-                                          </div>
-                                          
-                                          <span>    
-                                              <a class="btn btn-danger" (click)="removeAddress([i])">Eliminar</a>{{' ' + [i+1]}}
-                                          </span>
-                                      </div>
-                                  </div>
-                              </div>    
-                          </div>
+                        <div class="container">
+                                
 
-                          <div class="col-lg-2 inner-addon">
-                              <button type="submit"   class="btn btn-success">Guardar</button>
+                            <div class="row" *ngIf="mostrarReferencia === true">
+                            <div class="col-lg-3">{{canasta.reference}}</div>
+                            <div class="col-lg-3">{{canasta.size}}</div> 
+                            <div class="col-lg-3">{{canasta.quantity}}</div> 
+                            <!-- <div class="col-lg-4">{{[i+1]}}</div>  -->
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                          </div>
-                      </form>
-                  </div>
 
-              </div>
-          </div>
-      </div>
-  </div>
+        <form #register="ngForm" (ngSubmit)="addCanasta()">
+
+            <div class="col-lg-2 inner-addon">
+
+                <button type="submit" (click)="deleteWarehouse(numeroCanasta)" class="btn btn-success">Guardar</button>
+
+            </div>
+        </form>
+    </div>
+
+
+
+    <!--SALIDAS POR UNIDAD-->
+
+    <div *ngIf="selecSalidas === 'unidad'" class="salida-unidad"> 
+        <div class="radio-inline"> 
+            <label>        
+                <input type="radio" name="clasificacion" id="primera" #primera value="primera" checked>Primera        
+            </label>           
+        </div>
+    
+        <div class="radio-inline">
+            <label>        
+                <input type="radio" name="clasificacion" id="segunda" #segunda value="segunda">Segunda        
+            </label>        
+        </div>
+
+        <hr>
+
+        
+        <div class="row col-lg-offset-3"></div> 
+        <div class="col-lg-5 inner-addon right-addon">
+
+            <i class="glyphicon glyphicon-barcode"></i>
+            <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Digite código de barras" autofocus>
+            <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda"> 
+                NO SE ENCONTRO EL CÓDIGO {{busqueda}}
+            </div>
+        </div>
+
+         <div class="container">                  
+            <div class="row col-lg-11">
+                <b><div class="col-lg-1 codigo">Código</div></b>
+                <b><div class="col-lg-1 referencia">Referencia</div></b>
+                <b><div class="col-lg-1 talla" >Talla</div></b>                        
+            </div>
+        </div>
+            <div *ngIf="busqueda">
+                <div *ngFor="let registro of warehouse2 ">
+                    <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
+                            
+
+                        <div *ngIf="busqueda === codigo.code ">
+                            <div class="row">
+                                <div><input type="hidden" id="code" #code value="{{codigo.code}}"></div>
+                                <div><input type="hidden" #reference value="{{codigo.reference}}"></div>
+                                <div><input type="hidden" #size value="{{codigo.size}}"></div>
+                                <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body" id="caja">    
+                    <div class="row caja" >    
+                        <form [formGroup]="formData" >
+
+                            <div class="form-group" >
+                                <div id=addresBlock formArrayName="registros" >
+                                    <div *ngFor="let item of addressListArray.controls; let i = index" [formGroupName]="[i]">
+                                        <div class="">
+                                            <div class="col-lg-4">
+                                                <input class="form-control" type="text" [ngModel]="codigo[i]" placeholder="código" formControlName="code">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control" type="text" [ngModel]="referencia[i]" placeholder="referencia" formControlName="reference">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input class="form-control" type="text" [ngModel]="talla[i]" placeholder="talla" formControlName="size">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                    <input class="form-control" type="hidden" [ngModel]="clasificacion[i]" placeholder="id" formControlName="clasification">
+                                            </div>
+                                            <div class="">
+                                                <input class="" type="hidden" [ngModel]="idAlmacen[i]" placeholder="id" formControlName="_id">
+                                            </div>
+                                            <div class="">
+                                                <input class="" type="hidden" [ngModel]="operario[i]" placeholder="id" formControlName="operator">
+                                            </div>
+                                            
+                                            <span>    
+                                                <a class="btn btn-danger" (click)="removeAddress([i])">Eliminar</a>{{' ' + [i+1]}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+
+
+                            <!-- GUARDA EN TERMINADO  Y DESCUENTA DE ALMACEN 2  -->
+                            <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Terminado'">
+                                <button (click)="addTerminado(formData.value); deleteItemWarehouse2(formData.value)"   class="btn btn-success">Guardar</button>
+                            </div>
+
+                            <!-- GUARDA EN REPROCESO Y DESCUENTA DE ALMACEN 2  -->
+                            <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Reproceso'">
+                                <button (click)="addReproceso(formData.value); deleteItemWarehouse2(formData.value)"   class="btn btn-success">Guardar</button>
+                            </div>
+
+                            <!-- GUARDA EN INYECCION Y DESCUENTA DE ALMACEN 2  -->
+                            <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Inyeccion'">
+                                <button (click)="addInjection(formData.value); deleteItemWarehouse2(formData.value)"   class="btn btn-success">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 
 <!-- <div *ngIf="selecSalidas">
-      <table class="table table-striped table-dark">
-          <thead>
-              <tr>
-                  <th>Código</th>
-                  <th>Referencia</th>
-                  <th>Talla</th>
-              </tr>
-          </thead>
-          <tbody *ngIf="busqueda2">
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Referencia</th>
+                    <th>Talla</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="busqueda2">
 
-              <tr *ngFor="let registro of warehouse1 | register: busqueda2">
-
-
-
-                  
-                  {{registro._id}}
-
-
-                  <div *ngFor="let canasta of registro.registros">
-                      <td>{{canasta.code}}</td>
-
-
-                      <td>{{canasta.reference}}</td>
-                      <td>{{canasta.size}}</td>
-
-                  </div>
+                <tr *ngFor="let registro of warehouse1 | register: busqueda2">
 
 
 
-              </tr>
+                    
+                    {{registro._id}}
 
-          </tbody>
 
-      </table>
-  </div> -->
+                    <div *ngFor="let canasta of registro.registros">
+                        <td>{{canasta.code}}</td>
 
+
+                        <td>{{canasta.reference}}</td>
+                        <td>{{canasta.size}}</td>
+
+                    </div>
+
+
+
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div> -->

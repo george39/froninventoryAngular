@@ -28,6 +28,9 @@ import { EntradasWarehouse1Component } from './components/warehouse1/entradas-wa
 import { SalidasWarehouse1Component } from './components/warehouse1/salidas-warehouse1.component';
 import { EntradasWarehouse2Component } from './components/warehouse2/entradas-warehouse2.component';
 import { SalidasWarehouse2Component } from './components/warehouse2/salidas-warehouse2.component';
+import { SalidasStrobellComponent } from './components/strobell/salidas-strobell.component';
+import { SalidasOjaleteadoComponent } from './components/ojaleteado/salidas-ojaleteado.component';
+import { SalidasGuarnecidaComponent } from './components/guarnecida/salidas-guarnecida.component';
 
 
 const adminRoutes: Routes = [
@@ -52,11 +55,13 @@ const adminRoutes: Routes = [
 			{path: 'ingresos-almacen1', component: EntradasWarehouse1Component},
 			{path: 'salidas-almacen1', component: SalidasWarehouse1Component},
 			{path: 'salidas-almacen2', component: SalidasWarehouse2Component},
-			{path: 'entradas-almacen2', component: EntradasWarehouse2Component},
+			{path: 'ingresos-almacen2', component: EntradasWarehouse2Component},
 			{path: 'ensayo3', component: Ensayo3Component},
 			{path: 'tarea-unidad', component: AddTareaUnidadComponent},
 			{path: 'addguarnecida', component: EntradasComponent},
-			{path: 'outguarnecida', component: SalidasComponent},
+			{path: 'salidas-guarnecida', component: SalidasGuarnecidaComponent},
+			{path: 'strobell-inyeccion', component: SalidasStrobellComponent},
+			{path: 'ojaleteado-strobell', component: SalidasOjaleteadoComponent},
 			{path: 'asignar-tarea-guarnecida', component: AsignarTareaComponent},
 			{path: 'busqueda/:termino', component: BusquedaComponent},
 			{path: 'busqueda/:termino/:todo', component: BusquedaComponent},

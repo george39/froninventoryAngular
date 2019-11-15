@@ -22,90 +22,14 @@
         <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
     </select>
     </div> 
-</div>   
-
-
-
-
-
-    <!--SALIDAS POR CANASTA-->
-
-    <div *ngIf="selecSalidas === 'canasta'" class="titulo">
-        <div class="row">
-        <div class=" col-lg-4 inner-addon right-addon">
-            <div align="center">Salidas canasta</div>
-            <input type="text"  class="form-control" #canasta autofocus name="busqueda2"
-             [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta()" placeholder="Digite número de canasta y presione enter" autofocus>
-
-             <!-- <div class="col-lg-8 alert alert-danger" role="alert" *ngIf="mostrarReferencia === false ">
-                    NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
-                </div> -->
-
-        </div>
-    </div>
-        <hr>   
-
-        <div class="row" *ngIf="selecSalidas">
-
-            <div *ngIf="busqueda2">
-
-                <div *ngFor="let registro of warehouse1 | register: busqueda2">
-                        
-                    <div class="row" *ngIf="mostrarReferencia === true">
-                    <div><input type="hidden" #idCanasta value="{{registro._id}}"></div>
-                    <div class="container" >
-                        <b><div class="col-lg-3" >Referencia</div></b>
-                        <b><div class="col-lg-3" >Talla</div></b>
-                        <b><div class="col-lg-3" >Cantidad</div></b>
-                    </div>
-                </div>
-                    <div *ngFor="let canasta of registro.registros | dinamica : canasta">
-
-                        <div class="container">
-                                
-
-                            <div class="row" *ngIf="mostrarReferencia === true">
-                            <div class="col-lg-3">{{canasta.reference}}</div>
-                            <div class="col-lg-3">{{canasta.size}}</div> 
-                            <div class="col-lg-3">{{canasta.quantity}}</div> 
-                            <!-- <div class="col-lg-4">{{[i+1]}}</div>  -->
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <form #register="ngForm" (ngSubmit)="addCanasta()">
-
-            <div class="col-lg-2 inner-addon">
-
-                <button type="submit" (click)="deleteWarehouse(numeroCanasta)" class="btn btn-success">Guardar</button>
-
-            </div>
-        </form>
-    </div>
-
+</div>
+    
 
 
     <!--SALIDAS POR UNIDAD-->
 
     <div *ngIf="selecSalidas === 'unidad'" class=" col-lg-offset-1"> 
-        <!-- <div class="radio-inline"> 
-            <label>        
-                <input type="radio" name="clasificacion" id="primera" #primera value="primera" checked>Primera        
-            </label>           
-        </div>
-    
-        <div class="radio-inline">
-            <label>        
-                <input type="radio" name="clasificacion" id="segunda" #segunda value="segunda">Segunda        
-            </label>        
-        </div>
-
-        <hr> -->
-
+       
         
         <div class="row col-lg-offset-3"></div> 
         <div class="col-lg-5 inner-addon right-addon">
@@ -125,7 +49,7 @@
             </div>
         </div>
             <div *ngIf="busqueda">
-                <div *ngFor="let registro of warehouse1 ">
+                <div *ngFor="let registro of guarnecida ">
                     <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
                             
 
@@ -148,7 +72,7 @@
             <div class="card">
                 <div class="card-body" id="caja">    
                     <div class="row caja" >    
-                        <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value); deleteItem(formData.value)" >
+                        <form [formGroup]="formData" >
 
                             <div class="form-group" >
                                 <div id=addresBlock formArrayName="registros" >
@@ -181,8 +105,8 @@
                                 </div>    
                             </div>
 
-                            <div class="col-lg-2 inner-addon">
-                                <button type="submit"   class="btn btn-success">Guardar</button>
+                            <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Almacen1'">
+                                <button (click)="addWarehouse1(formData.value); deleteItemGuarnecida(formData.value)"   class="btn btn-success">Guardar</button>
 
                             </div>
                         </form>
@@ -193,43 +117,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-<!-- <div *ngIf="selecSalidas">
-        <table class="table table-striped table-dark">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Referencia</th>
-                    <th>Talla</th>
-                </tr>
-            </thead>
-            <tbody *ngIf="busqueda2">
-
-                <tr *ngFor="let registro of warehouse1 | register: busqueda2">
-
-
-
-                    
-                    {{registro._id}}
-
-
-                    <div *ngFor="let canasta of registro.registros">
-                        <td>{{canasta.code}}</td>
-
-
-                        <td>{{canasta.reference}}</td>
-                        <td>{{canasta.size}}</td>
-
-                    </div>
-
-
-
-                </tr>
-
-            </tbody>
-
-        </table>
-    </div> -->

@@ -119,6 +119,30 @@
                 </li>
             </ul>
 
+            <ul class="nav navbar-nav navbar-right" *ngIf="identity  && identity.role === 'ROLE_ALMACEN2'">
+                    <li>
+                        <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']">
+                            <span class="glyphicon glyphicon-user"></span> {{identity.nick}}
+                        </a>
+                    </li>
+    
+                    <li class="dropdown">
+    
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a [routerLink]="['/mis-datos']">
+                                    <span class="glyphicon glyphicon-cog"></span> Mis datos
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer" (click)="logout()">
+                                    <span class="glyphicon glyphicon-log-out"></span> Salir
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
 
             <ul class="nav navbar-nav navbar-right" *ngIf="identity  && identity.role == 'ROLE_GUARNECIDA'">
                 <li>

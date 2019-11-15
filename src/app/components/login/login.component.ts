@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
   	private _router: Router,
     private _userService: UserService
   ) {
-  		this.title = 'Identificate';
-      this.user = new User('','','','','','ROLE_USER','');
+  		this.title = 'Iniciar sesión';
+    this.user = new User('','','','','','ROLE_USER','');
    }
 
   ngOnInit() {

@@ -8,53 +8,54 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class TerminationService {
+export class Warehouse2Service {
   public url: string;
 
-  constructor(private http: HttpClient) {
-      this.url = GLOBAL.url;
+  constructor(
+    private http: HttpClient
+  ) {
+    this.url = GLOBAL.url;
    }
 
-
   // ================================================
-   // GUARDAR UNA UNIDAD EN TERMINADO
+   // GUARDAR UNA UNIDAD EN WAREHOUSE 2
    // ================================================
-   addTermination(token, termination): Observable<any> {
-    const params = JSON.stringify(termination);
+   addWarehouse2(token, warehouse2): Observable<any> {
+    const params = JSON.stringify(warehouse2);
     const headers = new HttpHeaders({'Content-Type': 'application/json',
           Authorization: token});
 
-    return this.http.post(this.url + 'addtermination', params, {headers});
-  }
-
-
-   // ================================================
-  // ELIMINAR UNA UNIDAD EN TERMINADO
-  // ================================================
-  updateTermination(token, termination): Observable<any> {
-    const params = JSON.stringify(termination);
-    const headers = new HttpHeaders({'Content-Type': 'application/json',
-          Authorization: token});
-
-    return this.http.put(this.url + 'delete-item-termination', params, {headers});
+    return this.http.post(this.url + 'addwarehouse2', params, {headers});
   }
 
 
   // ================================================
-  // LISTAR LAS COLECCIONES DE TERMINADO
+  // ELIMINAR UNA UNIDAD EN WAREHOUSE 2
   // ================================================
-  getTerminations(): Observable<any> {
-    return this.http.get(this.url + 'gettermination').pipe(map(response => response));
+  updateWarehouse2(token, warehouse2): Observable<any> {
+    const params = JSON.stringify(warehouse2);
+    const headers = new HttpHeaders({'Content-Type': 'application/json',
+          Authorization: token});
+
+    return this.http.put(this.url + 'delete-item-warehouse2', params, {headers});
   }
 
 
   // ================================================
-  // ELIMINAR UNA COLECCION DE TERMINADO
+  // LISTAR LAS COLECCIONES DE WAREHOUSE 2
   // ================================================
-  deleteTermination(token, id): Observable<any> {
+  getWarehouses2(): Observable<any> {
+    return this.http.get(this.url + 'getwarehouses2').pipe(map(response => response));
+  }
+
+
+  // ================================================
+  // ELIMINAR UNA COLECCION DE WAREHOUSE 2
+  // ================================================
+  deleteWarehouse2(token, id): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/json',
           Authorization: token});
 
-    return this.http.delete(this.url + 'deletetermination/' + id, {headers});
+    return this.http.delete(this.url + 'deletewarehouse2/' + id, {headers});
   }
 }

@@ -1,7 +1,7 @@
-<div class="col-lg-offset-1 titulo top col-lg-4">
+<div class="col-lg-offset-1 titulo top col-lg-4" id="crear-tarea">
     <h1 align="center" class="titulo">{{title}}</h1>
     <form #formAddHomework="ngForm" (ngSubmit)="onSubmit()">
-        <p>
+        <!-- <p>
             <label >Operario</label>
             <input type="text" name="operator" #operator="ngModel" [(ngModel)]="homework.operator" class="form-control" required>
             <span *ngIf="!operator.valid && operator.touched">
@@ -22,7 +22,34 @@
             <span *ngIf="!reference.valid && reference.touched">
 			El nombre de la referencia es obligatorio
 		</span>
-        </p>
+        </p> -->
+
+        <div class="form-group col-12 col-sm-4">
+            <label for="operario">Operario:</label>
+            <input type="text" name="operario"  #operario="ngModel"
+            [(ngModel)]="homework.operator" placeholder="Nombre operario" class="form-control">
+            <span *ngIf="!operario.valid && operario.touched">
+                El nombre del operario es obligatorio
+            </span>
+         </div>
+
+         <div class="form-group col-12 col-sm-4">
+             <label for="name">Nombre tarea:</label>
+             <input type="text" class="form-control" name="name"
+              #name="ngModel" [(ngModel)]="homework.name" placeholder="Nombre tarea">
+              <span *ngIf="!name.valid && name.touched">
+                El nombre de la tarea es obligatorio
+            </span>
+         </div>
+
+         <div class="form-group col-12 col-sm-4">
+            <label for="referencia">Referencia:</label>
+            <input type="text" class="form-control" name="referencia" #reference="ngModel"
+            [(ngModel)]="homework.reference" placeholder="Referencia">
+            <span *ngIf="!reference.valid && reference.touched">
+                El nombre de la referencia es obligatorio
+            </span>
+        </div>
 
         <br>
 
@@ -48,7 +75,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr class="negro">
                     <td><input type="text" name="treintaytres" size="1"    #treintaytres="ngModel"    [(ngModel)]="homework.treintaytres" class=""></td>
                     <td><input type="text" name="treintaycuatro" size="1"  #treintaycuatro="ngModel"  [(ngModel)]="homework.treintaycuatro" class=""></td>
                     <td><input type="text" name="treintaycinco" size="1"   #treintaycinco="ngModel"   [(ngModel)]="homework.treintaycinco" class=""></td>
