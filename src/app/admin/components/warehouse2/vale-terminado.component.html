@@ -1,0 +1,34 @@
+<h3 class="top titulo" align="center">
+  {{title}}
+</h3>
+
+<div class="row">		
+		<div class="col-lg-4 inner-addon right-addon">
+			<i class="glyphicon glyphicon-search"></i>			
+			<input type="text" class="form-control"  [(ngModel)]="busqueda" placeholder="Digite número de vale">			
+		</div>		
+	</div>
+
+<table class="table table-hover titulo">
+  <thead class="thead-default">
+    <tr>
+      <td>Número vale</td>
+      <td>Operario</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vale of valeTermination | searchId: busqueda">
+      
+      <td>{{vale._id}}</td>
+      <td>{{vale.operator}}</td>
+        <div *ngFor="let registros of vale.registros">
+        </div>
+        <td>
+          <a class="btn btn-sm btn-success" [routerLink]="['/admin-panel/detalles-terminado/', vale._id]">
+            <span class="glyphicon glyphicon-eye-open" arial-hidden="true"></span> Ver
+        </a>
+        </td>
+      
+    </tr>
+  </tbody>
+</table>

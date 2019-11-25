@@ -31,6 +31,12 @@ import { SalidasWarehouse2Component } from './components/warehouse2/salidas-ware
 import { SalidasStrobellComponent } from './components/strobell/salidas-strobell.component';
 import { SalidasOjaleteadoComponent } from './components/ojaleteado/salidas-ojaleteado.component';
 import { SalidasGuarnecidaComponent } from './components/guarnecida/salidas-guarnecida.component';
+import { ValeTerminadoComponent } from './components/warehouse2/vale-terminado.component';
+import { DetailTerminationComponent } from './components/termination/detail-termination.component';
+import { UpdateReferenceComponent } from './components/warehouse2/update-reference.component';
+import { StockComponent } from './components/warehouse2/stock.component';
+import { StockWarehouse1Component } from './components/warehouse1/stock-warehouse1.component';
+import { StockGuarnecidaComponent } from './components/guarnecida/stock-guarnecida.component';
 
 
 const adminRoutes: Routes = [
@@ -48,23 +54,29 @@ const adminRoutes: Routes = [
 			{path: 'listado-operarios', component: ListOperatorsComponent},
 			{path: 'codigo-barras/:id', component: BarcodeComponent},
 			{path: 'detalles-tarea/:id', component: HomeworkDetailComponent},
+			{path: 'detalles-terminado/:id', component: DetailTerminationComponent},
 			{path: 'editar-tarea/:id', component: HomeworkEditComponent},
 			{path: 'insertar-registro', component: AddWarehouse1Component},
 			{path: 'lista-registro', component: ListWarehouse1Component},
 			{path: 'agregar-registro', component: EnsayoComponent},
 			{path: 'ingresos-almacen1', component: EntradasWarehouse1Component},
 			{path: 'salidas-almacen1', component: SalidasWarehouse1Component},
+			{path: 'listado-almacen1', component: StockWarehouse1Component},
 			{path: 'salidas-almacen2', component: SalidasWarehouse2Component},
 			{path: 'ingresos-almacen2', component: EntradasWarehouse2Component},
+			{path: 'listado-almacen2', component: StockComponent},
+			{path: 'editar-referencia-almacen2', component: UpdateReferenceComponent},
 			{path: 'ensayo3', component: Ensayo3Component},
 			{path: 'tarea-unidad', component: AddTareaUnidadComponent},
 			{path: 'addguarnecida', component: EntradasComponent},
 			{path: 'salidas-guarnecida', component: SalidasGuarnecidaComponent},
+			{path: 'listado-guarnecida', component: StockGuarnecidaComponent},
 			{path: 'strobell-inyeccion', component: SalidasStrobellComponent},
 			{path: 'ojaleteado-strobell', component: SalidasOjaleteadoComponent},
 			{path: 'asignar-tarea-guarnecida', component: AsignarTareaComponent},
 			{path: 'busqueda/:termino', component: BusquedaComponent},
 			{path: 'busqueda/:termino/:todo', component: BusquedaComponent},
+			{path: 'vales-terminado', component: ValeTerminadoComponent},
 
 		]
 	}

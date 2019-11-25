@@ -30,5 +30,12 @@ export class TareaUnidadService {
 
   getHomeworkUnit(): Observable<any>{
 		return this._http.get(this.url + 'gethomeworkunit').pipe(map(response => response));
-	}
+  }
+  
+  deleteTroquelado(token, id): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json',
+          Authorization: token});
+
+    return this._http.delete(this.url + 'deletehomeworkunit/' + id, {headers});
+  }
 }

@@ -54,7 +54,7 @@
                           <div><input type="hidden" #reference value="{{registro.reference}}"></div>
                           <div><input type="hidden" #size value="{{registro.size}}"></div>
                           <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
-                          <div><input type="hidden"   value="{{registro.clasification}}"></div>
+                          <div><input type="hidden" #troquelator  value="{{registro.operator}}"></div>
                       </div>
                   </div>
               </div>    
@@ -80,7 +80,7 @@
                                       </div>
                                       
                                       <div class="col-lg-2 ">
-                                          <input class="form-control" type="hidden" [ngModel]="clasificacion[i]" placeholder="id" formControlName="clasification">
+                                          <input class="form-control" type="hidden" [ngModel]="troquelador[i]" placeholder="id" formControlName="troquelator">
                                       </div>
                                       <span>
 
@@ -93,7 +93,7 @@
                       </div>
 
                       <div class="col-lg-2 inner-addon">
-                          <button type="submit" class="btn btn-success">Guardar</button>
+                          <button type="submit" (click)="deleteTroquelado(idAlmacen)" class="btn btn-success">Guardar</button>
 
                       </div>
                   </form>

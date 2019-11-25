@@ -56,7 +56,7 @@ export class SalidasOjaleteadoComponent implements OnInit {
     public http: HttpClient,
     private fb: FormBuilder
   ) {
-    this.title = 'Salidas para inyección 1';
+    this.title = 'Salidas para strobell';
     this.token = this.userService.getToken();
     this.status = true;
     this.codigo = new Array();

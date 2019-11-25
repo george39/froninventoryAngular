@@ -21,6 +21,8 @@ import { TestObject } from 'protractor/built/driverProviders';
 import { Reproceso } from '../../../models/reproceso';
 import { ReprocesoService } from '../../../services/reproceso.service';
 import { Injection1Service } from '../../../services/injection1.service';
+import { ValeTerminacionService } from '../../../services/vale-terminacion.service';
+import { ValeTerminado } from '../../../models/valeTerminado';
 
 
 
@@ -58,6 +60,7 @@ export class SalidasWarehouse2Component implements OnInit {
   public reproceso: Reproceso;
   public guarnecida: Guarnecida;
   public operator: Operator;
+  public valeTerminado: ValeTerminado;
   // public canastaVacia: Warehouse1;
   public operario: string[];
   public warehouse2: Warehouse2[];
@@ -85,6 +88,7 @@ export class SalidasWarehouse2Component implements OnInit {
   public clasificacion: string[];
   public mostrarReferencia;
   public canastaVacia: string[];
+  public operarioListado;
 
 
 
@@ -101,6 +105,7 @@ export class SalidasWarehouse2Component implements OnInit {
     private operatorService: OperatorService,
     private terminationService: TerminationService,
     private reprocesoService: ReprocesoService,
+    private valeTerminadoService: ValeTerminacionService,
     private http: HttpClient,
 
     private fb: FormBuilder
@@ -109,6 +114,7 @@ export class SalidasWarehouse2Component implements OnInit {
     this.guarnecida = new Guarnecida('', '', []);
     this.termination = new Termination('', '', []);
     this.reproceso = new Reproceso('', '', []);
+    this.valeTerminado = new ValeTerminado('', '', []);
     // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
@@ -140,6 +146,7 @@ export class SalidasWarehouse2Component implements OnInit {
     this.mesa = new Array();
     this.regis = new Array();
     this.numeroCanasta = new Array();
+    this.operarioListado = '';
 
 
 
@@ -228,6 +235,9 @@ export class SalidasWarehouse2Component implements OnInit {
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
       this.operario.push(this.selecOperario.nativeElement.value);
       this.busqueda = '';
+      this.operarioListado = this.operario[0];
+
+      console.log('operario', this.operario);
 
       
       this.status = true;
@@ -246,6 +256,22 @@ export class SalidasWarehouse2Component implements OnInit {
       size: [''],
       _id: [''],
       operator: [''],
+      quantity: 0.5,
+      trestres: 0,
+      trescuatro: 0,
+      trescinco: 0,
+      tresseis: 0,
+      tressiete: 0,
+      tresocho: 0,
+      tresnueve: 0,
+      cuarenta: 0,
+      cuarentayuno: 0,
+      cuarentaydos: 0,
+      cuarentaytres: 0,
+      cuarentaycuatro: 0,
+      cuarentaycinco: 0,
+      cuarentayseis: 0,
+      cuarentaysiete: 0,
       clasification: ['']
     });
   }
@@ -339,11 +365,8 @@ export class SalidasWarehouse2Component implements OnInit {
 // ================================================
   addTerminado(data) {
     this.terminationService.addTermination(this.token, data).subscribe(
-                response => {
-
-                  this.termination.operator = this.selecOperator;
-
-                  
+      response => {
+        
                   this.formData.reset();
                   const control = this.addressListArray.controls;
                   control.splice(data);
@@ -369,6 +392,43 @@ export class SalidasWarehouse2Component implements OnInit {
                 );
 
     }
+
+
+  // ================================================
+// GUARDAR UNA VALE DE TERMINADO
+// ================================================
+addValeTerminado(data) {
+  this.valeTerminadoService.addValeTerminado(this.token, data).subscribe(
+    response => {
+      
+      this.termination.operator = this.selecOperator;
+      
+      this.formData.reset();
+      const control = this.addressListArray.controls;
+      control.splice(data);
+      this.seleccion = '';
+      const s = this.formData.value.registros;
+      s.splice(data);
+      this.codigo.splice(data);
+      this.referencia.splice(data);
+      this.talla.splice(data);
+      this.selecSalidas = '';
+      this.clasificacion.splice(data);
+      this.idAlmacen.splice(data);
+      this.operario.splice(data);
+      this.selecOperator = '';
+      this.busqueda = '';
+      this.getWarehouses();
+  
+
+      
+    },
+    error  => {
+      console.log(error as any);
+    }
+    );
+
+  }  
 
 
 

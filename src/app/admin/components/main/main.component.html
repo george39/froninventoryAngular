@@ -1,4 +1,4 @@
-<div class="top  col-lg-3 admin-panel"   *ngIf="identity.role == 'ROLE_ADMIN'">
+<div class="top  col-lg-3 admin-panel no-imprimir"   *ngIf="identity.role == 'ROLE_ADMIN'">
     <h1 class="titulo">{{title}}</h1>
     <div class="sidebar-admin " data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example ">
@@ -61,6 +61,10 @@
                 <a [routerLink]="['crear-tarea']">Crear tarea</a>
             </li>
 
+            <li role="presentation" [routerLinkActive]="['active']">
+                <a [routerLink]="['listado-almacen1']">Listado</a>
+            </li>
+
         </ul>
     </div>
 </div>
@@ -81,14 +85,35 @@
                         <span class="glyphicon glyphicon-circle-arrow-left"></span>Salidas
     
                     </a>
-                </li>   
+                </li> 
+                
+                <li role="presentation" [routerLinkActive]="['active']">
+                    <a [routerLink]="['vales-terminado']">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>Vales terminado
+    
+                    </a>
+                </li>
+
+                <li role="presentation" [routerLinkActive]="['active']">
+                    <a [routerLink]="['editar-referencia-almacen2']">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>Cambiar referencia/talla
+    
+                    </a>
+                </li>
+
+                <li role="presentation" [routerLinkActive]="['active']">
+                    <a [routerLink]="['listado-almacen2']">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>Lo que tengo
+    
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 
 
 <!-- MENU GUARNECIDA-->
-<div class="top col-lg-3 col-sx-3" *ngIf="identity.role === 'ROLE_GUARNECIDA' ">
+<div class="top col-lg-3 col-sx-3 menu-guarnecida" *ngIf="identity.role === 'ROLE_GUARNECIDA' ">
     <h1 class="titulo">Guarnecida</h1>
     <div class="sidebar-admin" data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
@@ -100,7 +125,7 @@
                 <a [routerLink]="['salidas-guarnecida']">Salidas</a>
             </li>
             <li role="presentation" [routerLinkActive]="['active']">
-                <a [routerLink]="['asignar-tarea-guarnecida']">Asignar tarea</a>
+                <a [routerLink]="['asignar-tarea-guarnecida']">Entregar tarea</a>
             </li>
             <li role="presentation" [routerLinkActive]="['active']">
                 <a [routerLink]="['agregar-registro']">(Pruebas)</a>
@@ -112,6 +137,10 @@
             <li role="presentation" [routerLinkActive]="['active']">
                 <a [routerLink]="['crear-tarea']">Crear tarea</a>
             </li>
+
+            <li role="presentation" [routerLinkActive]="['active']">
+                    <a [routerLink]="['listado-guarnecida']">Listado</a>
+                </li>
 
         </ul>
     </div>

@@ -51,6 +51,14 @@ import { SalidasWarehouse2Component } from './components/warehouse2/salidas-ware
 import { SalidasStrobellComponent } from './components/strobell/salidas-strobell.component';
 import { SalidasOjaleteadoComponent } from './components/ojaleteado/salidas-ojaleteado.component';
 import { SalidasGuarnecidaComponent } from './components/guarnecida/salidas-guarnecida.component';
+import { ValeTerminadoComponent } from './components/warehouse2/vale-terminado.component';
+import { DetailTerminationComponent } from './components/termination/detail-termination.component';
+import { SearchIdPipe } from './pipes/search-id.pipe';
+import { UpdateReferenceComponent } from './components/warehouse2/update-reference.component';
+import { StockComponent } from './components/warehouse2/stock.component';
+import { ConsolidarPipe } from './pipes/consolidar.pipe';
+import { StockWarehouse1Component } from './components/warehouse1/stock-warehouse1.component';
+import { StockGuarnecidaComponent } from './components/guarnecida/stock-guarnecida.component';
 
 
 
@@ -92,6 +100,14 @@ import { SalidasGuarnecidaComponent } from './components/guarnecida/salidas-guar
 		SalidasStrobellComponent,
 		SalidasOjaleteadoComponent,
 		SalidasGuarnecidaComponent,
+		ValeTerminadoComponent,
+		DetailTerminationComponent,
+		SearchIdPipe,
+		UpdateReferenceComponent,
+		StockComponent,
+		ConsolidarPipe,		
+		StockWarehouse1Component,
+		StockGuarnecidaComponent
 		
 		
 		

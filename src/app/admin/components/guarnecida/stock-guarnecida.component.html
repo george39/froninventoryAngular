@@ -1,0 +1,30 @@
+<div class="top ">
+  
+    <div class="row">		
+        <div class="col-lg-4 inner-addon right-addon">
+          <i class="glyphicon glyphicon-search"></i>			
+          <input type="text" class="form-control"  [(ngModel)]="busqueda" placeholder="Digite número de vale">			
+        </div>		
+    </div>
+    
+    
+    <table class="table table-hover titulo">
+      <thead class="thead-default">
+        <tr>
+          <td>Referencia</td>
+          <td>Talla</td>
+          <td>Cantidad</td>
+        </tr>
+      </thead>
+      <tbody *ngFor="let almacen of guarnecida">
+        
+          <tr  *ngFor="let referencia of almacen.registros | consolidar: busqueda">
+            <td>{{referencia.reference}}</td>
+            <td>{{referencia.size}}</td>
+            <td>{{referencia.quantity}}</td>
+          </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  

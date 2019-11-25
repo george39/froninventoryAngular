@@ -28,7 +28,6 @@ import { AddReferenceComponent } from './components/add-reference/add-reference.
 import { HomeworkDetailComponent } from './components/homework-detail/homework-detail.component';
 import { SearchPipe } from '../pipes/search.pipe';
 import { AddTareaUnidadComponent } from './admin/components/add-tarea-unidad/add-tarea-unidad.component';
-import { SalidasGuarnecidaComponent } from './admmin/coponents/guarnecida/salidas-guarnecida.component';
 
 
 @NgModule({
@@ -48,7 +47,7 @@ import { SalidasGuarnecidaComponent } from './admmin/coponents/guarnecida/salida
     AddReferenceComponent,
     HomeworkDetailComponent,
     SearchPipe,
-    SalidasGuarnecidaComponent,
+    
     
      
     

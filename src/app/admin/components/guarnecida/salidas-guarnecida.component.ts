@@ -29,7 +29,7 @@ import { TestObject } from 'protractor/built/driverProviders';
 @Component({
   selector: 'app-salidas-guarnecida',
   templateUrl: './salidas-guarnecida.component.html',
-  providers: [OperatorService, Warehouse1Service]
+  providers: [OperatorService]
 })
 export class SalidasGuarnecidaComponent implements OnInit {
  // BUSQUEDA POR UNIDAD

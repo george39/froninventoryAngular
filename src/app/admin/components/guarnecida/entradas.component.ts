@@ -27,6 +27,23 @@ import { GuarnecidaService } from '../../../services/guarnecida.service';
 })
 export class EntradasComponent implements OnInit {
 
+  public tareaUnidad: TareaUnidad;
+  public guarnecida: Guarnecida;
+  public warehouse: [];
+  public token;
+  public busqueda;
+  public codigo: string[];
+  public referencia: string[];
+  public talla: string[];
+  public idAlmacen: string[];
+  public troquelador: string[];
+  public status;
+  public warehouses: any[];
+  public seleccion;
+  public clasificacion: any[];
+
+  formData: FormGroup;
+
   constructor(
     private _route: ActivatedRoute,
   	 private _router: Router,
@@ -46,6 +63,7 @@ export class EntradasComponent implements OnInit {
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
+    this.troquelador = new Array();
     
     this.clasificacion = new Array();
     this.status = true;
@@ -77,32 +95,14 @@ export class EntradasComponent implements OnInit {
   @ViewChild('reference') reference: ElementRef;
   @ViewChild('size') size: ElementRef;
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
-  @ViewChild('primera') primera: ElementRef;
-  @ViewChild('segunda') segunda: ElementRef;
-
-
-
-  
-  public tareaUnidad: TareaUnidad;
-  public guarnecida: Guarnecida;
-  public warehouse: [];
-  public token;
-  public busqueda;
-  public codigo: string[];
-  public referencia: string[];
-  public talla: string[];
-  public idAlmacen: string[];
-  public status;
-  public warehouses: any[];
-  public seleccion;
-  public clasificacion: any[];
+  @ViewChild('troquelator') troquelator: ElementRef;
   
 
 
 
+  
+  
 
-  formData: FormGroup;
-error;
 
   ngOnInit() {
      this.HomeworkUnit();
@@ -139,27 +139,10 @@ error;
       this.referencia.push(this.reference.nativeElement.value);
       this.talla.push(this.size.nativeElement.value);
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
+      this.troquelador.push(this.troquelator.nativeElement.value);
       // this.clasificacion.push(this.clasification.nativeElement.value);
       this.busqueda = '';
       this.status = true;
-
-      var primera = document.getElementById('primera') as HTMLInputElement;
-      var segunda = document.getElementById('segunda') as HTMLInputElement;
-      
-      
-      if (primera.checked) {
-        this.clasificacion.push(this.primera.nativeElement.value);
-         
-        }
-
-      if (segunda.checked) {
-        this.clasificacion.push(this.segunda.nativeElement.value);
-           
-          }
-
-      
-      console.log('clasifiacion', this.clasificacion);
-
 
     }
   }
@@ -170,7 +153,8 @@ error;
       code: [''],
       reference: [''],
       size: [''],
-      quantity: 0.5,     
+      troquelator: [''],
+      quantity: 0.5,
       clasification: ['']
     });
   }
@@ -190,7 +174,16 @@ error;
     );
   }
 
-  
+  deleteTroquelado(id) {
+    this.tareaUnidadService.deleteTroquelado(this. token, id).subscribe(
+      response => {
+
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
 
 
   // deleteItem(dat) {
@@ -232,6 +225,7 @@ error;
                   this.referencia.splice(data);
                   this.talla.splice(data);
                   this.clasificacion.splice(data);
+                  this.HomeworkUnit();
                 },
                 error  => {
                   console.log(error as any);

@@ -1,0 +1,88 @@
+
+    <div class="row top" *ngFor="let operario of [valeTermination]">
+        <div class="col-lg-4 titulo">Operario:{{' '}}{{operario.operator}}</div>
+        <div class="col-lg-4 titulo">Número vale:{{' '}}{{operario._id}}</div>
+        <div *ngFor="let canasta of operario.registros | dinamica">
+    </div>
+    </div>
+    <br>
+<div *ngFor="let registro of [valeTermination]">
+<div *ngFor="let canasta of registro.registros | dinamica; let i = index">
+    
+    <div class="container ">
+            
+        <div class="row">
+
+            <div >                
+                <input class="col-lg-1" type="text" #referencia id="referencia" [(ngModel)]="canasta.reference">
+            </div>
+            
+            <div *ngIf="canasta.trestres > 0">
+                <input class="col-lg-1"  value="{{'33'}}{{': '}}{{canasta.trestres}}"> 
+            </div> 
+
+            <div *ngIf="canasta.trescuatro > 0">
+                    <input class="col-lg-1"  value="{{'34'}}{{': '}}{{canasta.trescuatro}}"> 
+            </div>
+            
+            <div *ngIf="canasta.trescinco > 0">
+                    <input class="col-lg-1"  value="{{'35'}}{{': '}}{{canasta.trescinco}}"> 
+            </div>
+            
+            <div *ngIf="canasta.tresseis > 0">
+                <input class="col-lg-1"  value="{{'36'}}{{': '}}{{canasta.tresseis}}"> 
+            </div> 
+
+            <div *ngIf="canasta.tressiete > 0">
+                <input class="col-lg-1"  value="{{'37'}}{{': '}}{{canasta.tressiete}}"> 
+            </div>             
+            
+            <div *ngIf="canasta.tresocho > 0">
+                <input class="col-lg-1"  value="{{'38'}}{{': '}}{{canasta.tresocho}}"> 
+            </div>
+            
+            <div *ngIf="canasta.tresnueve > 0">
+                <input class="col-lg-1"  value="{{'39'}}{{': '}}{{canasta.tresnueve}}"> 
+            </div>
+            
+            <div *ngIf="canasta.cuarenta > 0">
+                <input class="col-lg-1"  value="{{'40'}}{{': '}}{{canasta.cuarenta}}"> 
+            </div> 
+
+            <div *ngIf="canasta.cuarentayuno > 0">
+                    <input class="col-lg-1"  value="{{'41'}}{{': '}}{{canasta.cuarentayuno}}"> 
+            </div>
+            
+            <div *ngIf="canasta.cuarentaydos > 0">
+                    <input class="col-lg-1"  value="{{'42'}}{{': '}}{{canasta.cuarentaydos}}"> 
+            </div>
+            
+            <div *ngIf="canasta.cuarentaytres > 0">
+                    <input class="col-lg-1"  value="{{'43'}}{{': '}}{{canasta.cuarentaytres}}"> 
+            </div>
+            
+            <div *ngIf="canasta.cuarentaycuatro > 0">
+                    <input class="col-lg-1"  value="{{'44'}}{{': '}}{{canasta.cuarentaycuatro}}"> 
+            </div>
+            
+            <div *ngIf="canasta.cuarentaycinco > 0">
+                    <input class="col-lg-1"  value="{{'45'}}{{': '}}{{canasta.cuarentaycinco}}"> 
+            </div>
+            
+            <div *ngIf="canasta.cuarentayseis > 0">
+                    <input class="col-lg-1"  value="{{'46'}}{{': '}}{{canasta.cuarentayseis}}"> 
+            </div>
+            
+            <div *ngIf="canasta.cuarentaysiete > 0">
+                    <input class="col-lg-1"  value="{{'47'}}{{': '}}{{canasta.cuarentaysiete}}"> 
+            </div> 
+        </div>
+
+        
+        
+        
+    </div>
+</div>
+</div>
+
+

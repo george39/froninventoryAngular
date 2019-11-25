@@ -58,7 +58,7 @@ export class BarcodeComponent implements OnInit {
   format = 'CODE128';
   lineColor = '#000000';
   width = 1.5;
-  height = 30;
+  height = 15;
   displayValue = true;
   fontOptions = '';
   font = 'monospace';
@@ -144,25 +144,48 @@ export class BarcodeComponent implements OnInit {
 
 
 
-  print(): void {
-    let printContents, popupWin;
-    printContents = document.getElementById('print-section').innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    popupWin.document.open();
-    popupWin.document.write(`
-      <html>
-        <head>
-          <title>Imprimir código de barras</title>
-          <style>
-          //........Customized style.......
-          </style>
-        </head>
-    <body onload="window.print();window.close()">${printContents}</body>
-      </html>`
-    );
-    popupWin.document.close();
+//   print(): void {
+//     let printContents, popupWin;
+//     printContents = document.getElementById('print-section').innerHTML;
+//     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+//     popupWin.document.open();
+//     popupWin.document.write(`
+//       <html>
+//         <head>
+//           <title>Imprimir código de barras</title>
+//           <style>
+//           //........Customized style.......
+//           </style>
+//         </head>
+//     <body onload="window.print();window.close()">${printContents}</body>
+//       </html>`
+//     );
+//     popupWin.document.close();
+// }
+
+print() {
+  
+  const printContents = document.getElementById('print-section').innerHTML;
+  const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+  popupWin.document.open();
+  popupWin.document.write(`
+    <html>
+      <head>
+        <title>Imprimir código de barras</title>
+        <style>
+
+        </style>
+      </head>
+  <body onload="window.print();window.close()">${printContents}</body>
+    </html>`
+  );
+  popupWin.document.close();
 }
 
+  imprimir() {
+    const sec = document.getElementById('print-section').innerHTML;
+    window.print();
+  }
 
 
 }

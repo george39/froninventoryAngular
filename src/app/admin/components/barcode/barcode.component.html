@@ -1,32 +1,34 @@
-<h1 class="top titulo">{{title}}</h1>
-<hr>
-<button class="btn btn-primary " (click)="print()">
-		<span class="glyphicon glyphicon-print"></span>
+<h1 class="top titulo no-imprimir">{{title}}</h1>
+
+<button class="btn btn-primary no-imprimir" (click)="imprimir()">
+		<span class="glyphicon glyphicon-print "></span>
 		Imprimir
     </button>
     
     
 
-<hr>
-<div class="titulo">
+
+<div class="titulo" id="print-section">
 
 
     <div fxLayout="column" class="top">
 
-        <div id="print-section">
+        
 
             <div fxLayout="column" *ngFor="let s of (codes); let i = index">
                 <div *ngFor="let f of [homework]">
                     <div *ngFor="let r of tareaUnidad">
-                        <h6 class="mt-0" *ngIf="r.code === f._id + [i+1]">{{'ref'}}{{': '}}{{r.reference}}{{' '}}{{' '}}{{'talla:'}}{{' '}}{{r.size}}</h6>
+                        <h6 class="barcode" *ngIf="r.code === f._id + [i+1]">{{'ref'}}{{': '}}{{r.reference}}{{' '}}{{' '}}{{'talla:'}}{{' '}}{{r.size}}</h6>
                     </div>
                 </div>
-                <ngx-barcode *ngFor="let code of [homework]" [bc-display-value]="true" [bc-element-type]="elementType" [bc-value]="code._id  + [i+1]" [bc-format]="format" [bc-line-color]="lineColor" [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue"
+                <ngx-barcode class="cod" *ngFor="let code of [homework]" [bc-display-value]="true"  [bc-value]="code._id  + [i+1]" [bc-format]="format" [bc-line-color]="lineColor" [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue"
                 [bc-font-options]="fontOptions" [bc-font]="font" [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background" [bc-margin]="margin" [bc-margin-top]="marginTop"
                 [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
 
             </div>
-        </div>
+        
+    </div>
+</div>        
 
         <!-- 
 <tr *ngFor="let PS of PrintSerials">
