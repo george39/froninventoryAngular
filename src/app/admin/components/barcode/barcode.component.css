@@ -1,0 +1,50 @@
+@page  {size: 10cm 2.5cm}
+
+
+
+
+.pagina-codigo {
+	
+    /* border:red 1px solid; */
+    border-top:rgb(252, 251, 251) 1px solid;
+    height:2.5cm;
+    width:10cm;
+    page-break-before: always;
+           
+    
+    
+    
+} 
+
+
+
+
+@media print {
+    
+    .pagina-codigo {            
+        height:2.5cm;
+        width:10cm; 
+               
+        }
+    }
+
+
+.codigo {
+    margin: 12mm 10mm 0 60mm ;
+    
+}
+
+.referencia-talla {
+    margin: 2mm 10mm 0.5mm 60mm ;
+}
+
+.pais-origen {
+    /* margin-left: 5mm; */
+    margin: -6mm 0mm -12mm 10mm;
+}
+
+.registro {
+    margin: -7mm 0mm -10mm 10mm;
+}
+
+   

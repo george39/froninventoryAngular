@@ -14,8 +14,7 @@ import { throwError, from } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Guarnecida } from '../../../models/guarnecida';
 import { GuarnecidaService } from '../../../services/guarnecida.service';
-
-
+import swal from 'sweetalert';
 // tslint:disable-next-line:label-position
 
 
@@ -38,6 +37,8 @@ export class EntradasComponent implements OnInit {
   public idAlmacen: string[];
   public troquelador: string[];
   public status;
+  public codigoRepetido;
+  public repetido;
   public warehouses: any[];
   public seleccion;
   public clasificacion: any[];
@@ -67,6 +68,8 @@ export class EntradasComponent implements OnInit {
     
     this.clasificacion = new Array();
     this.status = true;
+    this.codigoRepetido = true;
+    this.repetido = [];
    
     this.warehouses = [
     'Troquelado',
@@ -109,41 +112,61 @@ export class EntradasComponent implements OnInit {
      // this.getWarehouses();
      
      
-
-
-    // INSTRUCCION QUE NO PERMITE INSERTAR ITEMS VACIOS
+     
+     
+     // INSTRUCCION QUE NO PERMITE INSERTAR ITEMS VACIOS
      const control = this.addressListArray.controls;
      control.splice(1[0]);
+    }
+
+  duplicados() {
+
+    
   }
-
-
+  
   addAddress() {
     // Me pone el scroll al principio
     var scrol = document.getElementById('caja');
     // scrol.innerHTML = html;
     scrol.scrollTop = scrol.scrollHeight;
-
-
+    // this.repetido.push(this.code.nativeElement.value);
+    
     const code = document.getElementById('code');
-    console.log('code', code);
     if ( code === null) {
       this.status = false;
+      // swal('important', 'no se encontro el codigo', 'ware')      
+      
+      }
+
+    var repetidos = this.codigo.filter(function(item, index, array) {
+      return array.indexOf(item) === index;
+      });
+    for (let i of repetidos) {
+      if (this.busqueda === i) {
+        swal('importante', 'El codigo' + ' ' + this.busqueda + ' ' + 'ya existe en la lista', 'warning');
+      } else {
+  
+        
+      }
+      console.log('rep', i);
     }
 
+      
     if ( this.code.nativeElement) {
+        
+        this.codigo.push(this.code.nativeElement.value);
+        this.addressListArray.push(this.getaddress());
+        const control = this.formData.controls.registros;
+        const control2 = this.addressListArray.controls;
+        this.referencia.push(this.reference.nativeElement.value);
+        this.talla.push(this.size.nativeElement.value);
+        this.idAlmacen.push(this.idWarehouse.nativeElement.value);
+        this.troquelador.push(this.troquelator.nativeElement.value);
+        // this.clasificacion.push(this.clasification.nativeElement.value);
+        this.status = true;
 
-      this.addressListArray.push(this.getaddress());
-      const control = this.formData.controls.registros;
-      const control2 = this.addressListArray.controls;
-      this.codigo.push(this.code.nativeElement.value);
-      this.referencia.push(this.reference.nativeElement.value);
-      this.talla.push(this.size.nativeElement.value);
-      this.idAlmacen.push(this.idWarehouse.nativeElement.value);
-      this.troquelador.push(this.troquelator.nativeElement.value);
-      // this.clasificacion.push(this.clasification.nativeElement.value);
-      this.busqueda = '';
-      this.status = true;
-
+        this.busqueda = '';
+        console.log('formdata', this.codigo);
     }
   }
 
@@ -177,6 +200,7 @@ export class EntradasComponent implements OnInit {
   deleteTroquelado(id) {
     this.tareaUnidadService.deleteTroquelado(this. token, id).subscribe(
       response => {
+        this.HomeworkUnit();
 
       },
       error => {

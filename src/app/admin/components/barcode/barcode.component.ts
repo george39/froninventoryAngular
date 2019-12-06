@@ -58,20 +58,20 @@ export class BarcodeComponent implements OnInit {
   format = 'CODE128';
   lineColor = '#000000';
   width = 1.5;
-  height = 15;
+  height = 20;
   displayValue = true;
   fontOptions = '';
   font = 'monospace';
   textAlign = 'center';
   textPosition = 'bottom';
-  textMargin = 2;
-  fontSize = 10;
+  textMargin = 1;
+  fontSize = 15;
   background = '#ffffff';
   margin = 10;
   marginTop = 1;
-  marginBottom = 10;
-  marginLeft = 10;
-  marginRight = 10;
+  marginBottom = 2;
+  marginLeft = 2;
+  marginRight = 2;
   codeList: string[] = [
     '', 'CODE128',
     'CODE128A', 'CODE128B', 'CODE128C',
@@ -166,14 +166,14 @@ export class BarcodeComponent implements OnInit {
 print() {
   
   const printContents = document.getElementById('print-section').innerHTML;
-  const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+  const popupWin = window.open('', '_blank', 'top=0,left=0,height=0,width=auto');
   popupWin.document.open();
   popupWin.document.write(`
     <html>
       <head>
         <title>Imprimir código de barras</title>
         <style>
-
+        
         </style>
       </head>
   <body onload="window.print();window.close()">${printContents}</body>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Warehouse2Service } from '../../services/warehouse2.service';
+import { Warehouse2 } from '../../models/warehouse2';
+
 
 @Component({
   selector: 'app-warehouse2',
@@ -6,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./warehouse2.component.css']
 })
 export class Warehouse2Component implements OnInit {
+  public title;
+  public warehouse2: Warehouse2[];
 
-  constructor() { }
+  constructor(
+    private warehouse2Service: Warehouse2Service,
+    
+  ) { }
 
   ngOnInit() {
+  }
+
+  getWarehouse2() {
+    
   }
 
 }

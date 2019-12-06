@@ -63,7 +63,6 @@ import { StockGuarnecidaComponent } from './components/guarnecida/stock-guarneci
 
 
 
-
 @NgModule({
 	declarations: [
 		MainComponent,
@@ -128,7 +127,8 @@ import { StockGuarnecidaComponent } from './components/guarnecida/stock-guarneci
 		 ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
 		BrowserModule,
 		ReactiveFormsModule,
-		FormsModule 
+		FormsModule,
+		
 		
 	],
 	exports:[

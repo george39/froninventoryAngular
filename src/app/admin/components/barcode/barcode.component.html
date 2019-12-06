@@ -5,30 +5,42 @@
 		Imprimir
     </button>
     
-    
+        <!-- ANCHO 10CM ALTO 2.5 CM ORIENTACION HORIZONTAL -->
+
+<div class="titulo"  [ngStyle]="" >
 
 
-<div class="titulo" id="print-section">
-
-
-    <div fxLayout="column" class="top">
+    <div  >
 
         
 
-            <div fxLayout="column" *ngFor="let s of (codes); let i = index">
+            <div  *ngFor="let s of (codes); let i = index">
                 <div *ngFor="let f of [homework]">
-                    <div *ngFor="let r of tareaUnidad">
-                        <h6 class="barcode" *ngIf="r.code === f._id + [i+1]">{{'ref'}}{{': '}}{{r.reference}}{{' '}}{{' '}}{{'talla:'}}{{' '}}{{r.size}}</h6>
+                    <div class="pagina-codigo " id="print-section">
+                        <div *ngFor="let r of tareaUnidad" class="referencia-talla">
+                            <p  *ngIf="r.code === f._id + [i+1]"><font size="1">{{'ref'}}{{': '}}{{r.reference}}{{' '}}{{' '}}{{'talla:'}}{{' '}}{{r.size}}</font></p>
+                        </div>
+                        <div class="pais-origen">
+                            <p ><font size="1">País de origen: Colombia</font></p>
+                        </div>
+                        <div class="registro">
+                            <p ><font size="1">Registro SIC: 891400726</font></p>
+                        </div>
+                        <div class="codigo" >
+                            <ngx-barcode  *ngFor="let code of [homework]" [bc-display-value]="true"  [bc-value]="code._id  + [i+1]" [bc-format]="format" [bc-line-color]="lineColor" [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue"
+                            [bc-font-options]="fontOptions" [bc-font]="font" [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background" [bc-margin]="margin" [bc-margin-top]="marginTop"
+                            [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
+                        </div>
                     </div>
                 </div>
-                <ngx-barcode class="cod" *ngFor="let code of [homework]" [bc-display-value]="true"  [bc-value]="code._id  + [i+1]" [bc-format]="format" [bc-line-color]="lineColor" [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue"
-                [bc-font-options]="fontOptions" [bc-font]="font" [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background" [bc-margin]="margin" [bc-margin-top]="marginTop"
-                [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
-
-            </div>
         
     </div>
-</div>        
+</div>  
+
+
+
+
+
 
         <!-- 
 <tr *ngFor="let PS of PrintSerials">

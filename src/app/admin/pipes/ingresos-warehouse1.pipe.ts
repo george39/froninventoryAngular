@@ -15,6 +15,7 @@ export class IngresosWarehouse1Pipe implements PipeTransform {
     if ( term === '' || term === undefined) {
       return items;
     }
+    
 
     const resultadoConsulta = [];
     for ( const post of items ) {
@@ -24,7 +25,6 @@ export class IngresosWarehouse1Pipe implements PipeTransform {
         }
     }
     return resultadoConsulta;
-
   }
 
 }
