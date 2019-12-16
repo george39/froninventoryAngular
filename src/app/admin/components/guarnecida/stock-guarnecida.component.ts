@@ -9,8 +9,9 @@ import { GuarnecidaService } from '../../../services/guarnecida.service';
 })
 export class StockGuarnecidaComponent implements OnInit {
   public title;
-  public guarnecida: Guarnecida[];
+  public guarnecidaInterna: Guarnecida[];
   public busqueda;
+  public consolidadoGuarnecida = [];
 
   constructor(
     private guarnecidaService: GuarnecidaService
@@ -23,11 +24,18 @@ export class StockGuarnecidaComponent implements OnInit {
   getGuarnecida() {
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.guarnecida) {
+        if (!response.guarnecidaInterna) {
 
         } else {
-          this.guarnecida = response.guarnecida;
-          console.log('almacen ', this.guarnecida);
+          // this.consolidadoGuarnecida = [];
+          response.guarnecidaInterna.forEach((item) => {
+            item.registros.forEach((consolidado) => {
+              this.consolidadoGuarnecida.push(consolidado);
+            });
+          });
+
+          this.guarnecidaInterna = this.consolidadoGuarnecida;
+
         }
       },
       error => {

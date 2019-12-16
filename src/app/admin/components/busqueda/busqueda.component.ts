@@ -33,6 +33,7 @@ export class BusquedaComponent implements OnInit {
    }
 
   ngOnInit() {
+    
   }
 
   buscar(termino: string) {

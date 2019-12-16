@@ -10,6 +10,7 @@ import { Ojaleteado } from '../../../models/ojaleteado';
 import { UserService } from '../../../services/user.service';
 import { Operator } from '../../../models/operator';
 import { OperatorService } from '../../../services/operator.service';
+import swal from 'sweetalert';
 
 
 
@@ -39,6 +40,8 @@ export class SalidasOjaleteadoComponent implements OnInit {
   public token;
   public busqueda;
   public status;
+  public dobles;
+  public codigoRepetido = true;
   public title: string;
   public varSeleccion;
   public codigo: string[];
@@ -138,6 +141,52 @@ export class SalidasOjaleteadoComponent implements OnInit {
 
 
   // ================================================
+  // DEVUELVE ALERTA QUE NO ENCONTRO CODIGO
+  // ================================================
+  noEncontrado() {
+
+    swal('Ojo', 'El codigo' + ' ' + this.busqueda + ' ' + 'no se encontro', 'error');
+    this.busqueda = '';
+    window.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+          event.preventDefault();
+      }
+  }, false);
+  }
+
+
+  // ================================================
+  // NO PERMITE AGREGAR CODIGOS REPETIDOS
+  // ================================================
+  repetidos() {
+    this.dobles = this.codigo.filter(function(item, index, array) {
+      return array.indexOf(item) === index;
+      });
+    for (let i of this.dobles) {
+
+      if (this.busqueda === i) {
+         this.codigoRepetido = false;
+         this.dobles.splice(1);
+         console.log('rep', this.dobles);
+         swal('Importante', 'El codigo' + ' ' + this.busqueda + ' ' + 'ya existe en la lista', 'warning');
+
+
+         window.addEventListener("keypress", function(event) {
+           if (event.keyCode === 13){
+             event.preventDefault();
+            }
+          }, true);
+         this.busqueda = '';
+      } else {
+        this.codigoRepetido = true;
+      }
+
+    }
+  }
+
+
+
+  // ================================================
   // AGREGA UNA UNIDAD A LA LISTA PARA SER GUARDADA
   // ================================================
   addAddress() {
@@ -150,10 +199,12 @@ export class SalidasOjaleteadoComponent implements OnInit {
     const code = document.getElementById('code');
     console.log('code', code);
     if ( code === null) {
-      this.status = false;
+      this.noEncontrado();
     }
 
-    if ( this.code.nativeElement) {
+    this.repetidos();
+
+    if ( this.code.nativeElement && this.codigoRepetido === true) {
 
       this.addressListArray.push(this.getaddress());
       const control = this.formData.controls.registros;
@@ -212,13 +263,14 @@ export class SalidasOjaleteadoComponent implements OnInit {
   removeAddress(index) {
     const s = this.formData.value.registros;
     s.splice(index, 1);
-
+    this.dobles.splice(index, 1);
     const control = this.addressListArray.controls;
     control.splice(index, 1);
     this.codigo.splice(index, 1);
     this.referencia.splice(index, 1);
     this.talla.splice(index, 1);
     this.idAlmacen.splice(index, 1);
+    this.codigoRepetido = true;
 
   }
 

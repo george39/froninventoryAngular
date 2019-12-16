@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 
 
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, Routes } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { TareaUnidadService } from '../../../services/tarea-unidad.service';
 import { TareaUnidad } from '../../../models/tareaUnidad';
@@ -15,6 +15,7 @@ import { catchError } from 'rxjs/operators';
 import { Guarnecida } from '../../../models/guarnecida';
 import { GuarnecidaService } from '../../../services/guarnecida.service';
 import swal from 'sweetalert';
+import { map } from 'rxjs/operators';
 // tslint:disable-next-line:label-position
 
 
@@ -39,6 +40,7 @@ export class EntradasComponent implements OnInit {
   public status;
   public codigoRepetido;
   public repetido;
+  public dobles;
   public warehouses: any[];
   public seleccion;
   public clasificacion: any[];
@@ -99,61 +101,83 @@ export class EntradasComponent implements OnInit {
   @ViewChild('size') size: ElementRef;
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
   @ViewChild('troquelator') troquelator: ElementRef;
-  
-
-
-
-  
-  
 
 
   ngOnInit() {
      this.HomeworkUnit();
      // this.getWarehouses();
-     
-     
-     
-     
+
      // INSTRUCCION QUE NO PERMITE INSERTAR ITEMS VACIOS
      const control = this.addressListArray.controls;
      control.splice(1[0]);
     }
 
-  duplicados() {
 
-    
+  // ================================================
+  // DEVUELVE ALERTA QUE NO ENCONTRO CODIGO
+  // ================================================
+  noEncontrado() {
+
+    swal('Ojo', 'El codigo' + ' ' + this.busqueda + ' ' + 'no se encontro', 'error');
+    this.busqueda = '';
+    window.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+          event.preventDefault();
+      }
+  }, false);
   }
-  
+
+
+  // ================================================
+  // NO PERMITE AGREGAR CODIGOS REPETIDOS
+  // ================================================
+  repetidos() {
+    this.dobles = this.codigo.filter(function(item, index, array) {
+      return array.indexOf(item) === index;
+      });
+    for (let i of this.dobles) {
+
+      if (this.busqueda === i) {
+         this.codigoRepetido = false;
+         this.dobles.splice(1);
+         console.log('rep', this.dobles);
+         swal('Importante', 'El codigo' + ' ' + this.busqueda + ' ' + 'ya existe en la lista', 'warning');
+
+
+         window.addEventListener("keypress", function(event) {
+           if (event.keyCode === 13){
+             event.preventDefault();
+            }
+          }, true);
+         this.busqueda = '';
+      } else {
+        this.codigoRepetido = true;
+      }
+
+    }
+  }
+
+
   addAddress() {
     // Me pone el scroll al principio
     var scrol = document.getElementById('caja');
     // scrol.innerHTML = html;
     scrol.scrollTop = scrol.scrollHeight;
     // this.repetido.push(this.code.nativeElement.value);
-    
+
     const code = document.getElementById('code');
     if ( code === null) {
-      this.status = false;
-      // swal('important', 'no se encontro el codigo', 'ware')      
-      
+
+      this.noEncontrado();
+
       }
 
-    var repetidos = this.codigo.filter(function(item, index, array) {
-      return array.indexOf(item) === index;
-      });
-    for (let i of repetidos) {
-      if (this.busqueda === i) {
-        swal('importante', 'El codigo' + ' ' + this.busqueda + ' ' + 'ya existe en la lista', 'warning');
-      } else {
-  
-        
-      }
-      console.log('rep', i);
-    }
+    this.repetidos();
 
-      
-    if ( this.code.nativeElement) {
-        
+
+
+    if ( this.code.nativeElement && this.codigoRepetido === true) {
+
         this.codigo.push(this.code.nativeElement.value);
         this.addressListArray.push(this.getaddress());
         const control = this.formData.controls.registros;
@@ -277,13 +301,15 @@ export class EntradasComponent implements OnInit {
   removeAddress(index) {
       const s = this.formData.value.registros;
       s.splice(index, 1);
-
+    
+      this.dobles.splice(index, 1);
       const control = this.addressListArray.controls;
       control.splice(index, 1);
       this.codigo.splice(index, 1);
       this.referencia.splice(index, 1);
       this.talla.splice(index, 1);
       this.idAlmacen.splice(index, 1);
+      this.codigoRepetido = true;
       console.log('eliminar', this.formData.value);
       // this.addressListArray.removeAt(index);
       console.log('index', index);

@@ -59,6 +59,13 @@ import { StockComponent } from './components/warehouse2/stock.component';
 import { ConsolidarPipe } from './pipes/consolidar.pipe';
 import { StockWarehouse1Component } from './components/warehouse1/stock-warehouse1.component';
 import { StockGuarnecidaComponent } from './components/guarnecida/stock-guarnecida.component';
+import { StockTroqueladoComponent } from './components/add-homework/stock-troquelado.component';
+import { EnsayoPipe } from './pipes/ensayo.pipe';
+import { StockOjaleteadoComponent } from './components/ojaleteado/stock-ojaleteado.component';
+import { StockStrobelComponent } from './components/strobell/stock-strobel.component';
+import { StockInjectionComponent } from './components/injection/stock-injection.component';
+import { StockTerminationComponent } from './components/termination/stock-termination.component';
+import { SearchReferencePipe } from './pipes/search-reference.pipe';
 
 
 
@@ -106,7 +113,14 @@ import { StockGuarnecidaComponent } from './components/guarnecida/stock-guarneci
 		StockComponent,
 		ConsolidarPipe,		
 		StockWarehouse1Component,
-		StockGuarnecidaComponent
+		StockGuarnecidaComponent,
+		StockTroqueladoComponent,
+		EnsayoPipe,
+		StockOjaleteadoComponent,
+		StockStrobelComponent,
+		StockInjectionComponent,
+		StockTerminationComponent,
+		SearchReferencePipe
 		
 		
 		

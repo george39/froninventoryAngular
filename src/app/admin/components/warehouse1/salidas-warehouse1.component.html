@@ -47,7 +47,7 @@
                 <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
                 <div *ngIf="busqueda === unidad.code">
                     <div class="row">
-                        <div><input type="hidden" #code value="{{unidad.code}}"></div>
+                        <div><input type="hidden" id="code" #code value="{{unidad.code}}"></div>
                         <div><input type="hidden" #reference value="{{unidad.reference}}"></div>
                         <div><input type="hidden" #size value="{{unidad.size}}"></div>
                         <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>

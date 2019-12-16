@@ -37,6 +37,12 @@ import { UpdateReferenceComponent } from './components/warehouse2/update-referen
 import { StockComponent } from './components/warehouse2/stock.component';
 import { StockWarehouse1Component } from './components/warehouse1/stock-warehouse1.component';
 import { StockGuarnecidaComponent } from './components/guarnecida/stock-guarnecida.component';
+import { StockTroqueladoComponent } from './components/add-homework/stock-troquelado.component';
+import { StockOjaleteadoComponent } from './components/ojaleteado/stock-ojaleteado.component';
+import { StockStrobelComponent } from './components/strobell/stock-strobel.component';
+import { StockInjectionComponent } from './components/injection/stock-injection.component';
+import { StockTerminationComponent } from './components/termination/stock-termination.component';
+import { TrazabilidadComponent } from '../components/trazabilidad/trazabilidad.component';
 
 
 const adminRoutes: Routes = [
@@ -52,6 +58,7 @@ const adminRoutes: Routes = [
 			{path: 'crear-referencia', component: AddReferenceComponent},
 			{path: 'crear-tarea', component: AddHomeworkComponent},
 			{path: 'listado-operarios', component: ListOperatorsComponent},
+			{path: 'listado-troquelado', component: StockTroqueladoComponent},
 			{path: 'codigo-barras/:id', component: BarcodeComponent},
 			{path: 'detalles-tarea/:id', component: HomeworkDetailComponent},
 			{path: 'detalles-terminado/:id', component: DetailTerminationComponent},
@@ -72,9 +79,13 @@ const adminRoutes: Routes = [
 			{path: 'salidas-guarnecida', component: SalidasGuarnecidaComponent},
 			{path: 'listado-guarnecida', component: StockGuarnecidaComponent},
 			{path: 'strobell-inyeccion', component: SalidasStrobellComponent},
+			{path: 'listado-strobell', component: StockStrobelComponent},
 			{path: 'ojaleteado-strobell', component: SalidasOjaleteadoComponent},
+			{path: 'listado-ojaleteado', component: StockOjaleteadoComponent},
+			{path: 'listado-inyeccion', component: StockInjectionComponent},
+			{path: 'listado-terminado', component: StockTerminationComponent},
 			{path: 'asignar-tarea-guarnecida', component: AsignarTareaComponent},
-			{path: 'busqueda/:termino', component: BusquedaComponent},
+			{path: 'trazabilidad/:termino', component: TrazabilidadComponent},
 			{path: 'busqueda/:termino/:todo', component: BusquedaComponent},
 			{path: 'vales-terminado', component: ValeTerminadoComponent},
 

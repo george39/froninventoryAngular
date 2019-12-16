@@ -6,34 +6,51 @@
             </div> -->
 
             <ul class="nav navbar-nav">
-                <li>
+                <!-- <li>
                     <a [routerLink]="['/home']" [routerLinkActive]="['active']">
                         <span class="glyphicon glyphicon-home"></span> Inicio
                     </a>
+                </li> -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" [routerLinkActive]="['active']">
+            Guarnecidas<span class="caret"></span>
+          </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a [routerLink]="['/listado-guarnecida-interna']">
+                                <span class="glyphicon glyphicon-cog"></span>Guarnecida interna
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer" [routerLink]="['/listado-guarnecida-externa']">
+                                <span class="glyphicon glyphicon-log-out"></span>Guarnecida externa
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li>
-                    <a [routerLink]="['/troquelado']" [routerLinkActive]="['active']">
+                    <a [routerLink]="['/listado-troquelado']" [routerLinkActive]="['active']">
                         <span></span> Troquelado
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/guarnecida']" [routerLinkActive]="['active']">
+                    <a [routerLink]="['/listado-strobell']" [routerLinkActive]="['active']">
                         <span></span> Strobell
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/guarnecida']" [routerLinkActive]="['active']">
+                    <a [routerLink]="['/listado-ojaleteado']" [routerLinkActive]="['active']">
                         <span></span> Ojaleteado
                     </a>
                 </li>
                 <li>
-                    <a [routerLinkActive]="['active']">
+                    <a [routerLink]="['/listado-almacen1']" [routerLinkActive]="['active']">
                         <span></span> Almacen1
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/tareas']" [routerLinkActive]="['active']">
+                    <a [routerLink]="['/listado-almacen2']" [routerLinkActive]="['active']">
                         <span></span> Almacen 2
                     </a>
                 </li>
@@ -41,20 +58,28 @@
 
 
                 <li>
-                    <a [routerLink]="['/almacen2']" [routerLinkActive]="['active']">
+                    <a [routerLink]="['/listado-terminado']" [routerLinkActive]="['active']">
                         <span></span> Terminado
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/inyeccion1']" [routerLinkActive]="['active']">
+                    <a [routerLink]="['/listado-inyeccion']" [routerLinkActive]="['active']">
                         <span></span> Inyeccion
                     </a>
                 </li>
 
-
                 <li>
-                    <input #input (keyup.enter)="buscar(input.value)" type="text" class="form-control">
+                    <a [routerLink]="['/trazabilidad']" [routerLinkActive]="['active']">
+                        Consultar <span class="glyphicon glyphicon-search"></span>
+                    </a>
                 </li>
+
+
+                <!-- <li>
+                    <input #input (keyup.enter)="buscar(input.value)" type="text" class="form-control">
+                </li> -->
+
+                
             </ul>
 
             <ul class="nav navbar-nav navbar-right" *ngIf="!identity">

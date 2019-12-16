@@ -234,6 +234,7 @@ export class SalidasComponent implements OnInit {
       size: [''],
       _id: [''],
       operator: [''],
+      quantity: 0.5,
       clasification: ['']
     });
   }

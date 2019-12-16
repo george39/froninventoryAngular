@@ -12,6 +12,7 @@ import { GuarnecidaService } from '../../../services/guarnecida.service';
 import { Operator } from '../../../models/operator';
 import { OperatorService } from '../../../services/operator.service';
 import { TestObject } from 'protractor/built/driverProviders';
+import swal from 'sweetalert';
 
 
 
@@ -58,7 +59,9 @@ export class AsignarTareaComponent implements OnInit {
   public selecSalidas;
   public selecOperator;
   public varSeleccion;
-  public numeroCanasta: string[];  
+  public dobles;
+  public codigoRepetido = true;
+  public numeroCanasta: string[];
   public clasificacion: string[];
   public mostrarReferencia;
   public canastaVacia: string[];
@@ -158,6 +161,51 @@ export class AsignarTareaComponent implements OnInit {
   }
 
 
+  // ================================================
+  // DEVUELVE ALERTA QUE NO ENCONTRO CODIGO
+  // ================================================
+  noEncontrado() {
+
+    swal('Ojo', 'El codigo' + ' ' + this.busqueda + ' ' + 'no se encontro', 'error');
+    this.busqueda = '';
+    window.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+          event.preventDefault();
+      }
+  }, false);
+  }
+
+
+  // ================================================
+  // NO PERMITE AGREGAR CODIGOS REPETIDOS
+  // ================================================
+  repetidos() {
+    this.dobles = this.codigo.filter(function(item, index, array) {
+      return array.indexOf(item) === index;
+      });
+    for (let i of this.dobles) {
+
+      if (this.busqueda === i) {
+         this.codigoRepetido = false;
+         this.dobles.splice(1);
+         console.log('rep', this.dobles);
+         swal('Importante', 'El codigo' + ' ' + this.busqueda + ' ' + 'ya existe en la lista', 'warning');
+
+
+         window.addEventListener("keypress", function(event) {
+           if (event.keyCode === 13){
+             event.preventDefault();
+            }
+          }, true);
+         this.busqueda = '';
+      } else {
+        this.codigoRepetido = true;
+      }
+
+    }
+  }
+
+
 // ================================================
 // AGREGA A UNA LISTA CADA VES QUE SE LEA UN CODIGO
 // ================================================
@@ -172,10 +220,12 @@ export class AsignarTareaComponent implements OnInit {
    
 
     if ( code === null) {
-      this.status = false;
+      this.noEncontrado();
     }
 
-    if ( this.code.nativeElement) {
+    this.repetidos();
+
+    if ( this.code.nativeElement && this.codigoRepetido === true) {
       const primera = document.getElementById('primera') as HTMLInputElement;
       const segunda = document.getElementById('segunda') as HTMLInputElement;
 
@@ -231,13 +281,14 @@ export class AsignarTareaComponent implements OnInit {
   removeAddress(index) {
     const s = this.formData.value.registros;
     s.splice(index, 1);
-
+    this.dobles.splice(index, 1);
     const control = this.addressListArray.controls;
     control.splice(index, 1);
     this.codigo.splice(index, 1);
     this.referencia.splice(index, 1);
     this.talla.splice(index, 1);
     this.idAlmacen.splice(index, 1);
+    this.codigoRepetido = true;
 
   }
 

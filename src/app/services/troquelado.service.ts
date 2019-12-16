@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GLOBAL } from './global';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,11 @@ export class TroqueladoService {
 
      return this.http.post(this.url + 'troquelado', params, {headers});
    }
+
+   // ================================================
+  // LISTAR LAS COLECCIONES DE TERMINADO
+  // ================================================
+  getTroquelados(): Observable<any> {
+    return this.http.get(this.url + 'gettroquelado').pipe(map(response => response));
+  }
 }

@@ -57,7 +57,7 @@ export class BarcodeComponent implements OnInit {
   value = 'someValue12340987';
   format = 'CODE128';
   lineColor = '#000000';
-  width = 1.5;
+  width = 2;
   height = 20;
   displayValue = true;
   fontOptions = '';

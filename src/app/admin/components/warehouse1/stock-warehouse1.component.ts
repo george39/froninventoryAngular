@@ -11,10 +11,13 @@ export class StockWarehouse1Component implements OnInit {
   public title;
   public warehouse1: Warehouse1[];
   public busqueda;
+  public consolidadoWarehouse1 = [];
 
   constructor(
     private warehouse1Service: Warehouse1Service
-  ) { }
+  ) {
+    this.title = 'Listado almacen 1';
+   }
 
   ngOnInit() {
     this.getWarehouse1();
@@ -26,8 +29,13 @@ export class StockWarehouse1Component implements OnInit {
         if (!response.warehouse1) {
 
         } else {
-          this.warehouse1 = response.warehouse1;
-          console.log('almacen ', this.warehouse1);
+          response.warehouse1.forEach((item) => {
+            item.registros.forEach((consolidado) => {
+              this.consolidadoWarehouse1.push(consolidado);
+            });
+          });
+          this.warehouse1 = this.consolidadoWarehouse1;
+
         }
       },
       error => {

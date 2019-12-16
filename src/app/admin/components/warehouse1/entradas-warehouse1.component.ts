@@ -27,6 +27,7 @@ import { Virado } from '../../../models/virado';
 import { ViradoService } from '../../../services/virado.service';
 import { Injection1 } from '../../../models/injection1';
 import { Injection1Service } from '../../../services/injection1.service';
+import swal from 'sweetalert';
 
 
 
@@ -60,6 +61,8 @@ export class EntradasWarehouse1Component implements OnInit {
   public injection: Injection1[];
   public token;
   public busqueda;
+  public dobles;
+  public codigoRepetido = true;
   public codigo: string[];
   public referencia: string[];
   public talla: string[];
@@ -148,6 +151,52 @@ export class EntradasWarehouse1Component implements OnInit {
   }
 
 
+
+  // ================================================
+  // DEVUELVE ALERTA QUE NO ENCONTRO CODIGO
+  // ================================================
+  noEncontrado() {
+
+    swal('No encontrado', 'El codigo' + ' ' + this.busqueda + ' ' + 'no se encontro', 'error');
+    this.busqueda = '';
+    window.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+          event.preventDefault();
+      }
+  }, false);
+  }
+
+
+  // ================================================
+  // NO PERMITE AGREGAR CODIGOS REPETIDOS
+  // ================================================
+  repetidos() {
+    this.dobles = this.codigo.filter(function(item, index, array) {
+      return array.indexOf(item) === index;
+      });
+    for (let i of this.dobles) {
+
+      if (this.busqueda === i) {
+         this.codigoRepetido = false;
+         this.dobles.splice(1);
+         console.log('rep', this.dobles);
+         swal('Repetido', 'El codigo' + ' ' + this.busqueda + ' ' + 'ya existe en la lista', 'warning');
+
+
+         window.addEventListener("keypress", function(event) {
+           if (event.keyCode === 13) {
+             event.preventDefault();
+            }
+          }, true);
+         this.busqueda = '';
+      } else {
+        this.codigoRepetido = true;
+      }
+
+    }
+  }
+
+
   // ================================================
   // AGREGA UNA UNIDAD A LA LISTA PARA SER GUARDADA
   // ================================================
@@ -161,10 +210,12 @@ export class EntradasWarehouse1Component implements OnInit {
     const code = document.getElementById('code');
     console.log('code', code);
     if ( code === null) {
-      this.status = false;
+      this.noEncontrado();
     }
 
-    if ( this.code.nativeElement) {
+    this.repetidos();
+
+    if ( this.code.nativeElement && this.codigoRepetido === true) {
 
       this.addressListArray.push(this.getaddress());
       const control = this.formData.controls.registros;
@@ -813,16 +864,14 @@ export class EntradasWarehouse1Component implements OnInit {
   removeAddress(index) {
       const s = this.formData.value.registros;
       s.splice(index, 1);
-
+      this.dobles.splice(index, 1);
       const control = this.addressListArray.controls;
       control.splice(index, 1);
       this.codigo.splice(index, 1);
       this.referencia.splice(index, 1);
       this.talla.splice(index, 1);
       this.idAlmacen.splice(index, 1);
-      console.log('eliminar', this.formData.value);
-      // this.addressListArray.removeAt(index);
-      console.log('index', index);
+      this.codigoRepetido = true;
 
     }
 

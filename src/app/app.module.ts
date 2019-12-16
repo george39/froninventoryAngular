@@ -28,6 +28,20 @@ import { AddReferenceComponent } from './components/add-reference/add-reference.
 import { HomeworkDetailComponent } from './components/homework-detail/homework-detail.component';
 import { SearchPipe } from '../pipes/search.pipe';
 import { AddTareaUnidadComponent } from './admin/components/add-tarea-unidad/add-tarea-unidad.component';
+import { StockGuarnecidaInternaComponent } from './components/guarnecida/stock-guarnecida-interna.component';
+import { ConsolidarPipe } from './pipes/consolidar.pipe';
+import { SearchReferencePipe } from './pipes/search-reference.pipe';
+import { StockGuarnecidaExternaComponent } from './components/guarnecidaExterna/stock-guarnecida-externa.component';
+import { StockTroqueladoComponent } from './components/troquelado/stock-troquelado/stock-troquelado.component';
+import { StockStrobellComponent } from './components/strobell/stock-strobell/stock-strobell.component';
+import { StockOjaleteadoComponent } from './components/ojaleteado/stock-ojaleteado/stock-ojaleteado.component';
+import { StockWarehouse1Component } from './components/warehouse1/stock-warehouse1.component';
+import { StockWarehouse2Component } from './components/warehouse2/stock-warehouse2.component';
+import { StockTerminationComponent } from './components/termination/stock-termination.component';
+import { StockInjectionComponent } from './components/injection/stock-injection.component';
+import { TrazabilidadComponent } from './components/trazabilidad/trazabilidad.component';
+import { SearhcPipe } from './pipes/searhc.pipe';
+
 
 
 @NgModule({
@@ -47,6 +61,22 @@ import { AddTareaUnidadComponent } from './admin/components/add-tarea-unidad/add
     AddReferenceComponent,
     HomeworkDetailComponent,
     SearchPipe,
+    StockGuarnecidaInternaComponent,
+    ConsolidarPipe,
+    SearchReferencePipe,
+    StockGuarnecidaExternaComponent,
+    StockTroqueladoComponent,
+    StockStrobellComponent,
+    StockOjaleteadoComponent,
+    StockWarehouse1Component,
+    StockWarehouse2Component,
+    StockTerminationComponent,
+    StockInjectionComponent,
+    TrazabilidadComponent,
+    SearhcPipe,
+    
+    
+    
     
     
      

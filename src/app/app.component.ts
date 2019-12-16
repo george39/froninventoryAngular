@@ -11,6 +11,7 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit, DoCheck {
   public title: string;
   public identity;
+  public buscarCodigo: string;
  
 
   constructor(
@@ -38,6 +39,11 @@ export class AppComponent implements OnInit, DoCheck {
 
   buscar(termino: string) {
     this._router.navigate(['/busqueda', termino]);
+  }
+
+  trazabilidad(termino: string) {
+    this._router.navigate(['/trazabilidad', termino]);
+    this.buscarCodigo = '';
   }
 
 }

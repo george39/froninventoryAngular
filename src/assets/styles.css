@@ -60,7 +60,7 @@ nav.navbar ul.nav a {
 
 
 
-/* ILUMINAR LOS LINKS DEL PANEL DE ADMINISTRACION */
+/* ILUMINAR LAS LETRAS DELOS LINKS DEL PANEL DE ADMINISTRACION */
 .sidebar-admin li a:hover {
   color: #35363c !important;
   background-color: rgb(192, 193, 196)!important;

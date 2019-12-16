@@ -32,6 +32,7 @@ import { Reproceso } from '../../../models/reproceso';
 import { ReprocesoService } from '../../../services/reproceso.service';
 import { Virado } from '../../../models/virado';
 import { ViradoService } from '../../../services/virado.service';
+import swal from 'sweetalert';
 
 
 
@@ -75,6 +76,8 @@ export class SalidasWarehouse1Component implements OnInit {
   public strobell: Strobell;
   public reproceso: Reproceso;
   public operator: Operator;
+  public dobles;
+  public codigoRepetido = true;
   // public canastaVacia: Warehouse1;
   public operario: string[];
   public warehouse: Warehouse1[];
@@ -234,6 +237,53 @@ export class SalidasWarehouse1Component implements OnInit {
   }
 
 
+  
+  // ================================================
+  // DEVUELVE ALERTA QUE NO ENCONTRO CODIGO
+  // ================================================
+  noEncontrado() {
+
+    swal('No encontrado', 'El codigo' + ' ' + this.busqueda + ' ' + 'no se encontro', 'error');
+    this.busqueda = '';
+    window.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+          event.preventDefault();
+      }
+  }, false);
+  }
+
+
+  // ================================================
+  // NO PERMITE AGREGAR CODIGOS REPETIDOS
+  // ================================================
+  repetidos() {
+    this.dobles = this.codigo.filter(function(item, index, array) {
+      return array.indexOf(item) === index;
+      });
+    for (let i of this.dobles) {
+
+      if (this.busqueda === i) {
+         this.codigoRepetido = false;
+         this.dobles.splice(1);
+         console.log('rep', this.dobles);
+         swal('Repetido', 'El codigo' + ' ' + this.busqueda + ' ' + 'ya existe en la lista', 'warning');
+
+
+         window.addEventListener("keypress", function(event) {
+           if (event.keyCode === 13) {
+             event.preventDefault();
+            }
+          }, true);
+         this.busqueda = '';
+      } else {
+        this.codigoRepetido = true;
+      }
+
+    }
+  }
+
+
+
   addAddress() {
     
     // Me pone el scroll al principio
@@ -245,10 +295,12 @@ export class SalidasWarehouse1Component implements OnInit {
    
 
     if ( code === null) {
-      this.status = false;
+      this.noEncontrado();
     }
 
-    if ( this.code.nativeElement) {
+    this.repetidos();
+
+    if ( this.code.nativeElement && this.codigoRepetido === true) {
       // const primera = document.getElementById('primera') as HTMLInputElement;
       // const segunda = document.getElementById('segunda') as HTMLInputElement;
 
@@ -640,13 +692,14 @@ deleteWarehouse(id) {
 removeAddress(index) {
       const s = this.formData.value.registros;
       s.splice(index, 1);
-
+      this.dobles.splice(index, 1);
       const control = this.addressListArray.controls;
       control.splice(index, 1);
       this.codigo.splice(index, 1);
       this.referencia.splice(index, 1);
       this.talla.splice(index, 1);
       this.idAlmacen.splice(index, 1);
+      this.codigoRepetido = true;
 
     }
 

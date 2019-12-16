@@ -60,9 +60,9 @@
                       <b><div class="col-lg-3 titulo" >Cantidad</div></b>
                   </div>
               </div>
-                  <div *ngFor="let canasta of registro.registros | dinamica : canasta">
+                  <div *ngFor="let canasta of registro.registros | consolidar : canasta">
 
-                      <div class="container">
+                      <div class="container titulo">
                               
 
                           <div class="row" *ngIf="mostrarReferencia === true">

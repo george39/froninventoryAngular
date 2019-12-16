@@ -3,7 +3,7 @@
     <div class="row">		
         <div class="col-lg-4 inner-addon right-addon">
           <i class="glyphicon glyphicon-search"></i>			
-          <input type="text" class="form-control"  [(ngModel)]="busqueda" placeholder="Digite número de vale">			
+          <input type="text" class="form-control"  [(ngModel)]="busqueda" placeholder="Digite referencia">			
         </div>		
     </div>
     
@@ -16,12 +16,12 @@
           <td>Cantidad</td>
         </tr>
       </thead>
-      <tbody *ngFor="let almacen of guarnecida">
+      <tbody *ngFor="let almacen of guarnecidaInterna  | consolidar: busqueda | searchReference: busqueda">
         
-          <tr  *ngFor="let referencia of almacen.registros | consolidar: busqueda">
-            <td>{{referencia.reference}}</td>
-            <td>{{referencia.size}}</td>
-            <td>{{referencia.quantity}}</td>
+          <tr >
+            <td>{{almacen.reference}}</td>
+            <td>{{almacen.size}}</td>
+            <td>{{almacen.quantity}}</td>
           </tr>
       
       </tbody>

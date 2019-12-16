@@ -1,0 +1,252 @@
+
+
+    <div class="row top">		
+        <div class="col-lg-2 inner-addon right-addon">
+          <i class="glyphicon glyphicon-search"></i>			
+          <input type="text" class="form-control" (keyup.enter)="todos()"  [(ngModel)]="buscarCodigo" placeholder="Lea código">			
+        </div>		
+    </div> 
+<div class="top titulo">
+    
+    <div class="row">
+        <div class="col-lg-2" *ngIf="estaCodigoGuarnecidaInterna === true" >
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Guarnecida interna</h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr >
+                                <td>Cod</td>
+                                <td>Ref</td>
+                                <td>Talla</td>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let guarnecida of guarnecidaInterna | search">
+                            <tr>
+                                <td>{{guarnecida.code}}</td>
+                                <td>{{guarnecida.reference}}</td>
+                                <td>{{guarnecida.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2"  *ngIf="estaCodigoGuarnecidaExterna === true">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Guarnecida externa</h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr >
+                                <td>Cod</td>
+                                <td>Ref</td>
+                                <td>Talla</td>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let guarnecidae of guarnecidaExterna | search">
+                            <tr>
+                                <td>{{guarnecidae.code}}</td>
+                                <td>{{guarnecidae.reference}}</td>
+                                <td>{{guarnecidae.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2"  *ngIf="estaCodigoTroquelado === true">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Troquelado</h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr >
+                                <td>Cod</td>
+                                <td>Ref</td>
+                                <td>Talla</td>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let troquelado of troquelado | search">
+                            <tr>
+                                <td>{{troquelado.code}}</td>
+                                <td>{{troquelado.reference}}</td>
+                                <td>{{troquelado.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2"  *ngIf="estaCodigoStrobell === true">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Strobell</h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr >
+                                <td>Cod</td>
+                                <td>Ref</td>
+                                <td>Talla</td>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let strobell of strobell | search">
+                            <tr>
+                                <td>{{strobell.code}}</td>
+                                <td>{{strobell.reference}}</td>
+                                <td>{{strobell.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2" *ngIf="estaCodigoOjaleteado === true" >
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Ojaleteado</h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr >
+                                <td>Cod</td>
+                                <td>Ref</td>
+                                <td>Talla</td>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let ojaleteado of ojaleteado | search">
+                            <tr>
+                                <td>{{ojaleteado.code}}</td>
+                                <td>{{ojaleteado.reference}}</td>
+                                <td>{{ojaleteado.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-2"  *ngIf="estaCodigoAlamacen1 === true">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Alm1</h4>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr >
+                                <td>Cod</td>
+                                <td>Ref</td>
+                                <td>Talla</td>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let almacen1 of almacen1  | consolidar | searchReference">
+                            <tr>
+                                <td>{{almacen1.code}}</td>
+                                <td>{{almacen1.reference}}</td>
+                                <td>{{almacen1.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-2" *ngIf="estaCodigoAlamacen2 === true">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Alm 2</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr >
+                            <td>Cod</td>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let almacen2 of almacen2  | consolidar | searchReference">
+                        <tr>
+                            <td>{{almacen2.code}}</td>
+                            <td>{{almacen2.reference}}</td>
+                            <td>{{almacen2.size}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-2" *ngIf="estaCodigoTerminado === true">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Terminado</h4>
+        
+                    <table class="table table-hover">
+                    <thead>
+                        <tr >
+                            <td>Cod</td>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                    </tr>
+                    </thead>
+                        <tbody *ngFor="let terminado of termination  | consolidar | searchReference">
+                            <tr>
+                                <td>{{terminado.code}}</td>
+                                <td>{{terminado.reference}}</td>
+                                <td>{{terminado.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+        
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2" *ngIf="estaCodigoInyeccion === true">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Inyección</h4>
+        
+                    <table class="table table-hover">
+                    <thead>
+                        <tr >
+                            <td>Cod</td>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                    </tr>
+                    </thead>
+                        <tbody *ngFor="let inyeccion of injection  | consolidar | searchReference">
+                            <tr>
+                                <td>{{inyeccion.code}}</td>
+                                <td>{{inyeccion.reference}}</td>
+                                <td>{{inyeccion.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

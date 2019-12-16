@@ -25,20 +25,20 @@
   
       <hr> -->
 
-  
+ 
    
   <div class="col-lg-5 inner-addon right-addon col-lg-offset-1">
     <div class="row">
       <i class="glyphicon glyphicon-barcode"></i>
       <input type="text" #bus="ngModel"  class="form-control" #lectura autofocus name="lectura"
        (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Lea el código de barras">
-      <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false">
-          NO SE ENCONTRO EL CÓDIGO {{busqueda}}
-      </div>
+      <!-- <div class=" alert alert-danger" role="alert" *ngIf="status === false">
+          NO SE ENCONTRO EL CÓDIGO {{busqueda}} {{duplicados()}}
+      </div> -->
       
-      <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="codigoRepetido === false">
+      <!-- <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="codigoRepetido === false">
         EL CÓDIGO YA ESTA EN LA LISTA {{busqueda}}
-    </div>
+    </div> -->
     </div>
   </div>
 <hr>
@@ -54,7 +54,7 @@
               <div *ngFor="let registro of tareaUnidad | ingresos: busqueda">
                   <div *ngIf="busqueda === registro.code">
                       <div class="row">
-                          <div><input type="hidden" #code value="{{registro.code}}"></div>
+                          <div><input type="hidden" id="code" #code value="{{registro.code}}"></div>
                           <div><input type="hidden" #reference value="{{registro.reference}}"></div>
                           <div><input type="hidden" #size value="{{registro.size}}"></div>
                           <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
