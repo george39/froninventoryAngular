@@ -18,9 +18,9 @@
             <i class="glyphicon glyphicon-barcode"></i>
             <input type="text" #bus="ngModel"  class="form-control" #lectura autofocus name="lectura"
              (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Lea el código de barras">
-            <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false">
+            <!-- <div class="col-lg-12 alert alert-danger" role="alert" *ngIf="status === false">
                 NO SE ENCONTRO EL CÓDIGO {{busqueda}}
-            </div>
+            </div> -->
         </div>
       <hr> 
           

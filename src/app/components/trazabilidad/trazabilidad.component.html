@@ -74,7 +74,7 @@
                                 <td>Talla</td>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let troquelado of troquelado | search">
+                        <tbody *ngFor="let troquelado of tareaUnidad | search">
                             <tr>
                                 <td>{{troquelado.code}}</td>
                                 <td>{{troquelado.reference}}</td>
@@ -144,10 +144,10 @@
     <hr>
 
     <div class="row">
-        <div class="col-lg-2"  *ngIf="estaCodigoAlamacen1 === true">
+        <div class="col-lg-2"  *ngIf="estaCodigoAlmacen1 === true">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Alm1</h4>
+                    <h4 class="card-title">Almacen 1</h4>
 
                     <table class="table table-hover">
                         <thead>
@@ -157,7 +157,7 @@
                                 <td>Talla</td>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let almacen1 of almacen1  | consolidar | searchReference">
+                        <tbody *ngFor="let almacen1 of warehouse1  | consolidar | searchReference">
                             <tr>
                                 <td>{{almacen1.code}}</td>
                                 <td>{{almacen1.reference}}</td>
@@ -171,10 +171,10 @@
         </div>
 
 
-        <div class="col-lg-2" *ngIf="estaCodigoAlamacen2 === true">
+        <div class="col-lg-2" *ngIf="estaCodigoAlmacen2 === true">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Alm 2</h4>
+                <h4 class="card-title">Almacen 2</h4>
 
                 <table class="table table-hover">
                     <thead>
@@ -184,7 +184,7 @@
                             <td>Talla</td>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let almacen2 of almacen2  | consolidar | searchReference">
+                    <tbody *ngFor="let almacen2 of warehouse2  | consolidar | searchReference">
                         <tr>
                             <td>{{almacen2.code}}</td>
                             <td>{{almacen2.reference}}</td>

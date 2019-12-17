@@ -11,7 +11,7 @@ import { GuarnecidaExternaService } from '../../services/guarnecida-externa.serv
 })
 export class StockGuarnecidaExternaComponent implements OnInit {
   public title;
-  public guarnecidaExterna: GuarnecidaExternaService[];
+  public guarnecidaExterna: GuarnecidaExterna[];
   public busqueda;
   public consolidadoGuarnecida = [];
 
