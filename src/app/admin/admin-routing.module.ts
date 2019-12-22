@@ -86,7 +86,7 @@ const adminRoutes: Routes = [
 			{path: 'listado-terminado', component: StockTerminationComponent},
 			{path: 'asignar-tarea-guarnecida', component: AsignarTareaComponent},
 			{path: 'trazabilidad/:termino', component: TrazabilidadComponent},
-			{path: 'busqueda/:termino/:todo', component: BusquedaComponent},
+			// {path: 'busqueda/:termino/:todo', component: BusquedaComponent},
 			{path: 'vales-terminado', component: ValeTerminadoComponent},
 
 		]

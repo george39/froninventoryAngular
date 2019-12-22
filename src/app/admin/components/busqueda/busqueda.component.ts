@@ -41,7 +41,8 @@ export class BusquedaComponent implements OnInit {
 
     this.http.get(url2)
         .subscribe((resp: any) => {
-          console.log(resp);
+         
+          console.log('response', resp);
           this.warehouse1 = resp.warehouse1;
           this.warehouse2 = resp.warehouse2;
           this.injection1 = resp.injection1;

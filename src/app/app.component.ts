@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, DoCheck {
 
   buscar(termino: string) {
     this._router.navigate(['/busqueda', termino]);
+   
   }
 
   trazabilidad(termino: string) {

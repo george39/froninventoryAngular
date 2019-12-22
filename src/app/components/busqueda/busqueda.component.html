@@ -1,0 +1,237 @@
+<div class="row top titulo">
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Guarnecida Interna</h4>
+
+                <table class="table table-hover">
+                    <thead >
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>     
+                        
+                    <tbody *ngFor="let guarnecida of guarnecidaInterna | consolidar">
+                            <tr class="item-busqueda">
+                                <td>{{guarnecida.reference}}</td>
+                                <td>{{guarnecida.size}}</td>
+                                <td>{{guarnecida.quantity}}</td>
+                            </tr>                                               
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Guarn Externa</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let guarnecidae of guarnecidaExterna | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{guarnecidae.reference}}</td>
+                            <td>{{guarnecidae.size}}</td>
+                            <td>{{guarnecidae.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Almacen 1</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let almacen of warehouse1 | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{almacen.reference}}</td>
+                            <td>{{almacen.size}}</td>
+                            <td>{{almacen.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Ojaleteado</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let ojalet of ojaleteado | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{ojalet.reference}}</td>
+                            <td>{{ojalet.size}}</td>
+                            <td>{{ojalet.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Strobell</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let strobel of strobell | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{strobel.reference}}</td>
+                            <td>{{strobel.size}}</td>
+                            <td>{{strobel.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Inyección</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let inyeccion of injection1 | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{inyeccion.reference}}</td>
+                            <td>{{inyeccion.size}}</td>
+                            <td>{{inyeccion.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div> 
+    
+</div>
+<hr>
+
+<div class="row titulo">
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Almacen 2</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let almacen2 of warehouse2 | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{almacen2.reference}}</td>
+                            <td>{{almacen2.size}}</td>
+                            <td>{{almacen2.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Terminado</h4>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let terminado of terminado | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{terminado.reference}}</td>
+                            <td>{{terminado.size}}</td>
+                            <td>{{terminado.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Troquelado</h4>
+    
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+
+                            <td>Referencia</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let troquelado of tareaUnidad | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{troquelado.reference}}</td>
+                            <td>{{troquelado.size}}</td>
+                            <td>{{troquelado.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+
+</div>

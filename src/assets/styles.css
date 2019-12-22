@@ -230,6 +230,12 @@ nav.navbar ul.nav a {
 .table tr:hover {
 	color: #35363c !important;
   } 
+
+
+  /* ITEMS DE LA BUSQUEDA GENERAL*/
+.item-busqueda {
+	color: rgb(174, 236, 116);
+}  
   
   
  

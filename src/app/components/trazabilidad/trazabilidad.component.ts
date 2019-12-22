@@ -43,7 +43,7 @@ export class TrazabilidadComponent implements OnInit {
   public warehouse2: Warehouse2[];
   public termination: Termination[];
   public injection: Injection1[];
-  
+
 
   public consolidadoGuarnecidaInterna = [];
   public consolidadoGuarnecidaExterna = [];
@@ -55,7 +55,7 @@ export class TrazabilidadComponent implements OnInit {
   public consolidadoTermination = [];
   public consolidadoInjection = [];
 
-  
+
 
   public estaCodigoGuarnecidaInterna = false;
   public estaCodigoGuarnecidaExterna = false;

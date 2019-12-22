@@ -14,7 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { HomeworkDetailComponent } from './components/homework-detail/homework-detail.component';
-import { BusquedaComponent } from './admin/components/busqueda/busqueda.component';
+// import { BusquedaComponent } from './admin/components/busqueda/busqueda.component';
 import { StockGuarnecidaInternaComponent } from './components/guarnecida/stock-guarnecida-interna.component';
 import { StockGuarnecidaExternaComponent } from './components/guarnecidaExterna/stock-guarnecida-externa.component';
 import { StockTroqueladoComponent } from './admin/components/add-homework/stock-troquelado.component';
@@ -25,7 +25,7 @@ import { StockWarehouse2Component } from './components/warehouse2/stock-warehous
 import { StockTerminationComponent } from './admin/components/termination/stock-termination.component';
 import { StockInjectionComponent } from './admin/components/injection/stock-injection.component';
 import { TrazabilidadComponent } from './components/trazabilidad/trazabilidad.component';
-
+import { BusquedaComponent } from './components/busqueda/busqueda.component';
 const appRoutes: Routes = [
 	{path: '', component: HomeComponent},
 	{path: '', redirectTo: 'home', pathMatch: 'full'},

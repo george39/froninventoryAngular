@@ -41,6 +41,7 @@ import { StockTerminationComponent } from './components/termination/stock-termin
 import { StockInjectionComponent } from './components/injection/stock-injection.component';
 import { TrazabilidadComponent } from './components/trazabilidad/trazabilidad.component';
 import { SearhcPipe } from './pipes/searhc.pipe';
+import { BusquedaComponent } from './components/busqueda/busqueda.component';
 
 
 
@@ -74,6 +75,7 @@ import { SearhcPipe } from './pipes/searhc.pipe';
     StockInjectionComponent,
     TrazabilidadComponent,
     SearhcPipe,
+    BusquedaComponent,
     
     
     

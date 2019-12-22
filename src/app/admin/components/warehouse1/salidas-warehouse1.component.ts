@@ -80,6 +80,7 @@ export class SalidasWarehouse1Component implements OnInit {
   public codigoRepetido = true;
   // public canastaVacia: Warehouse1;
   public operario: string[];
+  public ojaleteador: string[];
   public warehouse: Warehouse1[];
   public termination: Termination;
   public ojaleteado: Ojaleteado;
@@ -150,6 +151,7 @@ export class SalidasWarehouse1Component implements OnInit {
     this.resultado = new Array();
     this.clasificacion = new Array();
     this.operario = new Array();
+    this.ojaleteador = new Array();
     this.idCan = '';
     this.mostrarReferencia = false;
     this.canastaVacia = new Array();
@@ -322,6 +324,7 @@ export class SalidasWarehouse1Component implements OnInit {
       this.talla.push(this.size.nativeElement.value);
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
       this.operario.push(this.selecOperario.nativeElement.value);
+      
       this.busqueda = '';
 
       
@@ -341,6 +344,7 @@ export class SalidasWarehouse1Component implements OnInit {
       size: [''],
       _id: [''],
       operator: [''],
+      ojaleteador: [''],
       quantity: 0.5,
       clasification: ['']
     });

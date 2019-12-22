@@ -47,12 +47,13 @@ export class EntradasWarehouse1Component implements OnInit {
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
   @ViewChild('conStrobell') conStrobell: ElementRef;
   @ViewChild('sinStrobell') sinStrobell: ElementRef;
+  @ViewChild('operaratorStrobell') operartorStrobell: ElementRef;
   
   
   
   public warehouse1: Warehouse1;
   public tareaUnidad: TareaUnidad;
-  public guarnecida: Guarnecida;
+  public guarnecidaInterna: Guarnecida[];
   public strobell: Strobell[];
   public ojaleteado: Ojaleteado[];
   public reproceso: Reproceso[];
@@ -66,6 +67,7 @@ export class EntradasWarehouse1Component implements OnInit {
   public codigo: string[];
   public referencia: string[];
   public talla: string[];
+  public operarioStrobell: string[];
   public idAlmacen: string[];
   public status;
   public warehouses: any[];
@@ -96,14 +98,16 @@ export class EntradasWarehouse1Component implements OnInit {
     this.token = this._userService.getToken();
     // this.warehouse1 = new Warehouse1('', '', []);
     this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
-    this.guarnecida = new Guarnecida('', '', []);
+    // this.guarnecida = new Guarnecida('', '', []);
     this.codigo = new Array();
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
     this.clasificacion = new Array();
+    this.operarioStrobell = new Array();
     this.status = true;
     this.seleccion = '';
+    
 
     this.warehouses = [
     'Guarnecida-Interna',
@@ -205,15 +209,16 @@ export class EntradasWarehouse1Component implements OnInit {
     var scrol = document.getElementById('caja');
     // scrol.innerHTML = html;
     scrol.scrollTop = scrol.scrollHeight;
-
-
+    
+    
     const code = document.getElementById('code');
     console.log('code', code);
     if ( code === null) {
       this.noEncontrado();
     }
-
+    
     this.repetidos();
+    this.busqueda = '';
 
     if ( this.code.nativeElement && this.codigoRepetido === true) {
 
@@ -224,6 +229,7 @@ export class EntradasWarehouse1Component implements OnInit {
       this.referencia.push(this.reference.nativeElement.value);
       this.talla.push(this.size.nativeElement.value);
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
+      this.operarioStrobell.push(this.operartorStrobell.nativeElement.value);
       // this.clasificacion.push(this.clasification.nativeElement.value);
       this.busqueda = '';
       this.status = true;
@@ -258,6 +264,7 @@ export class EntradasWarehouse1Component implements OnInit {
       reference: [''],
       size: [''],
       _id: [''],
+      operarioStrobell: [],
       quantity: 0.5,
       clasification: ['']
     });
@@ -273,12 +280,12 @@ export class EntradasWarehouse1Component implements OnInit {
   getGuarnecida() {
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.guarnecida) {
+        if (!response.guarnecidaInterna) {
             this.status = false;
             console.log('status', this.status);
         } else {
-          this.guarnecida = response.guarnecida;
-          console.log('guarnecida', this.guarnecida);
+          this.guarnecidaInterna = response.guarnecidaInterna;
+          console.log('guarnecida', this.guarnecidaInterna);
         }
       },
       error => {

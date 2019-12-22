@@ -11,10 +11,17 @@
                         <span class="glyphicon glyphicon-home"></span> Inicio
                     </a>
                 </li> -->
+                <li>
+                    <a [routerLink]="['/listado-troquelado']" [routerLinkActive]="['active']">
+                        <span></span> Troquelado
+                    </a>
+                </li>
+
+
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" [routerLinkActive]="['active']">
-            Guarnecidas<span class="caret"></span>
-          </a>
+                         Guarnecidas<span class="caret"></span>
+                     </a>
                     <ul class="dropdown-menu">
                         <li>
                             <a [routerLink]="['/listado-guarnecida-interna']">
@@ -30,25 +37,30 @@
                 </li>
 
                 <li>
-                    <a [routerLink]="['/listado-troquelado']" [routerLinkActive]="['active']">
-                        <span></span> Troquelado
+                    <a [routerLink]="['/listado-almacen1']" [routerLinkActive]="['active']">
+                        <span></span> Almacen1
                     </a>
                 </li>
-                <li>
-                    <a [routerLink]="['/listado-strobell']" [routerLinkActive]="['active']">
-                        <span></span> Strobell
-                    </a>
-                </li>
+
                 <li>
                     <a [routerLink]="['/listado-ojaleteado']" [routerLinkActive]="['active']">
                         <span></span> Ojaleteado
                     </a>
                 </li>
+
                 <li>
-                    <a [routerLink]="['/listado-almacen1']" [routerLinkActive]="['active']">
-                        <span></span> Almacen1
+                    <a [routerLink]="['/listado-strobell']" [routerLinkActive]="['active']">
+                        <span></span> Strobell
                     </a>
                 </li>
+
+                <li>
+                    <a [routerLink]="['/listado-inyeccion']" [routerLinkActive]="['active']">
+                        <span></span> Inyeccion
+                    </a>
+                </li>
+                
+                
                 <li>
                     <a [routerLink]="['/listado-almacen2']" [routerLinkActive]="['active']">
                         <span></span> Almacen 2
@@ -62,11 +74,7 @@
                         <span></span> Terminado
                     </a>
                 </li>
-                <li>
-                    <a [routerLink]="['/listado-inyeccion']" [routerLinkActive]="['active']">
-                        <span></span> Inyeccion
-                    </a>
-                </li>
+                
 
                 <li>
                     <a [routerLink]="['/trazabilidad']" [routerLinkActive]="['active']">
@@ -75,9 +83,9 @@
                 </li>
 
 
-                <!-- <li>
+                <li class="buscar-todo">
                     <input #input (keyup.enter)="buscar(input.value)" type="text" class="form-control">
-                </li> -->
+                </li>
 
                 
             </ul>

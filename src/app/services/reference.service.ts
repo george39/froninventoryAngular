@@ -20,7 +20,11 @@ export class ReferenceService{
 			'Authorization':token
 		});
 
-		return this._http.post(this.url+'save-reference', params, {headers: headers});
+		return this._http.post(this.url+'save-reference', params, {headers});
 
+	}
+
+	getReferences(): Observable<any>{
+		return this._http.get(this.url + 'references').pipe(map(response => response));
 	}
 }	

@@ -11,6 +11,8 @@ import {map} from 'rxjs/operators';
 import { UserService } from '../../../services/user.service';
 import { TareaUnidad } from '../../../models/tareaUnidad';
 import { TareaUnidadService } from '../../../services/tarea-unidad.service';
+import { Reference } from '../../../models/reference';
+import { ReferenceService } from '../../../services/reference.service';
 
 
 
@@ -18,16 +20,17 @@ import { TareaUnidadService } from '../../../services/tarea-unidad.service';
   selector: 'app-barcode',
   templateUrl: './barcode.component.html',
   styleUrls: ['./barcode.component.css'],
-  providers: [HomeworkService, TareaUnidadService]
+  providers: [HomeworkService, TareaUnidadService, ReferenceService]
 })
 export class BarcodeComponent implements OnInit {
 
 
 	constructor(
-		private _route: ActivatedRoute,
-		private _router: Router,
+	private _route: ActivatedRoute,
+	private _router: Router,
   private _homeworkService: HomeworkService,
   private tareaUnidadService: TareaUnidadService,
+ private referenceService: ReferenceService
 
 	) {
 		this.title = 'Código de barras';
@@ -45,9 +48,11 @@ export class BarcodeComponent implements OnInit {
 	public title: string;
   public homework: Homework;
   public tareaUnidad: TareaUnidad;
+  public reference: Reference[];
   public token;
   public codes;
   public codigo;
+  public referencias = [];
 
 	PrintSerials = [{
 	SerialId: 123
@@ -86,6 +91,7 @@ export class BarcodeComponent implements OnInit {
 	ngOnInit() {
     this.getHomework();
     this.getTareaUnidad();
+    this.getReference();
 
 
   }
@@ -102,6 +108,21 @@ export class BarcodeComponent implements OnInit {
           this.codigo.push(i.code);
           console.log('tareaunidad', this.codigo);
         }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+  getReference() {
+    this.referenceService.getReferences().subscribe(
+      response => {
+        this.reference = response.reference;
+        response.reference.forEach((item) => {
+          this.referencias.push(item);
+        });
+        console.log('reference', this.referencias);
       },
       error => {
         console.log(error as any);
