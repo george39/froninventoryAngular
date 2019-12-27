@@ -11,6 +11,8 @@ import { GuarnecidaExterna } from '../../models/guarnecida-externa';
 import { Ojaleteado } from '../../models/ojaleteado';
 import { Strobell } from '../../models/strobell';
 import { Termination } from '../../models/termination';
+import { Reproceso } from '../../models/reproceso';
+
 
 @Component({
   selector: 'app-busqueda',
@@ -27,8 +29,10 @@ export class BusquedaComponent implements OnInit {
   injection1: Injection1[] = [];
   warehouse2: Warehouse2[] = [];
   terminado: Termination[] = [];
+  reproceso: Reproceso[] = [];
 
   public url: string;
+  public titulo: string;
   public troquelado = [];
   public guarnInterna = [];
   public guarnExterna = [];
@@ -38,12 +42,14 @@ export class BusquedaComponent implements OnInit {
   public inyeccion = [];
   public almacen2 = [];
   public terminacion = [];
+  public reprocesoCJ = [];
 
   constructor(
     public activatedRoute: ActivatedRoute,
     public http: HttpClient,
     // bublic router: Router,
   ) {
+    this.titulo = 'Listado general de productos';
     this.url = GLOBAL.url;
     activatedRoute.params
       .subscribe(params => {
@@ -143,6 +149,16 @@ export class BusquedaComponent implements OnInit {
       });
 
 
+      resp.reproceso.forEach((item) => {
+        item.registros.forEach((todo) => {
+          if (termino === todo.reference) {
+
+            this.reprocesoCJ.push(todo);
+          }
+        });
+      });
+
+
       this.tareaUnidad = this.troquelado;
       this.guarnecidaInterna = this.guarnInterna;
       this.guarnecidaExterna = this.guarnExterna;
@@ -152,11 +168,8 @@ export class BusquedaComponent implements OnInit {
       this.strobell = this.strobel;
       this.injection1 = this.inyeccion;
       this.terminado = this.terminacion;
-      
-      // this.gI = [];
+      this.reproceso = this.reprocesoCJ;
 
-      
-      console.log('bus', this.guarnecidaInterna);
     });
     this.troquelado = [];
     this.guarnInterna = [];
@@ -167,6 +180,7 @@ export class BusquedaComponent implements OnInit {
     this.strobel = [];
     this.inyeccion = [];
     this.terminacion = [];
+    this.reprocesoCJ = [];
   }
 
 }

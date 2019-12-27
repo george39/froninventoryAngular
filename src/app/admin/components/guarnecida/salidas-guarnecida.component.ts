@@ -52,7 +52,7 @@ export class SalidasGuarnecidaComponent implements OnInit {
 
   public operators: Operator[];
   // public warehouse1: Warehouse1;
-  public guarnecida: Guarnecida;
+  public guarnecidaInterna: Guarnecida;
   public operator: Operator;
   // public canastaVacia: Warehouse1;
   public operario: string[];
@@ -99,7 +99,7 @@ export class SalidasGuarnecidaComponent implements OnInit {
   ) {
     this.token = this._userService.getToken();
     // this.warehouse1 = new Warehouse1('', '', []);
-    this.guarnecida = new Guarnecida('', '', []);
+    this.guarnecidaInterna = new Guarnecida('', '', []);
     this.codigo = new Array();
     this.referencia = new Array();
     this.talla = new Array();
@@ -283,12 +283,12 @@ export class SalidasGuarnecidaComponent implements OnInit {
   getGuarnecida() {
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.guarnecida) {
+        if (!response.guarnecidaInterna) {
             this.status = false;
             console.log('status', this.status);
         } else {
-          this.guarnecida = response.guarnecida;
-          console.log('guarnecida', this.guarnecida);
+          this.guarnecidaInterna = response.guarnecidaInterna;
+          console.log('guarnecida', this.guarnecidaInterna);
         }
       },
       error => {

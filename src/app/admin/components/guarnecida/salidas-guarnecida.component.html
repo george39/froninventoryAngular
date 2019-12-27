@@ -18,9 +18,9 @@
 
           <i class="glyphicon glyphicon-barcode"></i>
           <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Digite código de barras" autofocus>
-          <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda"> 
+          <!-- <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda"> 
               NO SE ENCONTRO EL CÓDIGO {{busqueda}}
-          </div>
+          </div> -->
       </div>
 
        <div class="container titulo">                  
@@ -31,7 +31,7 @@
           </div>
       </div>
           <div *ngIf="busqueda">
-              <div *ngFor="let registro of guarnecida ">
+              <div *ngFor="let registro of guarnecidaInterna ">
                   <div *ngFor="let codigo of registro.registros | ingresos: busqueda">
                           
 

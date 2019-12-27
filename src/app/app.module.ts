@@ -44,6 +44,9 @@ import { SearhcPipe } from './pipes/searhc.pipe';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 
 
+// Has location
+
+
 
 @NgModule({
   declarations: [
@@ -95,7 +98,8 @@ import { BusquedaComponent } from './components/busqueda/busqueda.component';
 
   ],
   providers: [
-  	appRoutingProviders
+  	appRoutingProviders,
+    
   ],
   bootstrap: [AppComponent]
 })

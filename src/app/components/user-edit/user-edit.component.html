@@ -8,7 +8,7 @@
 		La informacion no se ha podido actualizar
 	</div>
 
-	<form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="col-lg-10">
+	<form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-10">
 		<p>
 			<label>Nombre</label>
 			<input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required>

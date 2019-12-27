@@ -3,9 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Componentes
 import { MainComponent } from './components/main/main.component';
-import { AddComponent } from './components/add/add.component';
-import { EditComponent } from './components/edit/edit.component';
-import { ListComponent } from './components/list/list.component';
 import { AddReferenceComponent } from './components/add-reference/add-reference.component';
 import { AddHomeworkComponent } from './components/add-homework/add-homework.component';
 import { ListOperatorsComponent } from './components/list-operators/list-operators.component';
@@ -14,15 +11,9 @@ import { RegisterComponent } from '../components/register/register.component';
 import { BarcodeComponent } from './components/barcode/barcode.component';
 import { HomeworkDetailComponent } from './components/homework-detail/homework-detail.component';
 import { HomeworkEditComponent } from './components/homework-edit/homework-edit.component';
-import { AddWarehouse1Component } from './components/add-warehouse1/add-warehouse1.component';
-import { ListWarehouse1Component } from './components/list-warehouse1/list-warehouse1.component';
-import { EnsayoComponent } from './components/ensayo/ensayo.component';
-import { Ensayo3Component } from './components/ensayo3/ensayo3.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea-unidad.component';
-
-import { EntradasComponent } from './components/guarnecida/entradas.component';
-import { SalidasComponent } from './components/guarnecida/salidas.component';
+import { EntradasGuarnecidaComponent } from './components/guarnecida/entradas-guarnecida.component';
 import { AsignarTareaComponent } from './components/guarnecida/asignar-tarea.component';
 import { EntradasWarehouse1Component } from './components/warehouse1/entradas-warehouse1.component';
 import { SalidasWarehouse1Component } from './components/warehouse1/salidas-warehouse1.component';
@@ -52,9 +43,7 @@ const adminRoutes: Routes = [
 		canActivate: [AdminGuard],		
 		children: [
 			{path: '', redirectTo: 'home', pathMatch: 'full'},
-			{path: 'listado-tareas', component: ListComponent},
 			{path: 'crear-operario', component: RegisterComponent},
-			{path: 'editar', component: EditComponent},
 			{path: 'crear-referencia', component: AddReferenceComponent},
 			{path: 'crear-tarea', component: AddHomeworkComponent},
 			{path: 'listado-operarios', component: ListOperatorsComponent},
@@ -63,9 +52,6 @@ const adminRoutes: Routes = [
 			{path: 'detalles-tarea/:id', component: HomeworkDetailComponent},
 			{path: 'detalles-terminado/:id', component: DetailTerminationComponent},
 			{path: 'editar-tarea/:id', component: HomeworkEditComponent},
-			{path: 'insertar-registro', component: AddWarehouse1Component},
-			{path: 'lista-registro', component: ListWarehouse1Component},
-			{path: 'agregar-registro', component: EnsayoComponent},
 			{path: 'ingresos-almacen1', component: EntradasWarehouse1Component},
 			{path: 'salidas-almacen1', component: SalidasWarehouse1Component},
 			{path: 'listado-almacen1', component: StockWarehouse1Component},
@@ -73,9 +59,8 @@ const adminRoutes: Routes = [
 			{path: 'ingresos-almacen2', component: EntradasWarehouse2Component},
 			{path: 'listado-almacen2', component: StockComponent},
 			{path: 'editar-referencia-almacen2', component: UpdateReferenceComponent},
-			{path: 'ensayo3', component: Ensayo3Component},
 			{path: 'tarea-unidad', component: AddTareaUnidadComponent},
-			{path: 'addguarnecida', component: EntradasComponent},
+			{path: 'addguarnecida', component: EntradasGuarnecidaComponent},
 			{path: 'salidas-guarnecida', component: SalidasGuarnecidaComponent},
 			{path: 'listado-guarnecida', component: StockGuarnecidaComponent},
 			{path: 'strobell-inyeccion', component: SalidasStrobellComponent},

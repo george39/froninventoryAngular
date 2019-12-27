@@ -1,7 +1,7 @@
 <div class="top  col-lg-3 admin-panel no-imprimir"   *ngIf="identity.role == 'ROLE_ADMIN'">
     <h1 class="titulo">{{title}}</h1>
     <div class="sidebar-admin " data-example-id="sample-nav-stacked">
-        <ul class="nav nav-pills nav-stacked nav-pills-stacked-example ">
+        <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
             <li role="presentation" [routerLinkActive]="['active']">
                 <a [routerLink]="['listado-tareas']">Listado tareas</a>
             </li>
