@@ -31,8 +31,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { IngresosWarehouse1Pipe } from './pipes/ingresos-warehouse1.pipe';
 import { AddTareaUnidadComponent } from './components/add-tarea-unidad/add-tarea-unidad.component';
-import { OutWarehouse1Component } from './components/out-warehouse1/out-warehouse1.component';
-
 import { EntradasGuarnecidaComponent } from './components/guarnecida/entradas-guarnecida.component';
 import { AsignarTareaComponent } from './components/guarnecida/asignar-tarea.component';
 import { EntradasWarehouse1Component } from './components/warehouse1/entradas-warehouse1.component';
@@ -59,6 +57,8 @@ import { StockTerminationComponent } from './components/termination/stock-termin
 import { SearchReferencePipe } from './pipes/search-reference.pipe';
 import { SalidasVulcanizadoComponent } from './components/vulcanizado/salidas-vulcanizado.component';
 import { EntradasVulcanizadoComponent } from './components/vulcanizado/entradas-vulcanizado.component';
+import { ListadoTareasComponent } from './components/add-homework/listado-tareas.component';
+
 
 
 
@@ -79,7 +79,6 @@ import { EntradasVulcanizadoComponent } from './components/vulcanizado/entradas-
 		BusquedaComponent,
 		IngresosWarehouse1Pipe,
 		AddTareaUnidadComponent,
-		OutWarehouse1Component,
 		DinamicaPipe,
 		EntradasGuarnecidaComponent,
 		AsignarTareaComponent,
@@ -106,7 +105,8 @@ import { EntradasVulcanizadoComponent } from './components/vulcanizado/entradas-
 		StockTerminationComponent,
 		SearchReferencePipe,
 		SalidasVulcanizadoComponent,
-		EntradasVulcanizadoComponent
+		EntradasVulcanizadoComponent,
+		ListadoTareasComponent
 		
 		
 		

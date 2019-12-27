@@ -34,6 +34,7 @@ import { StockStrobelComponent } from './components/strobell/stock-strobel.compo
 import { StockInjectionComponent } from './components/injection/stock-injection.component';
 import { StockTerminationComponent } from './components/termination/stock-termination.component';
 import { TrazabilidadComponent } from '../components/trazabilidad/trazabilidad.component';
+import { ListadoTareasComponent } from './components/add-homework/listado-tareas.component';
 
 
 const adminRoutes: Routes = [
@@ -48,6 +49,7 @@ const adminRoutes: Routes = [
 			{path: 'crear-tarea', component: AddHomeworkComponent},
 			{path: 'listado-operarios', component: ListOperatorsComponent},
 			{path: 'listado-troquelado', component: StockTroqueladoComponent},
+			{path: 'listado-tareas', component: ListadoTareasComponent},
 			{path: 'codigo-barras/:id', component: BarcodeComponent},
 			{path: 'detalles-tarea/:id', component: HomeworkDetailComponent},
 			{path: 'detalles-terminado/:id', component: DetailTerminationComponent},
