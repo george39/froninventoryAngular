@@ -1,9 +1,9 @@
-<div class="top  col-lg-3 admin-panel no-imprimir"   *ngIf="identity.role == 'ROLE_ADMIN'">
+<div class="  col-lg-3  admin-panel no-imprimir"   *ngIf="identity.role == 'ROLE_ADMIN'">
     <h1 class="titulo">{{title}}</h1>
     <div class="sidebar-admin " data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
             <li role="presentation" [routerLinkActive]="['active']">
-                <a [routerLink]="['listado-tareas']">Listado tareas</a>
+                <a [routerLink]="['listado-tareas']" class="nav-link">Listado tareas</a>
             </li>
             <li role="presentation" [routerLinkActive]="['active']">
                 <a [routerLink]="['listado-operarios']">Listado operarios</a>
@@ -32,7 +32,7 @@
 
 
 <!-- MENU ALMACEN 1-->
-<div class="top col-lg-3 col-sx-3 almacen1" *ngIf="identity.role == 'ROLE_ALMACEN1' ">
+<div class=" col-lg-3 col-sx-3 almacen1" *ngIf="identity.role == 'ROLE_ALMACEN1' ">
     <h1 class="titulo">Almacen 1</h1>
     <div class="sidebar-admin" data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">            
@@ -73,7 +73,7 @@
 
 
 <!-- MENU ALMACEN 2-->
-<div class="top col-lg-3 col-sx-3 almacen1" *ngIf="identity.role === 'ROLE_ALMACEN2' ">
+<div class=" col-lg-3 col-sx-3 almacen1" *ngIf="identity.role === 'ROLE_ALMACEN2' ">
         <h1 class="titulo">Almacen 2</h1>
         <div class="sidebar-admin" data-example-id="sample-nav-stacked">
             <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">            
@@ -115,12 +115,12 @@
 
 
 <!-- MENU GUARNECIDA-->
-<div class="top col-lg-3 col-sx-3 menu-guarnecida" *ngIf="identity.role === 'ROLE_GUARNECIDA' ">
+<div class=" col-lg-3 col-sx-3 menu-guarnecida" *ngIf="identity.role === 'ROLE_GUARNECIDA' ">
     <h1 class="titulo">Guarnecida</h1>
     <div class="sidebar-admin" data-example-id="sample-nav-stacked">
         <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
             <li role="presentation" [routerLinkActive]="['active']">
-                <a [routerLink]="['addguarnecida']">Ingresos</a>
+                <a [routerLink]="['addguarnecida']" >Ingresos</a>
             </li>
 
             <li role="presentation" [routerLinkActive]="['active']">

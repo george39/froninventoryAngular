@@ -1,5 +1,5 @@
 
-    <div class="row top" *ngFor="let operario of [valeTermination]">
+    <div class="row" *ngFor="let operario of [valeTermination]">
         <div class="col-lg-4 titulo">Operario:{{' '}}{{operario.operator}}</div>
         <div class="col-lg-4 titulo">Número vale:{{' '}}{{operario._id}}</div>
         <div *ngFor="let canasta of operario.registros | dinamica">

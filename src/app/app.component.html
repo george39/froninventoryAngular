@@ -1,83 +1,93 @@
-<div class="navigation col-lg-12 col-xs-4 navbar-fixed-top" >
-    <nav class="navbar navbar-default ">
+<div class="" >
+    <nav id="menu-navegacion" class="navbar navbar-dark navbar-default navbar-expand-md">
         <div class="container-fluid">
             <!-- <div class="navbar-header">
                 <a [routerLink]="['/home']" class="navbar-brand">{{title}}</a>
             </div> -->
-            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-ex1-collapse">
+                    
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <!-- <li>
                     <a [routerLink]="['/home']" [routerLinkActive]="['active']">
                         <span class="glyphicon glyphicon-home"></span> Inicio
                     </a>
                 </li> -->
-                <li>
-                    <a [routerLink]="['/listado-troquelado']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/listado-troquelado']" [routerLinkActive]="['active']" class="nav-link">
                         <span></span> Troquelado
                     </a>
                 </li>
 
 
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" [routerLinkActive]="['active']">
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" [routerLinkActive]="['active']" class="nav-link">
                          Guarnecidas<span class="caret"></span>
                      </a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a [routerLink]="['/listado-guarnecida-interna']">
+                        <li class="nav-item">
+                            <a [routerLink]="['/listado-guarnecida-interna']" class="nav-link">
                                 <span class="glyphicon glyphicon-cog"></span>Guarnecida interna
                             </a>
                         </li>
-                        <li>
-                            <a class="pointer" [routerLink]="['/listado-guarnecida-externa']">
+                        <li class="nav-item">
+                            <a class="pointer" [routerLink]="['/listado-guarnecida-externa']" class="nav-link">
                                 <span class="glyphicon glyphicon-log-out"></span>Guarnecida externa
                             </a>
                         </li>
                     </ul>
                 </li>
 
-                <li>
-                    <a [routerLink]="['/listado-almacen1']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/listado-almacen1']" [routerLinkActive]="['active']" class="nav-link">
                         <span></span> Almacen1
                     </a>
                 </li>
 
-                <li>
-                    <a [routerLink]="['/listado-ojaleteado']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/listado-ojaleteado']" [routerLinkActive]="['active']" class="nav-link">
                         <span></span> Ojaleteado
                     </a>
                 </li>
 
-                <li>
-                    <a [routerLink]="['/listado-strobell']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/listado-strobell']" [routerLinkActive]="['active']" class="nav-link">
                         <span></span> Strobell
                     </a>
                 </li>
 
-                <li>
-                    <a [routerLink]="['/listado-inyeccion']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/listado-inyeccion']" [routerLinkActive]="['active']" class="nav-link">
                         <span></span> Inyeccion
                     </a>
                 </li>
                 
                 
-                <li>
-                    <a [routerLink]="['/listado-almacen2']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/listado-almacen2']" [routerLinkActive]="['active']" class="nav-link">
                         <span></span> Almacen 2
                     </a>
                 </li>
 
 
 
-                <li>
-                    <a [routerLink]="['/listado-terminado']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/listado-terminado']" [routerLinkActive]="['active']" class="nav-link">
                         <span></span> Terminado
                     </a>
                 </li>
                 
 
-                <li>
-                    <a [routerLink]="['/trazabilidad']" [routerLinkActive]="['active']"> Trazabilidad
+                <li class="nav-item">
+                    <a [routerLink]="['/trazabilidad']" [routerLinkActive]="['active']" class="nav-link"> Trazabilidad
                         <!-- Trazabilidad <span class="glyphicon glyphicon-search"></span> -->
                     </a>
                 </li>
@@ -94,36 +104,36 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
-                <li>
-                    <a [routerLink]="['/login']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/login']" [routerLinkActive]="['active']" class="nav-link">
                         <span class="glyphicon glyphicon-user"></span> Login
                     </a>
                 </li>
-                <li>
-                    <a [routerLink]="['/registro']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/registro']" [routerLinkActive]="['active']" class="nav-link">
                         <span class="glyphicon glyphicon-log-in"></span> Registro
                     </a>
                 </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right" *ngIf="identity">
-                <li *ngIf="identity && identity.role == 'ROLE_ADMIN'">
-                    <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']">
+                <li class="nav-item" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
+                    <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']" class="nav-link">
                         <span class="glyphicon glyphicon-user"></span> {{identity.nick}}
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" [routerLinkActive]="['active']">
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" [routerLinkActive]="['active']">
             {{identity.name}} <span class="caret"></span>
           </a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a [routerLink]="['/mis-datos']">
+                        <li class="nav-item">
+                            <a [routerLink]="['/mis-datos']" class="nav-link">
                                 <span class="glyphicon glyphicon-cog"></span> Mis datos
                             </a>
                         </li>
-                        <li>
-                            <a class="pointer" (click)="logout()">
+                        <li class="nav-item">
+                            <a class="pointer" (click)="logout()" class="nav-link">
                                 <span class="glyphicon glyphicon-log-out"></span> Salir
                             </a>
                         </li>
@@ -132,22 +142,22 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right" *ngIf="identity  && identity.role == 'ROLE_ALMACEN1'">
-                <li>
-                    <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']" class="nav-link">
                         <span class="glyphicon glyphicon-user"></span> {{identity.nick}}
                     </a>
                 </li>
 
-                <li class="dropdown">
+                <li class="dropdown nav-item">
 
                     <ul class="dropdown-menu">
-                        <li>
-                            <a [routerLink]="['/mis-datos']">
+                        <li class="nav-item">
+                            <a [routerLink]="['/mis-datos']" class="nav-link">
                                 <span class="glyphicon glyphicon-cog"></span> Mis datos
                             </a>
                         </li>
-                        <li>
-                            <a class="pointer" (click)="logout()">
+                        <li class="nav-item">
+                            <a class="pointer" (click)="logout()" class="nav-link">
                                 <span class="glyphicon glyphicon-log-out"></span> Salir
                             </a>
                         </li>
@@ -156,22 +166,22 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right" *ngIf="identity  && identity.role === 'ROLE_ALMACEN2'">
-                    <li>
-                        <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']">
+                    <li class="nav-item">
+                        <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']" class="nav-link">
                             <span class="glyphicon glyphicon-user"></span> {{identity.nick}}
                         </a>
                     </li>
     
-                    <li class="dropdown">
+                    <li class="dropdown nav-item">
     
                         <ul class="dropdown-menu">
-                            <li>
-                                <a [routerLink]="['/mis-datos']">
+                            <li class="nav-item">
+                                <a [routerLink]="['/mis-datos']" class="nav-link">
                                     <span class="glyphicon glyphicon-cog"></span> Mis datos
                                 </a>
                             </li>
-                            <li>
-                                <a class="pointer" (click)="logout()">
+                            <li class="nav-item">
+                                <a class="pointer" (click)="logout()" class="nav-link">
                                     <span class="glyphicon glyphicon-log-out"></span> Salir
                                 </a>
                             </li>
@@ -181,28 +191,29 @@
 
 
             <ul class="nav navbar-nav navbar-right" *ngIf="identity  && identity.role == 'ROLE_GUARNECIDA'">
-                <li>
-                    <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']">
+                <li class="nav-item">
+                    <a [routerLink]="['/admin-panel']" [routerLinkActive]="['active']" class="nav-link">
                         <span class="glyphicon glyphicon-user"></span> {{identity.nick}}
                     </a>
                 </li>
 
-                <li class="dropdown">
+                <li class="dropdown nav-item">
 
                     <ul class="dropdown-menu">
-                        <li>
-                            <a [routerLink]="['/mis-datos']">
+                        <li class="nav-item">
+                            <a [routerLink]="['/mis-datos']" class="nav-link">
                                 <span class="glyphicon glyphicon-cog"></span> Mis datos
                             </a>
                         </li>
-                        <li>
-                            <a class="pointer" (click)="logout()">
+                        <li class="nav-item">
+                            <a class="pointer" (click)="logout()" class="nav-link">
                                 <span class="glyphicon glyphicon-log-out"></span> Salir
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
+        </div>
 
         </div>
     </nav>
