@@ -25,7 +25,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^3.3.6",
     "core-js": "^2.5.4",
-    "jquery": "^1.12.4",
+    "jquery": "^3.4.0",
     "materialize-css": "^1.0.0-rc.2",
     "ngx-barcode": "^0.2.4",
     "rxjs": "~6.3.3",
