@@ -12,6 +12,8 @@ import { Ojaleteado } from '../../models/ojaleteado';
 import { Strobell } from '../../models/strobell';
 import { Termination } from '../../models/termination';
 import { Reproceso } from '../../models/reproceso';
+import { Vulcanizado } from 'src/app/models/vulcanizado';
+
 
 
 @Component({
@@ -28,8 +30,9 @@ export class BusquedaComponent implements OnInit {
   strobell: Strobell[] = [];
   injection1: Injection1[] = [];
   warehouse2: Warehouse2[] = [];
-  terminado: Termination[] = [];
+  termination: Termination[] = [];
   reproceso: Reproceso[] = [];
+  vulcanizado: Vulcanizado[] = [];
 
   public url: string;
   public titulo: string;
@@ -43,6 +46,7 @@ export class BusquedaComponent implements OnInit {
   public almacen2 = [];
   public terminacion = [];
   public reprocesoCJ = [];
+  public vulca = [];
 
   constructor(
     public activatedRoute: ActivatedRoute,
@@ -139,7 +143,7 @@ export class BusquedaComponent implements OnInit {
         });
       });
 
-      resp.terminado.forEach((item) => {
+      resp.termination.forEach((item) => {
         item.registros.forEach((todo) => {
           if (termino === todo.reference) {
 
@@ -158,6 +162,15 @@ export class BusquedaComponent implements OnInit {
         });
       });
 
+      resp.vulcanizado.forEach((item) => {
+        item.registros.forEach((todo) => {
+          if (termino === todo.reference) {
+
+            this.vulca.push(todo);
+          }
+        });
+      });
+
 
       this.tareaUnidad = this.troquelado;
       this.guarnecidaInterna = this.guarnInterna;
@@ -167,8 +180,9 @@ export class BusquedaComponent implements OnInit {
       this.ojaleteado = this.ojaletead;
       this.strobell = this.strobel;
       this.injection1 = this.inyeccion;
-      this.terminado = this.terminacion;
+      this.termination = this.terminacion;
       this.reproceso = this.reprocesoCJ;
+      this.vulcanizado = this.vulca;
 
     });
     this.troquelado = [];
@@ -181,6 +195,7 @@ export class BusquedaComponent implements OnInit {
     this.inyeccion = [];
     this.terminacion = [];
     this.reprocesoCJ = [];
+    this.vulca = [];
   }
 
 }

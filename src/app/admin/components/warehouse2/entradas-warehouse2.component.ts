@@ -15,6 +15,8 @@ import { Reproceso } from '../../../models/reproceso';
 import { ReprocesoService } from '../../../services/reproceso.service';
 import { Termination } from '../../../models/termination';
 import { TerminationService } from '../../../services/termination.service';
+import { Vulcanizado } from 'src/app/models/vulcanizado';
+import { VulcanizadoService } from '../../../services/vulcanizado.service';
 import swal from 'sweetalert';
 
 
@@ -34,6 +36,7 @@ export class EntradasWarehouse2Component implements OnInit {
   public reproceso: Reproceso[];
   public termination: Termination[];
   public guarnecida: Guarnecida[];
+  public vulcanizado: Vulcanizado[];
   public token;
   public busqueda;
   public dobles;
@@ -56,6 +59,7 @@ export class EntradasWarehouse2Component implements OnInit {
     private guarnecidaService: GuarnecidaService,
     private reprocesoService: ReprocesoService,
     private terminationService: TerminationService,
+    private vulcanizadoService: VulcanizadoService,
     private userService: UserService,
     private http: HttpClient,
     
@@ -76,6 +80,7 @@ export class EntradasWarehouse2Component implements OnInit {
     'Inyeccion',
     'Terminacion',
     'Guarnecida',
+    'Vulcanizado',
     'Reproceso'
     ];
 
@@ -111,6 +116,7 @@ export class EntradasWarehouse2Component implements OnInit {
     this.getReproceso();
     this.getTermination();
     this.getGuarnecida();
+    this.getVulcanizado();
 
     // INSTRUCCION QUE NO PERMITE INSERTAR ITEMS VACIOS
     const control = this.addressListArray.controls;
@@ -544,6 +550,85 @@ export class EntradasWarehouse2Component implements OnInit {
   }
 
 
+  // ================================================
+  // LISTA LAS UNIDADES QUE EXISTEN EN VULCANIZADO
+  // ================================================
+  getVulcanizado() {
+    this.vulcanizadoService.getVulcanizados().subscribe(
+      response => {
+        if (!response.vulcanizado) {
+            this.status = false;
+            console.log('status', this.status);
+        } else {
+          this.vulcanizado = response.vulcanizado;
+          console.log('vulcanizado', this.vulcanizado);
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
+
+  // ================================================
+  // ELIMINA UNA UNIDAD DE VULCANIZADO
+  // ================================================
+  deleteItemVulcanizado(dat) {
+      
+    for (let i = 0; i <= dat.registros.length; i++) {
+  
+      this.vulcanizadoService.updateVulcanizado(this.token, dat.registros[i]).subscribe(
+              response => {
+                this.deleteCanastaVaciaVulcanizado();
+  
+              },
+              error => {
+                console.log(error as any);
+              }
+            );
+          }
+  
+  }
+
+
+
+  // ================================================
+  // ELIMINAR COLECCIONES VACIAS DE VULCANIZADO
+  // ================================================
+  deleteCanastaVaciaVulcanizado() {
+    this.vulcanizadoService.getVulcanizados().subscribe(
+      response => {
+        if (!response.vulcanizado ) {
+          console.log('Error en el servidor');
+        } else {
+  
+          for (const i of response.vulcanizado) {
+              if (i.registros.length === 0) {
+                // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
+  
+                this.vulcanizadoService.deleteVulcanizado(this.token, i._id).subscribe(
+                  response => {
+  
+                  },
+                  error => {
+                    console.log(error as any);
+                  }
+                );
+              } else {
+  
+              }
+          }
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+  }
+
+
 
 
 
@@ -568,6 +653,7 @@ export class EntradasWarehouse2Component implements OnInit {
                   this.getReproceso();
                   this.getTermination();
                   this.getGuarnecida();
+                  this.getVulcanizado();
                 },
                 error  => {
                   console.log(error as any);

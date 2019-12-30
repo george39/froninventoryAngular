@@ -22,6 +22,10 @@ import { Warehouse1Service } from '../../services/warehouse1.service';
 import { Warehouse2Service } from 'src/app/services/warehouse2.service';
 import { TareaUnidad } from '../../models/tareaUnidad';
 import { TareaUnidadService } from '../../services/tarea-unidad.service';
+import { Reproceso } from '../../models/reproceso';
+import { ReprocesoService } from '../../services/reproceso.service';
+import { Vulcanizado } from 'src/app/models/vulcanizado';
+import { VulcanizadoService } from '../../services/vulcanizado.service';
 
 
 @Component({
@@ -43,6 +47,8 @@ export class TrazabilidadComponent implements OnInit {
   public warehouse2: Warehouse2[];
   public termination: Termination[];
   public injection: Injection1[];
+  public reproceso: Reproceso[];
+  public vulcanizado: Vulcanizado[];
 
 
   public consolidadoGuarnecidaInterna = [];
@@ -54,6 +60,8 @@ export class TrazabilidadComponent implements OnInit {
   public consolidadoAlmacen2 = [];
   public consolidadoTermination = [];
   public consolidadoInjection = [];
+  public consolidadoReproceso = [];
+  public consolidadoVulcanizado = [];
 
 
 
@@ -66,6 +74,8 @@ export class TrazabilidadComponent implements OnInit {
   public estaCodigoAlmacen2 = false;
   public estaCodigoTerminado = false;
   public estaCodigoInyeccion = false;
+  public estaCodigoReproceso = false;
+  public estaCodigoVulcanizado = false;
 
 
 
@@ -80,7 +90,9 @@ export class TrazabilidadComponent implements OnInit {
     private almacen2Service: Warehouse2Service,
     private terminationService: TerminationService,
     private injectionService: Injection1Service,
+    private vulcanizadoService: VulcanizadoService,
     public activatedRoute: ActivatedRoute,
+    public reprocesoService: ReprocesoService,
     public http: HttpClient,
   ) {
     
@@ -272,6 +284,7 @@ getOjaleteado() {
               console.log(error as any);
             }
             );
+    // this.consolidadoAlmacen1 = [];
     }
 
 
@@ -312,7 +325,6 @@ getAlamcen2() {
         } else {
           response.termination.forEach((item) => {
             item.registros.forEach((consolidado) => {
-              this.consolidadoTermination.push(consolidado);
 
               if ( consolidado.code === this.buscarCodigo) {
                 this.consolidadoTermination.push(consolidado);
@@ -365,6 +377,69 @@ getAlamcen2() {
   }
 
 
+  getReproceso() {
+    this.reprocesoService.getReproceso().subscribe(
+      response => {
+        if (!response.reproceso) {
+
+        } else {
+          response.reproceso.forEach((item) => {
+            item.registros.forEach((consolidado) => {
+
+              if ( consolidado.code === this.buscarCodigo) {
+                this.consolidadoReproceso.push(consolidado);
+                this.estaCodigoReproceso = true;
+                this.buscarCodigo = '';
+
+              }
+
+            });
+          });
+
+          this.reproceso = this.consolidadoReproceso;
+
+
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+
+  }
+
+  getVulcanizado() {
+    this.vulcanizadoService.getVulcanizados().subscribe(
+      response => {
+        if (!response.vulcanizado) {
+
+        } else {
+          response.vulcanizado.forEach((item) => {
+            item.registros.forEach((consolidado) => {
+
+              if ( consolidado.code === this.buscarCodigo) {
+                this.consolidadoVulcanizado.push(consolidado);
+                this.estaCodigoVulcanizado = true;
+                this.buscarCodigo = '';
+
+              }
+
+            });
+          });
+
+          this.vulcanizado = this.consolidadoVulcanizado;
+
+
+        }
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+
+  }
+
+
 
   todos() {
 
@@ -377,6 +452,8 @@ getAlamcen2() {
     this.getAlamcen2();
     this.getTermination();
     this.getInjection();
+    this.getReproceso();
+    this.getVulcanizado();
     
   }
 

@@ -12,9 +12,9 @@
         <div class="col-lg-2" *ngIf="estaCodigoGuarnecidaInterna === true" >
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Guarnecida interna</h4>
+                    <h4 class="card-title" align="center">Guarnecida interna</h4>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive table-bordered">
                         <thead>
                             <tr >
                                 <td>Cod</td>
@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody *ngFor="let guarnecida of guarnecidaInterna | search">
-                            <tr>
+                            <tr class="item-busqueda">
                                 <td>{{guarnecida.code}}</td>
                                 <td>{{guarnecida.reference}}</td>
                                 <td>{{guarnecida.size}}</td>
@@ -38,18 +38,18 @@
         <div class="col-lg-2"  *ngIf="estaCodigoGuarnecidaExterna === true">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Guarnecida externa</h4>
+                    <h4 class="card-title" align="center">Guarnecida externa</h4>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive table-bordered">
                         <thead>
-                            <tr >
+                            <tr>
                                 <td>Cod</td>
                                 <td>Ref</td>
                                 <td>Talla</td>
                             </tr>
                         </thead>
                         <tbody *ngFor="let guarnecidae of guarnecidaExterna | search">
-                            <tr>
+                            <tr class="item-busqueda">
                                 <td>{{guarnecidae.code}}</td>
                                 <td>{{guarnecidae.reference}}</td>
                                 <td>{{guarnecidae.size}}</td>
@@ -64,18 +64,18 @@
         <div class="col-lg-2"  *ngIf="estaCodigoTroquelado === true">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Troquelado</h4>
+                    <h4 class="card-title" align="center">Troquelado</h4>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive table-bordered">
                         <thead>
-                            <tr >
+                            <tr>
                                 <td>Cod</td>
                                 <td>Ref</td>
                                 <td>Talla</td>
                             </tr>
                         </thead>
                         <tbody *ngFor="let troquelado of tareaUnidad | search">
-                            <tr>
+                            <tr  class="item-busqueda">
                                 <td>{{troquelado.code}}</td>
                                 <td>{{troquelado.reference}}</td>
                                 <td>{{troquelado.size}}</td>
@@ -90,18 +90,18 @@
         <div class="col-lg-2"  *ngIf="estaCodigoStrobell === true">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Strobell</h4>
+                    <h4 class="card-title" align="center">Strobell</h4>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive table-bordered">
                         <thead>
-                            <tr >
+                            <tr>
                                 <td>Cod</td>
                                 <td>Ref</td>
                                 <td>Talla</td>
                             </tr>
                         </thead>
                         <tbody *ngFor="let strobell of strobell | search">
-                            <tr>
+                            <tr  class="item-busqueda">
                                 <td>{{strobell.code}}</td>
                                 <td>{{strobell.reference}}</td>
                                 <td>{{strobell.size}}</td>
@@ -116,18 +116,18 @@
         <div class="col-lg-2" *ngIf="estaCodigoOjaleteado === true" >
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Ojaleteado</h4>
+                    <h4 class="card-title" align="center">Ojaleteado</h4>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive table-bordered">
                         <thead>
-                            <tr >
+                            <tr>
                                 <td>Cod</td>
                                 <td>Ref</td>
                                 <td>Talla</td>
                             </tr>
                         </thead>
                         <tbody *ngFor="let ojaleteado of ojaleteado | search">
-                            <tr>
+                            <tr  class="item-busqueda">
                                 <td>{{ojaleteado.code}}</td>
                                 <td>{{ojaleteado.reference}}</td>
                                 <td>{{ojaleteado.size}}</td>
@@ -147,18 +147,18 @@
         <div class="col-lg-2"  *ngIf="estaCodigoAlmacen1 === true">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Almacen 1</h4>
+                    <h4 class="card-title" align="center">Almacen 1</h4>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive table-bordered">
                         <thead>
-                            <tr >
+                            <tr>
                                 <td>Cod</td>
                                 <td>Ref</td>
                                 <td>Talla</td>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let almacen1 of warehouse1  | consolidar | searchReference">
-                            <tr>
+                        <tbody *ngFor="let almacen1 of warehouse1  | search">
+                            <tr  class="item-busqueda">
                                 <td>{{almacen1.code}}</td>
                                 <td>{{almacen1.reference}}</td>
                                 <td>{{almacen1.size}}</td>
@@ -174,9 +174,9 @@
         <div class="col-lg-2" *ngIf="estaCodigoAlmacen2 === true">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Almacen 2</h4>
+                <h4 class="card-title" align="center">Almacen 2</h4>
 
-                <table class="table table-hover">
+                <table class="table table-hover table-responsive table-bordered">
                     <thead>
                         <tr >
                             <td>Cod</td>
@@ -184,8 +184,8 @@
                             <td>Talla</td>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let almacen2 of warehouse2  | consolidar | searchReference">
-                        <tr>
+                    <tbody *ngFor="let almacen2 of warehouse2  | search">
+                        <tr class="item-busqueda">
                             <td>{{almacen2.code}}</td>
                             <td>{{almacen2.reference}}</td>
                             <td>{{almacen2.size}}</td>
@@ -200,9 +200,9 @@
         <div class="col-lg-2" *ngIf="estaCodigoTerminado === true">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Terminado</h4>
+                    <h4 class="card-title" align="center">Terminado</h4>
         
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive table-bordered">
                     <thead>
                         <tr >
                             <td>Cod</td>
@@ -210,8 +210,8 @@
                             <td>Talla</td>
                     </tr>
                     </thead>
-                        <tbody *ngFor="let terminado of termination  | consolidar | searchReference">
-                            <tr>
+                        <tbody *ngFor="let terminado of termination  | search ">
+                            <tr class="item-busqueda">
                                 <td>{{terminado.code}}</td>
                                 <td>{{terminado.reference}}</td>
                                 <td>{{terminado.size}}</td>
@@ -226,18 +226,18 @@
         <div class="col-lg-2" *ngIf="estaCodigoInyeccion === true">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Inyección</h4>
+                    <h4 class="card-title" align="center">Inyección</h4>
         
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive table-bordered">
                     <thead>
-                        <tr >
+                        <tr>
                             <td>Cod</td>
                             <td>Ref</td>
                             <td>Talla</td>
                     </tr>
                     </thead>
-                        <tbody *ngFor="let inyeccion of injection  | consolidar | searchReference">
-                            <tr>
+                        <tbody *ngFor="let inyeccion of injection  | search">
+                            <tr class="item-busqueda">
                                 <td>{{inyeccion.code}}</td>
                                 <td>{{inyeccion.reference}}</td>
                                 <td>{{inyeccion.size}}</td>
@@ -247,6 +247,59 @@
         
                 </div>
             </div>
+        </div>
+
+        <div class="col-lg-2" *ngIf="estaCodigoVulcanizado === true">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" align="center">Vulcanizado</h4>
+        
+                    <table class="table table-hover table-responsive table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Cod</td>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                    </tr>
+                    </thead>
+                        <tbody *ngFor="let vulca of vulcanizado | search">
+                            <tr class="item-busqueda">
+                                <td>{{vulca.code}}</td>
+                                <td>{{vulca.reference}}</td>
+                                <td>{{vulca.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+        
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2" *ngIf="estaCodigoReproceso === true">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" align="center">Reproceso</h4>
+        
+                    <table class="table table-hover table-responsive table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Cod</td>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                    </tr>
+                    </thead>
+                        <tbody *ngFor="let inyeccion of reproceso  | search">
+                            <tr class="item-busqueda">
+                                <td>{{inyeccion.code}}</td>
+                                <td>{{inyeccion.reference}}</td>
+                                <td>{{inyeccion.size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+        
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

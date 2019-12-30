@@ -54,6 +54,33 @@
               </div> 
           </div>
 
+           <!-- *************************************************************
+           ENTRADAS DE VULCANIZADO
+           *************************************************************
+          -->
+          <div *ngIf="seleccion === 'Vulcanizado'">        
+            <div class="container">
+                <div class="row ">
+                    <b><div class="col-lg-1 codigo titulo">Código</div></b>
+                    <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
+                    <b><div class="col-lg-1 talla titulo" >Talla</div></b>
+                </div>
+            </div>
+            <div *ngFor="let registro of vulcanizado ">
+                <div *ngFor="let unidad of registro.registros | ingresos: busqueda">
+                    <div *ngIf="busqueda === unidad.code">
+                        <div class="row">
+                            <div><input type="hidden" id="code" #code value="{{unidad.code}}"></div>
+                            <div><input type="hidden" #reference value="{{unidad.reference}}"></div>
+                            <div><input type="hidden" #size value="{{unidad.size}}"></div>
+                            <div><input type="hidden" #idWarehouse value="{{registro._id}}"></div>
+                            <div><input type="hidden"   value="{{unidad.clasification}}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
 
            <!-- *************************************************************
            ENTRADAS DE TERMINACION
@@ -178,8 +205,13 @@
       
                            <!-- GUARDO EN ALMACEN 2 Y ELIMINO EN  INYECCION -->
                            <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Inyeccion'">
-                              <button (click)="addWarehouse2(formData.value); deleteItemInjection(formData.value)" class="btn btn-success">Guardar</button>
+                              <button (click)="addWarehouse2(formData.value); deleteItemVulcanizado(formData.value)" class="btn btn-success">Guardar</button>
                           </div>
+
+                          <!-- GUARDO EN ALMACEN 2 Y ELIMINO EN  VULCANIZADO -->
+                          <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Vulcanizado'">
+                            <button (click)="addWarehouse2(formData.value); deleteItemVulcanizado(formData.value)" class="btn btn-success">Guardar</button>
+                        </div>
 
                           <!-- GUARDO EN ALMACEN 2 Y ELIMINO EN  TERMINADO -->
                           <div class="col-lg-2 inner-addon" *ngIf="seleccion === 'Terminacion'">

@@ -229,11 +229,36 @@
                             <td>Cantidad</td>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let terminado of terminado | consolidar">
+                    <tbody *ngFor="let terminado of termination | consolidar">
                         <tr class="item-busqueda">
                             <td>{{terminado.reference}}</td>
                             <td>{{terminado.size}}</td>
                             <td>{{terminado.quantity}}</td>
+                        </tr>                        
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" align="center">Vulcanizado</h4>
+
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Ref</td>
+                            <td>Talla</td>
+                            <td>Cantidad</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let vulca of vulcanizado | consolidar">
+                        <tr class="item-busqueda">
+                            <td>{{vulca.reference}}</td>
+                            <td>{{vulca.size}}</td>
+                            <td>{{vulca.quantity}}</td>
                         </tr>                        
                     </tbody>
                 </table>                

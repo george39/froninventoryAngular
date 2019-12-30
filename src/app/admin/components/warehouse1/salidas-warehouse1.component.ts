@@ -33,6 +33,8 @@ import { ReprocesoService } from '../../../services/reproceso.service';
 import { Virado } from '../../../models/virado';
 import { ViradoService } from '../../../services/virado.service';
 import swal from 'sweetalert';
+import { Vulcanizado } from '../../../models/vulcanizado';
+import { VulcanizadoService } from '../../../services/vulcanizado.service';
 
 
 
@@ -74,6 +76,7 @@ export class SalidasWarehouse1Component implements OnInit {
   public guarnecidaExterna: GuarnecidaExterna;
   public injection1: Injection1;
   public strobell: Strobell;
+  public vulcanizado: Vulcanizado;
   public reproceso: Reproceso;
   public operator: Operator;
   public dobles;
@@ -127,6 +130,7 @@ export class SalidasWarehouse1Component implements OnInit {
     private strobellService: StrobellService,
     private reprocesoService: ReprocesoService,
     private viradoService: ViradoService,
+    private vulcanizadoService: VulcanizadoService,
     private _userService: UserService,
     private operatorService: OperatorService,
     private terminationService: TerminationService,
@@ -143,6 +147,7 @@ export class SalidasWarehouse1Component implements OnInit {
     this.injection1 = new Injection1('', '', []);
     this.reproceso = new Reproceso('', '', []);
     this.virado = new Virado('', '', []);
+    this.vulcanizado = new Vulcanizado('', '', []);
     // this.operator = new Operator('', '', '');
     this.codigo = new Array();
     this.referencia = new Array();
@@ -163,6 +168,7 @@ export class SalidasWarehouse1Component implements OnInit {
     'Inyeccion-Cementado',
     'Strobell',
     'Virado',
+    'Vulcanizado',
     'Reproceso'
   ];
 
@@ -575,6 +581,38 @@ export class SalidasWarehouse1Component implements OnInit {
                 );
 
     }
+
+
+   // ================================================
+  // GUARDAR UNA UNIDAD EN VULCANIZADO
+  // ================================================
+  addVulcanizado(data) {
+    
+    this.vulcanizadoService.addVulcanizado(this.token, data).subscribe(
+                response => {
+                  console.log('data',  this.formData.value);
+                  this.formData.reset();
+                  const control = this.addressListArray.controls;
+                  control.splice(data);
+                  this.seleccion = '';
+                  const s = this.formData.value.registros;
+                  s.splice(data);
+                  this.codigo.splice(data);
+                  this.referencia.splice(data);
+                  this.talla.splice(data);
+                  this.clasificacion.splice(data);
+                  this.idAlmacen.splice(data);
+                  this.operario.splice(data);
+                  this.selecOperator = '';
+                  this.busqueda = '';
+                  this.getWarehouses();
+                },
+                error  => {
+                  console.log(error as any);
+                }
+                );
+
+    }   
 
 
   // ================================================

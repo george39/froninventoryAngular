@@ -28,6 +28,14 @@
         }
     }
 
+/* Funcion para no imprimir un trozo de html */
+@media print{
+	@page {
+        margin: 0;
+        size: auto;
+    }
+  }    
+
 
 #codigo {
     /* margin: 12mm 10mm 0 60mm ; */

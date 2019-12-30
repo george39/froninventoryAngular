@@ -323,11 +323,11 @@ export class EntradasWarehouse1Component implements OnInit {
   deleteCanastaVaciaGuarnecida() {
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.guarnecida ) {
+        if (!response.guarnecidaInterna ) {
           console.log('Error en el servidor');
         } else {
   
-          for (const i of response.guarnecida) {
+          for (const i of response.guarnecidaInterna) {
               if (i.registros.length === 0) {
                 // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
   

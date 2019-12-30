@@ -82,7 +82,7 @@
 	}
 }
 
-
+/* Modifica el espacio en la parte inferior de la barra */
 @media (min-width: 768px) {
 	.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
 		margin-right: 0;

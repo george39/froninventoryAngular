@@ -261,6 +261,7 @@ export class SalidasWarehouse2Component implements OnInit {
 
 
     this.repetidos();
+    this.busqueda = '';
 
     if ( this.code.nativeElement && this.codigoRepetido === true) {
       const primera = document.getElementById('primera') as HTMLInputElement;
@@ -284,7 +285,7 @@ export class SalidasWarehouse2Component implements OnInit {
       this.talla.push(this.size.nativeElement.value);
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
       this.operario.push(this.selecOperario.nativeElement.value);
-      this.busqueda = '';
+      
       this.operarioListado = this.operario[0];
 
       console.log('operario', this.operario);
