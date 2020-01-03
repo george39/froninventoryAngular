@@ -29,7 +29,7 @@ export class StockTroqueladoComponent implements OnInit {
   }
 
   getTroquelado() {
-    this.tareaUnidadService.getHomeworkUnit().subscribe(
+    this.tareaUnidadService.getHomeworksUnit().subscribe(
       response => {
           this.tareaUnidad = response.tareaUnidad;
       },

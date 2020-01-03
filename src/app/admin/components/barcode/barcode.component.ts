@@ -35,7 +35,7 @@ export class BarcodeComponent implements OnInit {
 	) {
 		this.title = 'Código de barras';
 	 this.homework = new Homework('', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
+  this.tareaUnidad = new TareaUnidad('', '', '', '', '', '', '');
   this.codigo = [];
 
 
@@ -99,7 +99,7 @@ export class BarcodeComponent implements OnInit {
 
   getTareaUnidad() {
     var code = [];
-    this.tareaUnidadService.getHomeworkUnit().subscribe(
+    this.tareaUnidadService.getHomeworksUnit().subscribe(
       response => {
         this.tareaUnidad = response.tareaUnidad;
         // tslint:disable-next-line:forin

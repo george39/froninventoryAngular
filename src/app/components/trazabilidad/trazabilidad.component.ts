@@ -164,7 +164,7 @@ export class TrazabilidadComponent implements OnInit {
 
 
     getTroquelado() {
-      this.tareaUnidadService.getHomeworkUnit().subscribe(
+      this.tareaUnidadService.getHomeworksUnit().subscribe(
         response => {
           if (!response.tareaUnidad) {
   

@@ -1,6 +1,7 @@
 export class TareaUnidad{
 	constructor(
 		public _id: string,
+		public tarea_id: string,
 		public operator: string,
 		public name: string,
 		public reference: string,

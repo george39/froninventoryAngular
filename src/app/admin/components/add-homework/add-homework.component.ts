@@ -45,7 +45,7 @@ export class AddHomeworkComponent implements OnInit {
   	this.title = 'Crear tarea';
 	this.homework = new Homework('', '', '', '', this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes,
 	  this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes, this.sizes);
-  	this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
+ this.tareaUnidad = new TareaUnidad('', '', '', '', '', '', '');
   	this.identityd = this._userService.getIdentity();
   	this.token = this._userService.getToken();
 	this.url = GLOBAL.url;
@@ -56,35 +56,6 @@ export class AddHomeworkComponent implements OnInit {
 	  
   }
 
-
-//   treintaYocho() {
-//     for (let i = 1; i <= this.homework.tresocho; i++) {
-//       this.tareaUnidad.operator = this.homework.operator;
-//       this.tareaUnidad.name = this.homework.name;
-//       this.tareaUnidad.operator = this.homework.operator;
-//       this.tareaUnidad.reference = this.homework.reference;
-//       this.tareaUnidad.treintayocho = this.homework.tresocho;
-//       this.tareaUnidad.code = this.homework._id + [i];
-
-//       this._tareaUnidadService.addTareaUnidad(this.token, this.tareaUnidad ).subscribe(
-//         response => {
-//           if (!response.tareaUnidad) {
-//             // console.log('no entra', this.marcas);
-//             // this.tareaUnidad = response.marcas;
-//           } else {
-
-//             this.tareaUnidad = response.tareaUnidad;
-//             // this._router.navigate(['/admin-panel/listado-tareas']);
-//           }
-//         },
-//         error => {
-//           const errorMessage = error as any;
-//         }
-//       );
-//     }
-//   }
- 
-  
 
   onSubmit() {
 	  
@@ -220,6 +191,7 @@ export class AddHomeworkComponent implements OnInit {
 				console.log('cantidad', cantidad);
 				for (let i = 1; i <= cantidad; i++) {
 										
+					this.tareaUnidad.tarea_id = this.homework._id;
 					this.tareaUnidad.name = this.homework.name;
 					this.tareaUnidad.operator = this.homework.operator;
 					this.tareaUnidad.reference = this.homework.reference;
@@ -244,87 +216,12 @@ export class AddHomeworkComponent implements OnInit {
 					);
 					
 				}
-				// for (let i = 1; i <= cantidad; i++) {
-					// this.tareaUnidad.operator = this.homework.operator;
-					// this.tareaUnidad.name = this.homework.name;
-					// this.tareaUnidad.operator = this.homework.operator;
-					// this.tareaUnidad.reference = this.homework.reference;
-					// this.tareaUnidad.code = this.homework._id + [i];
-					// this.treintaYocho();
-					
-					
-						
-					// if (this.homework.tresocho) {
-					// 	// var s  = JSON.parse(this.homework.tresnueve);
-					// 	this.tareaUnidad.size = '38';
-					// }
-						
-
-					// if (this.homework.tresnueve !== 0) {
-					// 	// var s  = JSON.parse(this.homework.tresnueve);
-					// 	this.tareaUnidad.size = '39';
-					// }
-
-					// if (this.homework.cuarenta !== 0) {
-					// 	// var s  = JSON.parse(this.homework.tresnueve);
-					// 	this.tareaUnidad.treintaynueve = this.homework.tresnueve / 2;
-					// }
-				// 	this._tareaUnidadService.addTareaUnidad(this.token, this.tareaUnidad ).subscribe(
-				// 		response => {
-				// 			if (!response.tareaUnidad) {
-				// 			// console.log('no entra', this.marcas);
-				// 			// this.tareaUnidad = response.marcas;
-				// 			} else {
-				
-				// 			this.tareaUnidad = response.tareaUnidad;
-				// 			// this._router.navigate(['/admin-panel/listado-tareas']);
-				// 			}
-				// 		},
-				// 		error => {
-				// 			const errorMessage = error as any;
-				// 		}
-				// 		);
-				// }
-
-				// if (this.homework.tresnueve) {
-				// 	this.treintaYnueve();
-				// }
-
-				// Guardar registros por unidad
-				// var cantidad = this.homework.tresocho + this.homework.tresnueve;
-				// for ( let i = 1; i <= cantidad; i++) {
-				// 	this.treintaYocho();
-				// 	// this.tareaUnidad.operator = this.homework.operator;
-				// 	// this.tareaUnidad.name = this.homework.name;
-				// 	// this.tareaUnidad.reference = this.homework.reference;
-				// 	// this.tareaUnidad.size = this.homework.size;
-				// 	// this.tareaUnidad.code = this.homework._id + [i];
-						
-				
-				// 	// this._tareaUnidadService.addTareaUnidad(this.token, this.tareaUnidad ).subscribe(
-				// 	//     response => {
-				// 	// 	  if (!response.tareaUnidad) {
-							
-							
-				// 	// 		  // this.tareaUnidad = response.tareaUnidad;
-				// 	// 	  } else {
-				
-							
-				// 	// 	  }
-				// 	// 	},
-				// 	// 	error => {
-				// 	// 	  const errorMessage = error as any;
-				// 	// 	}
-				// 	//   );
-				// 	}
-
-
 				
 				this._router.navigate(['/admin-panel/detalles-tarea/', this.homework._id]);
 			}
 		},
 		error => {
-			var errorMessage = <any>error;
+			var errorMessage = error as any;
 
 			if(errorMessage != null){
 				this.status = 'error';
@@ -333,39 +230,5 @@ export class AddHomeworkComponent implements OnInit {
 	);
 	  
   }
-
- 
-
-
-//   guardar() {
-	  
-
-// 	for ( let i = 1; i <= this.homework.quantity; i++) {
-// 	this.tareaUnidad.operator = this.homework.operator;
-// 	this.tareaUnidad.name = this.homework.name;
-// 	this.tareaUnidad.reference = this.homework.reference;
-// 	this.tareaUnidad.size = this.homework.size;
-// 	this.tareaUnidad.code = this.homework._id + [i];
-		
-
-//       this._tareaUnidadService.addTareaUnidad(this.token, this.tareaUnidad ).subscribe(
-//         response => {
-//           if (!response.tareaUnidad) {
-            
-            
-// 			  // this.tareaUnidad = response.tareaUnidad;
-//           } else {
-
-            
-//           }
-//         },
-//         error => {
-//           const errorMessage = error as any;
-//         }
-//       );
-//     }
-//   }
-
-  
 
 }

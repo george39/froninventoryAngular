@@ -140,7 +140,7 @@ export class SalidasWarehouse1Component implements OnInit {
   ) {
     this.token = this._userService.getToken();
     this.warehouse1 = new Warehouse1('', '', []);
-    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
+    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '', '');
     this.guarnecida = new Guarnecida('', '', []);
     this.guarnecidaExterna = new GuarnecidaExterna('', '', []);
     this.ojaleteado = new Ojaleteado('', '', []);
@@ -358,7 +358,7 @@ export class SalidasWarehouse1Component implements OnInit {
 
 
   HomeworkUnit() {
-    this.tareaUnidadService.getHomeworkUnit().subscribe(
+    this.tareaUnidadService.getHomeworksUnit().subscribe(
       response => {
         if (!response.tareaUnidad) {
             this.status = false;

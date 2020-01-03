@@ -28,8 +28,8 @@ export class TareaUnidadService {
   }
   
 
-  getHomeworkUnit(): Observable<any>{
-		return this._http.get(this.url + 'gethomeworkunit').pipe(map(response => response));
+  getHomeworksUnit(): Observable<any>{
+		return this._http.get(this.url + 'gethomeworks-unit').pipe(map(response => response));
   }
   
   deleteTroquelado(token, id): Observable<any> {
@@ -38,4 +38,17 @@ export class TareaUnidadService {
 
     return this._http.delete(this.url + 'deletehomeworkunit/' + id, {headers});
   }
+
+  getHomeworkUnit(id): Observable<any>{
+		return this._http.get(this.url + 'gethomework-unit/' + id).pipe(map(response => response));
+  }
+  
+  updateHomeworkUnit(token, id, tareaUnidad): Observable<any>{
+		let params = JSON.stringify(tareaUnidad);
+		let headers = new HttpHeaders({'Content-Type': 'application/json',
+			Authorization: token
+		});
+
+		return this._http.put(this.url + 'update-tarea-unidad/' + id, params, {headers});
+	}
 }

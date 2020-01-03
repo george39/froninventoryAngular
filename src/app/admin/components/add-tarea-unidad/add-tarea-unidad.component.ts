@@ -26,7 +26,7 @@ export class AddTareaUnidadComponent implements OnInit {
   ) 
   { 
     this.homework = new Homework('', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
+    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '', '');
     this.token = this.userService.token();
   }
 

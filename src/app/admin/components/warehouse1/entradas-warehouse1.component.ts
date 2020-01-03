@@ -97,7 +97,7 @@ export class EntradasWarehouse1Component implements OnInit {
   ) {
     this.token = this._userService.getToken();
     // this.warehouse1 = new Warehouse1('', '', []);
-    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '');
+    this.tareaUnidad = new TareaUnidad('', '', '', '', '', '', '');
     // this.guarnecida = new Guarnecida('', '', []);
     this.codigo = new Array();
     this.referencia = new Array();

@@ -30,4 +30,16 @@ export class TroqueladoService {
   getTroquelados(): Observable<any> {
     return this.http.get(this.url + 'gettroquelado').pipe(map(response => response));
   }
+
+  // ================================================
+  // ACTUALIZAR TROQUELADO
+  // ================================================
+  updateTareaUnidad(token, id, tareaUnidad): Observable<any> {
+      const params = JSON.stringify(tareaUnidad);
+      const headers = new HttpHeaders({'Content-Type': 'application/json',
+        Authorization: token
+  });
+
+      return this.http.put(this.url + 'update-tarea-unidad/' + id, params, {headers});
+	}
 }
