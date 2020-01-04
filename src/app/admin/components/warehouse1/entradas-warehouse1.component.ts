@@ -229,23 +229,25 @@ export class EntradasWarehouse1Component implements OnInit {
       this.referencia.push(this.reference.nativeElement.value);
       this.talla.push(this.size.nativeElement.value);
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
-      this.operarioStrobell.push(this.operartorStrobell.nativeElement.value);
+      // this.operarioStrobell.push(this.operartorStrobell.nativeElement.value);
       // this.clasificacion.push(this.clasification.nativeElement.value);
       this.busqueda = '';
       this.status = true;
 
-      var conStrobell = document.getElementById('conStrobell') as HTMLInputElement;
-      var sinStrobell = document.getElementById('sinStrobell') as HTMLInputElement;
+      const conStrobel = document.getElementById('conStrobell') as HTMLInputElement;
+      const sinStrobel = document.getElementById('sinStrobell') as HTMLInputElement;
 
-      if (conStrobell.checked) {
+      if (conStrobel.checked) {
         this.clasificacion.push(this.conStrobell.nativeElement.value);
 
         }
 
-      if (sinStrobell.checked) {
+      if (sinStrobel.checked) {
         this.clasificacion.push(this.sinStrobell.nativeElement.value);
 
           }
+
+      console.log('clasificacion', this.clasificacion);
 
 
 

@@ -31,8 +31,9 @@ export class AsignarTareaComponent implements OnInit {
   @ViewChild('size') size: ElementRef;
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
 
-  @ViewChild('primera') primera: ElementRef;
-  @ViewChild('segunda') segunda: ElementRef;
+  @ViewChild('sigzado') sigzado: ElementRef;
+  @ViewChild('cerrado') cerrado: ElementRef;
+  @ViewChild('guarnecido') guarnecido: ElementRef;
 
   // BUSQUEDA POR CANASTA
   @ViewChild('idCanasta') idCanasta: ElementRef;
@@ -42,8 +43,8 @@ export class AsignarTareaComponent implements OnInit {
 
 
 
-  public operators: Operator[];  
-  public guarnecida: Guarnecida;    
+  public operators: Operator[];
+  public guarnecidaInterna: Guarnecida;
   public operario: string[];
   public token;
   public busqueda;
@@ -63,6 +64,9 @@ export class AsignarTareaComponent implements OnInit {
   public codigoRepetido = true;
   public numeroCanasta: string[];
   public clasificacion: string[];
+  public sigzar: string[];
+  public cerrar: string[];
+  public guarnecer: string[];
   public mostrarReferencia;
   public canastaVacia: string[];
 
@@ -82,7 +86,7 @@ export class AsignarTareaComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.token = this._userService.getToken();
-    this.guarnecida = new Guarnecida('', '', []);
+    this.guarnecidaInterna = new Guarnecida('', '', []);
     this.codigo = new Array();
     this.referencia = new Array();
     this.talla = new Array();
@@ -92,6 +96,9 @@ export class AsignarTareaComponent implements OnInit {
     this.mostrarReferencia = false;
     this.canastaVacia = new Array();
     this.numeroCanasta = new Array();
+    this.sigzar = new Array();
+    this.cerrar = new Array();
+    this.guarnecer = new Array();
     this.seleccion = '';
     this.selecSalidas = '';
     this.selecOperator = '';
@@ -115,6 +122,9 @@ export class AsignarTareaComponent implements OnInit {
 
     this.formData = this.fb.group({
       operator: [''],
+      sigzado: [''],
+      cerrado: [''],
+      guarnecido: [''],
       name: [''],
       idWare: [''],
       registros: this.fb.array([this.getaddress()]),
@@ -158,6 +168,7 @@ export class AsignarTareaComponent implements OnInit {
     this.mostrarReferencia = true;
     this.numeroCanasta.push(this.canasta.nativeElement.value);
 
+    
   }
 
 
@@ -249,11 +260,26 @@ export class AsignarTareaComponent implements OnInit {
       this.operario.push(this.selecOperario.nativeElement.value);
       this.busqueda = '';
 
-      
+      const sigza = document.getElementById('sigzado') as HTMLInputElement;
+      const cerrad = document.getElementById('cerrado') as HTMLInputElement;
+      const guarn = document.getElementById('guarnecido') as HTMLInputElement;
+
+      if (sigza.checked === true) {
+        this.sigzar.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (cerrad.checked) {
+        this.cerrar.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (guarn.checked) {
+        this.guarnecer.push(this.selecOperario.nativeElement.value);
+      }
+
       this.status = true;
+      this.getGuarnecida();
 
-      
-
+      console.log('sigzar', this.sigzar);
 
     }
   }
@@ -270,6 +296,9 @@ export class AsignarTareaComponent implements OnInit {
       size: [''],
       _id: [''],
       operator: [''],
+      sigzado: [''],
+      cerrado: [''],
+      guarnecido: [''],
       clasification: ['']
     });
   }
@@ -300,11 +329,11 @@ export class AsignarTareaComponent implements OnInit {
   getGuarnecida() {
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.guarnecida) {
+        if (!response.guarnecidaInterna) {
             this.status = false;
 
         } else {
-          this.guarnecida = response.guarnecida;
+          this.guarnecidaInterna = response.guarnecidaInterna;
         }
       }
     );
@@ -335,23 +364,44 @@ export class AsignarTareaComponent implements OnInit {
     let numeroCanasta = this.idCanasta.nativeElement.value;
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.guarnecida) {
+        if (!response.guarnecidaInterna) {
             this.status = false;
         } else {
-          this.guarnecida = response.guarnecida;
-          for (const i of response.guarnecida) {
+          this.guarnecidaInterna = response.guarnecidaInterna;
+          for (const i of response.guarnecidaInterna) {
             numeroCanasta = JSON.parse(numeroCanasta);
-            this.guarnecida = i;
-            this.guarnecida.operator = this.selecOperator;
+            this.guarnecidaInterna = i;
+            this.guarnecidaInterna.operator = this.selecOperator;
             if ( i._id === numeroCanasta ) {
+              i.registros.forEach((item) => {
+                const sigza = document.getElementById('sigzado') as HTMLInputElement;
+                const cerrad = document.getElementById('cerrado') as HTMLInputElement;
+                const guarn = document.getElementById('guarnecido') as HTMLInputElement;
+            
+                if (sigza.checked === true) {
+                  item.sigzado = this.selecOperator;
+                  
+                }
+            
+                if (cerrad.checked) {
+                  item.cerrado = this.selecOperator;
+                }
+            
+                if (guarn.checked) {
+                  item.guarnecido = this.selecOperator;
+                }
 
-                this.guarnecidaService.updateCanasta(this.token, id, this.guarnecida).subscribe(
+              });
+
+              this.guarnecidaService.updateCanasta(this.token, id, this.guarnecidaInterna).subscribe(
                 response => {
                   this.selecSalidas = '';
                   this.selecOperator = '';
                   this.busqueda2 = '';
+                  this.busqueda = '';
                   this.canasta.nativeElement.value = '';
                   this.numeroCanasta.splice(0, this.numeroCanasta.length);
+                  this.getGuarnecida();
 
                 },
                 error => {
@@ -379,17 +429,17 @@ export class AsignarTareaComponent implements OnInit {
     let numeroCanasta = this.idCanasta.nativeElement.value;
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.guarnecida) {
+        if (!response.guarnecidaInterna) {
             this.status = false;
         } else {
-          this.guarnecida = response.guarnecida;
-          for (const i of response.guarnecida) {
+          this.guarnecidaInterna = response.guarnecidaInterna;
+          for (const i of response.guarnecidaInterna) {
             numeroCanasta = JSON.parse(numeroCanasta);
-            this.guarnecida = i;
-            this.guarnecida.operator = this.selecOperator;
+            this.guarnecidaInterna = i;
+            this.guarnecidaInterna.operator = this.selecOperator;
             if ( i._id === numeroCanasta ) {
 
-                this.guarnecidaService.addGuarnecida(this.token, this.guarnecida).subscribe(
+                this.guarnecidaService.addGuarnecida(this.token, this.guarnecidaInterna).subscribe(
                 response => {
                   this.selecSalidas = '';
                   this.selecOperator = '';
@@ -472,11 +522,11 @@ export class AsignarTareaComponent implements OnInit {
   deleteCanastaVacia() {
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
-        if (!response.guarnecida ) {
+        if (!response.guarnecidaInterna ) {
           console.log('Error en el servidor');
         } else {
 
-          for (const i of response.guarnecida) {
+          for (const i of response.guarnecidaInterna) {
               if (i.registros.length === 0) {
                 // this.canastaVacia.push(this.idWarehouse.nativeElement.value);
 
@@ -510,7 +560,7 @@ export class AsignarTareaComponent implements OnInit {
 
     this.guarnecidaService.deleteGuarnecida(this.token, id).subscribe(
       response => {
-        if (!response.guarnecida ) {
+        if (!response.guarnecidaInterna ) {
           console.log('Error en el servidor');
         }
 

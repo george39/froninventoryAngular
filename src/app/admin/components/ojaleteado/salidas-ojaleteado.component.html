@@ -2,11 +2,13 @@
     <h3 align="center" class="titulo">
         {{title}}
     </h3>
+
+    
   <!--SALIDAS POR UNIDAD-->
   
   <div  class="col-lg-offset-1">
         <div class="row caja">
-                <div class="col-lg-5 inner-addon">
+                <div class="col-lg-4 inner-addon">
                     <div>
                         <span class="">Operario </span>
                     </div>
@@ -16,17 +18,30 @@
         
                     </select>
                 </div>
-            
-            
-                <div class="col-lg-5 inner-addon right-addon">
-        
-                    <i class="glyphicon glyphicon-barcode"></i>
-                    <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Lea código de barras" autofocus>
-                    <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda"> 
-                        NO SE ENCONTRO EL CÓDIGO {{busqueda}}
+
+                <div class="col-lg-4 inner-addon ">
+                    <div>
+                        <span >Tipo salidas </span>
                     </div>
+                    <select [(ngModel)]="selecSalidas">   
+                        <option value="">Elija salida</option>
+                        <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
+                    </select>
                 </div>
-        </div>     
+            
+            
+                
+        </div> 
+        
+        
+        <div class="col-lg-4 inner-addon right-addon">
+        
+            <i class="glyphicon glyphicon-barcode"></i>
+            <input type="text" #bus="ngModel" class="form-control" #lectura autofocus name="lectura" (keyup.enter)="addAddress()" [(ngModel)]="busqueda" placeholder="Lea código de barras" autofocus>
+            <div class=" alert alert-danger" role="alert" *ngIf="status === false && busqueda"> 
+                NO SE ENCONTRO EL CÓDIGO {{busqueda}}
+            </div>
+        </div>
   
      
   
