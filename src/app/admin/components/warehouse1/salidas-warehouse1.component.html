@@ -10,7 +10,7 @@
             </select>
         </div>
 
-        <div class="col-lg-3 inner-addon">
+        <div class="col-lg-3 inner-addon" *ngIf="seleccion === 'Guarnecida-Externa' || seleccion === 'Vulcanizado'">
             <div>
                 <span class="titulo">Operario </span>
             </div>
@@ -34,7 +34,8 @@
                 <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
             </select>
         </div> -->
-    </div>    
+    </div> 
+      
 
 
 <!-- *************************************************************
@@ -58,7 +59,7 @@
             </div> 
   </div>
 
-
+   
   <!--SALIDAS POR CANASTA-->
 
   <div *ngIf="selecSalidas === 'canasta'" class="col-lg-offset-1">
@@ -118,13 +119,15 @@
       </form>
   </div>
 
+  <br>
+  <br>
   
 
   <!--SALIDAS POR UNIDAD-->
 
   <div  class="col-lg-offset-1">     
 
-      
+    
       <div class="row "></div> 
       <div class="col-lg-5 inner-addon right-addon">
 
@@ -135,7 +138,7 @@
           </div>
       </div>
 
-       <div class="container">                  
+       <div>                  
           <div class="row col-lg-11">
               <b><div class="col-lg-1 codigo titulo">Código</div></b>
               <b><div class="col-lg-1 referencia titulo">Referencia</div></b>

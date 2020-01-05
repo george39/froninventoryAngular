@@ -39,6 +39,7 @@ export class AsignarTareaComponent implements OnInit {
   @ViewChild('idCanasta') idCanasta: ElementRef;
   @ViewChild('registros') registros: ElementRef;
   @ViewChild('selecOperario') selecOperario: ElementRef;
+  @ViewChild('canastaNumero') canastaNumero: ElementRef;
   @ViewChild('canasta') canasta: ElementRef;
 
 
@@ -61,6 +62,7 @@ export class AsignarTareaComponent implements OnInit {
   public selecOperator;
   public varSeleccion;
   public dobles;
+  public tipoSalida;
   public codigoRepetido = true;
   public numeroCanasta: string[];
   public clasificacion: string[];
@@ -166,7 +168,7 @@ export class AsignarTareaComponent implements OnInit {
   // ================================================
   agregarCanasta() {
     this.mostrarReferencia = true;
-    this.numeroCanasta.push(this.canasta.nativeElement.value);
+    this.numeroCanasta.push(this.canastaNumero.nativeElement.value);
 
     
   }
@@ -399,8 +401,12 @@ export class AsignarTareaComponent implements OnInit {
                   this.selecOperator = '';
                   this.busqueda2 = '';
                   this.busqueda = '';
-                  this.canasta.nativeElement.value = '';
+                  this.canastaNumero.nativeElement.value = '';
+                  
                   this.numeroCanasta.splice(0, this.numeroCanasta.length);
+                  this.sigzar.splice(0, this.sigzar.length);
+                  this.cerrar.splice(0, this.cerrar.length);
+                  this.guarnecer.splice(0, this.guarnecer.length);
                   this.getGuarnecida();
 
                 },
@@ -444,7 +450,7 @@ export class AsignarTareaComponent implements OnInit {
                   this.selecSalidas = '';
                   this.selecOperator = '';
                   this.busqueda2 = '';
-                  this.canasta.nativeElement.value = '';
+                  this.canastaNumero.nativeElement.value = '';
                   this.numeroCanasta.splice(0, this.numeroCanasta.length);                 // this.warehouse1 = new Warehouse1('', '', []);
 
                 },
@@ -564,7 +570,7 @@ export class AsignarTareaComponent implements OnInit {
           console.log('Error en el servidor');
         }
 
-        this.canasta.nativeElement.value = '';
+        this.canastaNumero.nativeElement.value = '';
         this.numeroCanasta.splice(0, this.numeroCanasta.length);
       },
       error => {

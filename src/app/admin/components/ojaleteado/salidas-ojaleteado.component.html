@@ -4,36 +4,108 @@
     </h3>
 
     
-  <!--SALIDAS POR UNIDAD-->
+  
   
   <div  class="col-lg-offset-1">
-        <div class="row caja">
-                <div class="col-lg-4 inner-addon">
-                    <div>
-                        <span class="">Operario </span>
-                    </div>
-                    <select  [(ngModel)]="selecOperator" (change)="capturar()" #selecOperario>   
-                        <option value="">Elija operario</option>
-                        <option *ngFor="let operario of operators" id="opcion"  [value]="operario.name">{{operario.name}}</option>
-        
-                    </select>
+        <div class="row salida-unidad">
+            <div class="col-lg-4 inner-addon">
+                <div>
+                    <span class="titulo">Operario </span>
                 </div>
+                <select  [(ngModel)]="selecOperator" (change)="capturar()" #selecOperario>   
+                    <option value="">Elija operario</option>
+                    <option *ngFor="let operario of operators" id="opcion"  [value]="operario.name">{{operario.name}}</option>
+    
+                </select>
+            </div>
 
-                <div class="col-lg-4 inner-addon ">
-                    <div>
-                        <span >Tipo salidas </span>
-                    </div>
-                    <select [(ngModel)]="selecSalidas">   
-                        <option value="">Elija salida</option>
-                        <option *ngFor="let salida of salidas" [value]="salida">{{salida}}</option>
-                    </select>
+        
+
+            
+            <div class="claseSalidas">
+                <div class="radio-inline radio canasta" > 
+                        
+                        <input type="radio" name="tipoSalida" id="canasta" [(ngModel)]="tipoSalida" #canasta value="canasta">      
+                        <label for="canasta">Canasta  </label>           
                 </div>
             
-            
-                
+                <div class="radio-inline radio">
+                        
+                        <input type="radio" name="tipoSalida" id="unidad" [(ngModel)]="tipoSalida" #unidad value="unidad" >     
+                        <label for="unidad">Unidad  </label>        
+                </div>                  
+            </div>                
         </div> 
+
+        <br>
+    
+    <!--SALIDAS POR CANASTA-->
+
+    <div *ngIf="tipoSalida === 'canasta'">
+        <div class="row col-lg-offset-1">
+        <div class=" col-lg-6 inner-addon right-addon">
+            <div align="center" class="titulo">Salidas canasta</div>
+            <input type="text"  class="form-control" #canastaNumero autofocus name="busqueda2"
+             [(ngModel)]="busqueda2" (keyup.enter)="agregarCanasta(); 
+             getOjaleteado()" placeholder="Digite número de canasta y presione enter" autofocus>
+  
+             <!-- <div class="col-lg-8 alert alert-danger" role="alert" *ngIf="mostrarReferencia === false ">
+                    NO SE ENCONTRO EL CÓDIGO {{busqueda2}}
+                </div> -->
+  
+        </div>
+    </div>
+         <br> 
+  
+        <div class="row col-lg-offset-1" *ngIf="tipoSalida">
+  
+            <div *ngIf="busqueda2">
+  
+                <div *ngFor="let registro of ojaleteado | register: busqueda2">
+                        
+                    <div class="row " *ngIf="mostrarReferencia === true">
+                    <div><input type="hidden" #idCanasta value="{{registro._id}}"></div>
+                    <div class="container" >
+                        <b><div class="col-lg-3 titulo" >Referencia</div></b>
+                        <b><div class="col-lg-3 titulo" >Talla</div></b>
+                        <b><div class="col-lg-3 titulo" >Cantidad</div></b>
+                    </div>
+                </div>
+                    <div *ngFor="let canasta of registro.registros | consolidar : canasta">
+  
+                        <div class="container titulo">
+                                
+  
+                            <div class="row" *ngIf="mostrarReferencia === true">
+                            <div class="col-lg-3">{{canasta.reference}}</div>
+                            <div class="col-lg-3">{{canasta.size}}</div> 
+                            <div class="col-lg-3">{{canasta.quantity}}</div> 
+                            <!-- <div class="col-lg-4">{{[i+1]}}</div>  -->
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+  
+        <form #register="ngForm" (ngSubmit)="addStrobellCanasta()" >
+  
+            <div class="col-lg-2 inner-addon col-lg-offset-1" >
+  
+                <button type="submit" (click)="deleteOjaleteado(numeroCanasta)" class="btn btn-success">Guardar</button>
+  
+            </div>
+        </form>
+    </div>
+  
+
+
+
+
         
-        
+     <!--SALIDAS POR UNIDAD--> 
+    <div *ngIf="tipoSalida === 'unidad'"> 
         <div class="col-lg-4 inner-addon right-addon">
         
             <i class="glyphicon glyphicon-barcode"></i>
@@ -43,10 +115,11 @@
             </div>
         </div>
   
-     
+     <br>
+     <br>
   
-       <div class="container">                  
-          <div class="row col-lg-11">
+       <div  >                  
+          <div class="row col-lg-12">
               <b><div class="col-lg-1 codigo titulo">Código</div></b>
               <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
               <b><div class="col-lg-1 talla titulo" >Talla</div></b>                        
@@ -97,7 +170,7 @@
                                           </div>
 
                                           <div class="">
-                                                <input class="" type="hidden" [ngModel]="operario[i]" placeholder="id" formControlName="operator">
+                                                <input class="" type="hidden" [ngModel]="operario[i]" placeholder="id" formControlName="ojaleteador">
                                         </div>
                                           
                                           
@@ -112,7 +185,7 @@
                           
   
                         <div class="col-lg-2 inner-addon" >
-                            <button type="submit" (click)="deleteItem(formData.value)"  class="btn btn-success">Guardar</button>
+                            <button type="submit" (click)="deleteItemOjaleteado(formData.value)"  class="btn btn-success">Guardar</button>
                         </div>
                       </form>
                   </div>
@@ -120,6 +193,7 @@
               </div>
           </div>
       </div>
+    </div> 
   </div>
   </div>
   

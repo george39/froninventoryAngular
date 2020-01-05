@@ -27,7 +27,16 @@ export class SalidasOjaleteadoComponent implements OnInit {
   @ViewChild('size') size: ElementRef;
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
 
+  @ViewChild('unidad') unidad: ElementRef;
+  
   @ViewChild('selecOperario') selecOperario: ElementRef;
+  
+  // BUSQUEDA POR CANASTA
+  @ViewChild('idCanasta') idCanasta: ElementRef;
+  @ViewChild('registros') registros: ElementRef;
+  @ViewChild('canasta') canasta: ElementRef;
+  @ViewChild('canastaNumero') canastaNumero: ElementRef;
+
 
   public formData: FormGroup;
   public salidas: any[];
@@ -39,6 +48,7 @@ export class SalidasOjaleteadoComponent implements OnInit {
   public selecOperator;
   public token;
   public busqueda;
+  public busqueda2;
   public status;
   public dobles;
   public codigoRepetido = true;
@@ -48,6 +58,9 @@ export class SalidasOjaleteadoComponent implements OnInit {
   public referencia: string[];
   public talla: string[];
   public idAlmacen: string[];
+  public tipoSalida;
+  public mostrarReferencia;
+  public numeroCanasta: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -67,10 +80,13 @@ export class SalidasOjaleteadoComponent implements OnInit {
     this.talla = new Array();
     this.idAlmacen = new Array();
     this.operario = new Array();
+    this.numeroCanasta = new Array();
     this.seleccion = '';
     this.selecOperator = '';
     this.varSeleccion = '';
+    this.mostrarReferencia = false;
     this.strobell = new Strobell('', '', []);
+    
 
     this.formData = this.fb.group({
       operator: [''],
@@ -84,11 +100,21 @@ export class SalidasOjaleteadoComponent implements OnInit {
   ngOnInit() {
     this.getOjaleteado();
     this.getOperator();
+    
+    
 
     // Instruccion que no permite insertar items vacios
     const control = this.addressListArray.controls;
     control.splice(1[0]);
     
+  }
+
+
+  agregarCanasta() {
+    this.mostrarReferencia = true;
+    this.numeroCanasta.push(this.canastaNumero.nativeElement.value);
+    console.log('numerocanasta', this.numeroCanasta);
+
   }
 
   getOperator() {
@@ -119,7 +145,7 @@ export class SalidasOjaleteadoComponent implements OnInit {
   }
 
   // ================================================
-  // LISTA LAS UNIDADES QUE EXISTEN EN STROBELL
+  // LISTA LAS UNIDADES QUE EXISTEN EN OJALETEADO
   // ================================================
   getOjaleteado() {
     this.ojaleteadoService.getOjaleteados().subscribe(
@@ -228,13 +254,26 @@ export class SalidasOjaleteadoComponent implements OnInit {
       reference: [''],
       size: [''],
       _id: [''],
-      operator: [''],
+      ojaleteador: [''],
       quantity: 0.5,
       clasification: ['']
     });
   }
 
+
+  // ================================================
+  // GUARDAR UNA UNIDAD EN STROBELL
+  // ================================================
   addStrobell(data) {
+    this.ojaleteadoService.getOjaleteados().subscribe(
+      response => {
+        response.ojaleteado.forEach((item) => {
+          item.registros.forEach((todo) => {
+              todo.ojaleteador = this.selecOperator;
+          });
+        });
+      }
+    );
     
     this.strobellService.addStrobell(this.token, data).subscribe(
                 response => {
@@ -260,6 +299,54 @@ export class SalidasOjaleteadoComponent implements OnInit {
 
     }
 
+  // ================================================
+  // GUARDAR UNA CANASTA EN STROBELL
+  // ================================================
+  addStrobellCanasta() {
+
+    let numeroCanasta = this.idCanasta.nativeElement.value;
+    this.ojaleteadoService.getOjaleteados().subscribe(
+      response => {
+        if (!response.ojaleteado) {
+            this.status = false;
+        } else {
+          this.ojaleteado = response.ojaleteado;
+          for (const i of response.ojaleteado) {
+            numeroCanasta = JSON.parse(numeroCanasta);
+            this.strobell = i;
+            this.strobell.operator = this.selecOperator;
+            if ( i._id === numeroCanasta ) {
+              i.registros.forEach((item) => {
+                item.ojaleteador = this.selecOperator;
+              });
+
+              this.strobellService.addStrobell(this.token, this.strobell).subscribe(
+                response => {
+                  
+                  this.selecOperator = '';
+                  this.busqueda2 = '';
+                  this.canastaNumero.nativeElement.value = '';
+
+                  this.numeroCanasta.splice(0, this.numeroCanasta.length);
+
+
+
+                  // this.warehouse1 = new Warehouse1('', '', []);
+
+                },
+                error => {
+                  console.log(error as any);
+                }
+              );
+
+            }
+
+          }
+        }
+      }
+    );
+  }
+
   removeAddress(index) {
     const s = this.formData.value.registros;
     s.splice(index, 1);
@@ -275,9 +362,9 @@ export class SalidasOjaleteadoComponent implements OnInit {
   }
 
   // ================================================
-  // ELIMINAR UNA UNIDAD  EN UNA CANASTA DEL STROBELL
+  // ELIMINAR UNA UNIDAD  EN UNA CANASTA OJALETEADO
   // ================================================
-  deleteItem(dat) {
+  deleteItemOjaleteado(dat) {
     const a =  this.formData.value;
     
     for (let i = 0; i <= dat.registros.length; i++) {
@@ -328,6 +415,27 @@ deleteCanastaVaciaOjaleteado() {
     },
     error => {
       console.log(error as any);
+    }
+  );
+}
+
+
+  // ================================================
+  // ELIMINA UNA CANASTA EN EL OJALETEADO
+  // ================================================
+deleteOjaleteado(id) {
+
+  this.ojaleteadoService.deleteOjaleteado(this.token, id).subscribe(
+    response => {
+      if (!response.ojaleteado ) {
+        console.log('Error en el servidor');
+      }
+     // this.getWarehouses();
+      this.canastaNumero.nativeElement.value = '';
+      this.numeroCanasta.splice(0, this.numeroCanasta.length);
+    },
+    error => {
+      alert('Error en el servidor');
     }
   );
 }

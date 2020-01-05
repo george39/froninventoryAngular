@@ -201,18 +201,18 @@ nav.navbar ul.nav a {
 }
 
 .codigo{
-	margin-left: 70px;
+	margin-left: 100px;
 	margin-top: 20px;
 }
 
 .referencia{
-	margin-left: 90px;
+	margin-left: 130px;
 	margin-top: 20px;
 }
 
 
 .talla{
-	margin-left: 55px;
+	margin-left: 85px;
 	margin-top: 20px;
 }
 
@@ -343,6 +343,53 @@ nav.navbar ul.nav a {
 	color: rgb(122, 236, 15);
 	
 	/* color: rgb(226, 182, 99); */
+}
+
+
+/* ESTILOS RODIOBUTOMS */
+.claseSalidas input[type="radio"] {
+	display: none;
+}
+.claseSalidas .canasta {
+	margin-bottom: 1rem;
+}
+.claseSalidas .radio label {
+	color: #fff;
+	
+	padding: 5px 15px 5px 51px;
+	display: inline-block;
+	position: relative;
+	font-size: 1em;
+	border-radius: 50px;
+	-webkit-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+.claseSalidas .radio label:hover {
+	background: rgb(135, 183, 235);
+	color: #fff;
+}
+.claseSalidas .radio label:before {
+	content: "";
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 50%;
+	position: absolute;
+	left: 17px;
+	top: 6px;
+
+}
+.claseSalidas input[type="radio"]:checked + label {
+	padding: 5px 15px;
+	background:  #0074D9;
+	border-radius: 50px;
+	color:  #fff;
+} 
+.claseSalidas input[type="radio"]:checked + label:before {
+	display: none;
 }  
 
 
