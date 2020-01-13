@@ -31,9 +31,14 @@ export class AsignarTareaComponent implements OnInit {
   @ViewChild('size') size: ElementRef;
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
 
-  @ViewChild('sigzado') sigzado: ElementRef;
   @ViewChild('cerrado') cerrado: ElementRef;
-  @ViewChild('guarnecido') guarnecido: ElementRef;
+  @ViewChild('pegadaCuello') pegadaCuello: ElementRef;
+  @ViewChild('costuraCordonera') costuraCordonera: ElementRef;
+  @ViewChild('costuraEmbono') costuraEmbono: ElementRef;
+  @ViewChild('costuraCuello') costuraCuello: ElementRef;
+  @ViewChild('pegadoLengua') pegadoLengua: ElementRef;
+  @ViewChild('costuraRibete') costuraRibete: ElementRef;
+  @ViewChild('abollonado') abollonado: ElementRef;
 
   // BUSQUEDA POR CANASTA
   @ViewChild('idCanasta') idCanasta: ElementRef;
@@ -66,9 +71,14 @@ export class AsignarTareaComponent implements OnInit {
   public codigoRepetido = true;
   public numeroCanasta: string[];
   public clasificacion: string[];
-  public sigzar: string[];
   public cerrar: string[];
-  public guarnecer: string[];
+  public pegarCuello: string[];
+  public costurearCordonera: string[];
+  public costurearEmbono: string[];
+  public costurearCuello: string[];
+  public pegarLengua: string[];
+  public costurearRibete: string[];
+  public abollonar: string[];
   public mostrarReferencia;
   public canastaVacia: string[];
 
@@ -98,9 +108,15 @@ export class AsignarTareaComponent implements OnInit {
     this.mostrarReferencia = false;
     this.canastaVacia = new Array();
     this.numeroCanasta = new Array();
-    this.sigzar = new Array();
+    this.pegarCuello = new Array();
     this.cerrar = new Array();
-    this.guarnecer = new Array();
+    this.pegarCuello = new Array();
+    this.costurearCordonera = new Array();
+    this.costurearEmbono = new Array();
+    this.costurearCuello = new Array();
+    this.pegarLengua = new Array();
+    this.costurearRibete = new Array();
+    this.abollonar = new Array();
     this.seleccion = '';
     this.selecSalidas = '';
     this.selecOperator = '';
@@ -124,9 +140,7 @@ export class AsignarTareaComponent implements OnInit {
 
     this.formData = this.fb.group({
       operator: [''],
-      sigzado: [''],
       cerrado: [''],
-      guarnecido: [''],
       name: [''],
       idWare: [''],
       registros: this.fb.array([this.getaddress()]),
@@ -169,6 +183,7 @@ export class AsignarTareaComponent implements OnInit {
   agregarCanasta() {
     this.mostrarReferencia = true;
     this.numeroCanasta.push(this.canastaNumero.nativeElement.value);
+    this.operacionHecha();
 
     
   }
@@ -237,6 +252,7 @@ export class AsignarTareaComponent implements OnInit {
     }
 
     this.repetidos();
+    this.operacionHecha();
 
     if ( this.code.nativeElement && this.codigoRepetido === true) {
       const primera = document.getElementById('primera') as HTMLInputElement;
@@ -262,26 +278,51 @@ export class AsignarTareaComponent implements OnInit {
       this.operario.push(this.selecOperario.nativeElement.value);
       this.busqueda = '';
 
-      const sigza = document.getElementById('sigzado') as HTMLInputElement;
       const cerrad = document.getElementById('cerrado') as HTMLInputElement;
-      const guarn = document.getElementById('guarnecido') as HTMLInputElement;
-
-      if (sigza.checked === true) {
-        this.sigzar.push(this.selecOperario.nativeElement.value);
-      }
+      const pegadCuello = document.getElementById('pegadaCuello') as HTMLInputElement;
+      const costCordonera = document.getElementById('costuraCordonera') as HTMLInputElement;
+      const costEmbono = document.getElementById('costuraEmbono') as HTMLInputElement;
+      const costCuello = document.getElementById('costuraCuello') as HTMLInputElement;
+      const pegadLengua = document.getElementById('pegadoLengua') as HTMLInputElement;
+      const costRivete = document.getElementById('costuraRibete') as HTMLInputElement;
+      const abollonad = document.getElementById('abollonado') as HTMLInputElement;
 
       if (cerrad.checked) {
         this.cerrar.push(this.selecOperario.nativeElement.value);
       }
 
-      if (guarn.checked) {
-        this.guarnecer.push(this.selecOperario.nativeElement.value);
+      if (pegadCuello.checked === true) {
+        this.pegarCuello.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (costCordonera.checked) {
+        this.costurearCordonera.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (costEmbono.checked) {
+        this.costurearEmbono.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (costCuello.checked) {
+        this.costurearCuello.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (pegadLengua.checked) {
+        this.pegarLengua.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (costRivete.checked) {
+        this.costurearRibete.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (abollonad.checked) {
+        this.abollonar.push(this.selecOperario.nativeElement.value);
       }
 
       this.status = true;
       this.getGuarnecida();
 
-      console.log('sigzar', this.sigzar);
+      console.log('pegarCuello', this.pegarCuello);
 
     }
   }
@@ -297,10 +338,16 @@ export class AsignarTareaComponent implements OnInit {
       reference: [''],
       size: [''],
       _id: [''],
+      quantity: 0.5,
       operator: [''],
-      sigzado: [''],
       cerrado: [''],
-      guarnecido: [''],
+      pegadaCuello: [''],
+      costuraCordonera: [''],
+      costuraEmbono: [''],
+      costuraCuello: [''],
+      pegadoLengua: [''],
+      costuraRibete: [''],
+      abollonado: [''],
       clasification: ['']
     });
   }
@@ -359,10 +406,47 @@ export class AsignarTareaComponent implements OnInit {
 
 
   // ================================================
+  //   ABISAR SI UNA OPERACION FUE HECHA YA
+  // ================================================
+  operacionHecha() {
+    this.guarnecidaService.getGuarnecidas().subscribe(
+      response => {
+          const cerrad = document.getElementById('cerrado') as HTMLInputElement;
+          const pegadCuello = document.getElementById('pegadaCuello') as HTMLInputElement;
+          const costCordonera = document.getElementById('costuraCordonera') as HTMLInputElement;
+          const costEmbono = document.getElementById('costuraEmbono') as HTMLInputElement;
+          const costCuello = document.getElementById('costuraCuello') as HTMLInputElement;
+          const pegadLengua = document.getElementById('pegadoLengua') as HTMLInputElement;
+          const costRivete = document.getElementById('costuraRibete') as HTMLInputElement;
+          const abollonad = document.getElementById('abollonado') as HTMLInputElement;
+
+          response.guarnecidaInterna.forEach((todo) => {
+            todo.registros.forEach((operacion) => {
+              if (cerrad.checked &&  operacion.cerrado !== '') {
+                swal('Importante', 'La operacion CERRADO ya fue realizada', 'warning');
+                cerrad.checked = false;
+              }
+
+              if (pegadCuello.checked && operacion.pegadaCuello !== '') {
+                swal('Importante', 'La operacion PEGADO DE CUELLO ya fue realizada', 'warning');
+                pegadCuello.checked = false;
+              }
+            });
+          });
+      },
+      error => {
+        console.log(error as any);
+      }
+    );
+
+  }
+
+
+  // ================================================
   // ASIGNA UN NOMBRE DE OPERARIO A UNA CANASTA
   // ================================================
   updateCanasta(id) {
-
+    
     let numeroCanasta = this.idCanasta.nativeElement.value;
     this.guarnecidaService.getGuarnecidas().subscribe(
       response => {
@@ -376,22 +460,49 @@ export class AsignarTareaComponent implements OnInit {
             this.guarnecidaInterna.operator = this.selecOperator;
             if ( i._id === numeroCanasta ) {
               i.registros.forEach((item) => {
-                const sigza = document.getElementById('sigzado') as HTMLInputElement;
+
                 const cerrad = document.getElementById('cerrado') as HTMLInputElement;
-                const guarn = document.getElementById('guarnecido') as HTMLInputElement;
-            
-                if (sigza.checked === true) {
-                  item.sigzado = this.selecOperator;
-                  
-                }
-            
+                const pegadCuello = document.getElementById('pegadaCuello') as HTMLInputElement;
+                const costCordonera = document.getElementById('costuraCordonera') as HTMLInputElement;
+                const costEmbono = document.getElementById('costuraEmbono') as HTMLInputElement;
+                const costCuello = document.getElementById('costuraCuello') as HTMLInputElement;
+                const pegadLengua = document.getElementById('pegadoLengua') as HTMLInputElement;
+                const costRivete = document.getElementById('costuraRibete') as HTMLInputElement;
+                const abollonad = document.getElementById('abollonado') as HTMLInputElement;
+
                 if (cerrad.checked) {
                   item.cerrado = this.selecOperator;
                 }
-            
-                if (guarn.checked) {
-                  item.guarnecido = this.selecOperator;
+
+                if (pegadCuello.checked === true) {
+                  item.pegadaCuello = this.selecOperator;
+
                 }
+
+                if (costCordonera.checked) {
+                  item.costuraCordonera = this.selecOperator;
+                }
+
+                if (costEmbono.checked) {
+                  item.costuraEmbono = this.selecOperator;
+                }
+
+                if (costCuello.checked) {
+                  item.costuraCuello = this.selecOperator;
+                }
+
+                if (pegadLengua.checked) {
+                  item.pegadoLengua = this.selecOperator;
+                }
+
+                if (costRivete.checked) {
+                  item.costuraRivete = this.selecOperator;
+                }
+
+                if (abollonad.checked) {
+                  item.abollonado = this.selecOperator;
+                }
+                
 
               });
 
@@ -404,10 +515,19 @@ export class AsignarTareaComponent implements OnInit {
                   this.canastaNumero.nativeElement.value = '';
                   
                   this.numeroCanasta.splice(0, this.numeroCanasta.length);
-                  this.sigzar.splice(0, this.sigzar.length);
                   this.cerrar.splice(0, this.cerrar.length);
-                  this.guarnecer.splice(0, this.guarnecer.length);
+                  this.pegarCuello.splice(0, this.pegarCuello.length);
+                  this.costurearCordonera.splice(0, this.costurearCordonera.length);
+                  this.costurearEmbono.splice(0, this.costurearEmbono.length);
+                  this.costurearCuello.splice(0, this.costurearCuello.length);
+                  this.pegarLengua.splice(0, this.pegarLengua.length);
+                  this.costurearRibete.splice(0, this.costurearRibete.length);
+                  this.abollonar.splice(0, this.abollonar.length);
+                  this.deseleccionar();
                   this.getGuarnecida();
+                  
+
+                  
 
                 },
                 error => {
@@ -451,7 +571,9 @@ export class AsignarTareaComponent implements OnInit {
                   this.selecOperator = '';
                   this.busqueda2 = '';
                   this.canastaNumero.nativeElement.value = '';
-                  this.numeroCanasta.splice(0, this.numeroCanasta.length);                 // this.warehouse1 = new Warehouse1('', '', []);
+                  this.numeroCanasta.splice(0, this.numeroCanasta.length); 
+                  // this.warehouse1 = new Warehouse1('', '', []);
+                  
 
                 },
                 error => {
@@ -468,6 +590,52 @@ export class AsignarTareaComponent implements OnInit {
   }
 
 
+  deseleccionar() {
+    const cerrad = document.getElementById('cerrado') as HTMLInputElement;
+    const pegadCuello = document.getElementById('pegadaCuello') as HTMLInputElement;
+    const costCordonera = document.getElementById('costuraCordonera') as HTMLInputElement;
+    const costEmbono = document.getElementById('costuraEmbono') as HTMLInputElement;
+    const costCuello = document.getElementById('costuraCuello') as HTMLInputElement;
+    const pegadLengua = document.getElementById('pegadoLengua') as HTMLInputElement;
+    const costRivete = document.getElementById('costuraRibete') as HTMLInputElement;
+    const abollonad = document.getElementById('abollonado') as HTMLInputElement;
+
+    if (cerrad.checked) {
+      cerrad.checked = false;
+    }
+
+    if (pegadCuello.checked === true) {
+      pegadCuello.checked = false;
+
+    }
+
+    if (costCordonera.checked) {
+      costCordonera.checked = false;
+    }
+
+    if (costEmbono.checked) {
+      costEmbono.checked = false;
+    }
+
+    if (costCuello.checked) {
+      costCuello.checked = false;
+    }
+
+    if (pegadLengua.checked) {
+      pegadLengua.checked = false;
+    }
+
+    if (costRivete.checked) {
+      costRivete.checked = false;
+    }
+
+    if (abollonad.checked) {
+      abollonad.checked = false;
+    }
+    
+  }
+
+
 
 
 // ================================================
@@ -475,6 +643,7 @@ export class AsignarTareaComponent implements OnInit {
 // ================================================
 
   addUnidad(data) {
+    
     this.guarnecidaService.addGuarnecida(this.token, data).subscribe(
                 response => {
                   this.formData.reset();
@@ -490,15 +659,29 @@ export class AsignarTareaComponent implements OnInit {
                   this.clasificacion.splice(data);
                   this.idAlmacen.splice(data);
                   this.operario.splice(data);
+
+                  this.cerrar.splice(data);
+                  this.pegarCuello.splice(data);
+                  this.costurearCordonera.splice(data);
+                  this.costurearEmbono.splice(data);
+                  this.costurearCuello.splice(data);
+                  this.pegarLengua.splice(data);
+                  this.costurearRibete.splice(data);
+                  this.abollonar.splice(data);
+
+                  
                   this.selecOperator = '';
                   this.busqueda = '';
+                  this.deseleccionar();
                   this.getGuarnecida();
+                  
 
                 },
                 error  => {
                   console.log(error as any);
                 }
                 );
+                
 
     }
 

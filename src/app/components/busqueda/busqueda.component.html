@@ -1,4 +1,10 @@
 <div class="row titulo">
+    
+        <div class="col-lg-2 inner-addon right-addon">
+        <i class="glyphicon glyphicon-search"></i>
+        <input #input (keyup.enter)="buscar(input.value)" type="text" [(ngModel)]="buscarPorTalla" class="form-control" placeholder="Filtrar por talla">
+    </div>
+    
 
     <h1 align="center">{{titulo}}</h1>
     <br>
@@ -18,9 +24,14 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let troquelado of tareaUnidad | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda" *ngIf="!buscarPorTalla">
                             <td>{{troquelado.reference}}</td>
-                            <td>{{troquelado.size}}</td>
+                            <td >{{troquelado.size}}</td>
+                            <td>{{troquelado.quantity}}</td>
+                        </tr>
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === troquelado.size">
+                            <td>{{troquelado.reference}}</td>
+                            <td >{{troquelado.size}}</td>
                             <td>{{troquelado.quantity}}</td>
                         </tr>                        
                     </tbody>
@@ -44,11 +55,17 @@
                     </thead>     
                         
                     <tbody *ngFor="let guarnecida of guarnecidaInterna | consolidar">
-                            <tr class="item-busqueda">
+                            <tr class="item-busqueda" *ngIf="!buscarPorTalla">
                                 <td>{{guarnecida.reference}}</td>
                                 <td>{{guarnecida.size}}</td>
                                 <td>{{guarnecida.quantity}}</td>
-                            </tr>                                               
+                            </tr> 
+                            
+                            <tr class="item-busqueda" *ngIf="buscarPorTalla === guarnecida.size">
+                                <td>{{guarnecida.reference}}</td>
+                                <td>{{guarnecida.size}}</td>
+                                <td>{{guarnecida.quantity}}</td>
+                            </tr> 
                     </tbody>
                 </table>                
             </div>
@@ -69,11 +86,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let guarnecidae of guarnecidaExterna | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda"  *ngIf="!buscarPorTalla">
                             <td>{{guarnecidae.reference}}</td>
                             <td>{{guarnecidae.size}}</td>
                             <td>{{guarnecidae.quantity}}</td>
-                        </tr>                        
+                        </tr>
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === guarnecidae.size">
+                            <td>{{guarnecidae.reference}}</td>
+                            <td>{{guarnecidae.size}}</td>
+                            <td>{{guarnecidae.quantity}}</td>
+                        </tr>
                     </tbody>
                 </table>                
             </div>
@@ -96,11 +119,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let almacen of warehouse1 | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda" *ngIf="!buscarPorTalla">
                             <td>{{almacen.reference}}</td>
                             <td>{{almacen.size}}</td>
                             <td>{{almacen.quantity}}</td>
-                        </tr>                        
+                        </tr> 
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === almacen.size">
+                            <td>{{almacen.reference}}</td>
+                            <td>{{almacen.size}}</td>
+                            <td>{{almacen.quantity}}</td>
+                        </tr>
                     </tbody>
                 </table>                
             </div>
@@ -121,11 +150,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let ojalet of ojaleteado | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda"  *ngIf="!buscarPorTalla">
                             <td>{{ojalet.reference}}</td>
                             <td>{{ojalet.size}}</td>
                             <td>{{ojalet.quantity}}</td>
-                        </tr>                        
+                        </tr> 
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === ojalet.size">
+                            <td>{{ojalet.reference}}</td>
+                            <td>{{ojalet.size}}</td>
+                            <td>{{ojalet.quantity}}</td>
+                        </tr> 
                     </tbody>
                 </table>                
             </div>
@@ -146,11 +181,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let strobel of strobell | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda"  *ngIf="!buscarPorTalla">
                             <td>{{strobel.reference}}</td>
                             <td>{{strobel.size}}</td>
                             <td>{{strobel.quantity}}</td>
-                        </tr>                        
+                        </tr>
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === strobel.size">
+                            <td>{{strobel.reference}}</td>
+                            <td>{{strobel.size}}</td>
+                            <td>{{strobel.quantity}}</td>
+                        </tr> 
                     </tbody>
                 </table>                
             </div>
@@ -178,11 +219,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let inyeccion of injection1 | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda"  *ngIf="!buscarPorTalla">
                             <td>{{inyeccion.reference}}</td>
                             <td>{{inyeccion.size}}</td>
                             <td>{{inyeccion.quantity}}</td>
-                        </tr>                        
+                        </tr> 
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === inyeccion.size">
+                            <td>{{inyeccion.reference}}</td>
+                            <td>{{inyeccion.size}}</td>
+                            <td>{{inyeccion.quantity}}</td>
+                        </tr> 
                     </tbody>
                 </table>                
             </div>
@@ -203,11 +250,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let almacen2 of warehouse2 | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda" *ngIf="!buscarPorTalla">
                             <td>{{almacen2.reference}}</td>
                             <td>{{almacen2.size}}</td>
                             <td>{{almacen2.quantity}}</td>
-                        </tr>                        
+                        </tr> 
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === almacen2.size">
+                            <td>{{almacen2.reference}}</td>
+                            <td>{{almacen2.size}}</td>
+                            <td>{{almacen2.quantity}}</td>
+                        </tr> 
                     </tbody>
                 </table>                
             </div>
@@ -230,11 +283,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let terminado of termination | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda"  *ngIf="!buscarPorTalla">
                             <td>{{terminado.reference}}</td>
                             <td>{{terminado.size}}</td>
                             <td>{{terminado.quantity}}</td>
-                        </tr>                        
+                        </tr> 
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === terminado.size">
+                            <td>{{terminado.reference}}</td>
+                            <td>{{terminado.size}}</td>
+                            <td>{{terminado.quantity}}</td>
+                        </tr>
                     </tbody>
                 </table>                
             </div>
@@ -255,11 +314,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let vulca of vulcanizado | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda" *ngIf="!buscarPorTalla">
                             <td>{{vulca.reference}}</td>
                             <td>{{vulca.size}}</td>
                             <td>{{vulca.quantity}}</td>
-                        </tr>                        
+                        </tr>
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === vulca.size">
+                            <td>{{vulca.reference}}</td>
+                            <td>{{vulca.size}}</td>
+                            <td>{{vulca.quantity}}</td>
+                        </tr>
                     </tbody>
                 </table>                
             </div>
@@ -280,11 +345,17 @@
                         </tr>
                     </thead>
                     <tbody *ngFor="let repro of reproceso | consolidar">
-                        <tr class="item-busqueda">
+                        <tr class="item-busqueda"  *ngIf="!buscarPorTalla">
                             <td>{{repro.reference}}</td>
                             <td>{{repro.size}}</td>
                             <td>{{repro.quantity}}</td>
-                        </tr>                        
+                        </tr>
+                        
+                        <tr class="item-busqueda" *ngIf="buscarPorTalla === repro.size">
+                            <td>{{repro.reference}}</td>
+                            <td>{{repro.size}}</td>
+                            <td>{{repro.quantity}}</td>
+                        </tr>
                     </tbody>
                 </table>                
             </div>

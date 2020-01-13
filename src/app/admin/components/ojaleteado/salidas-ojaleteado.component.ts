@@ -28,7 +28,9 @@ export class SalidasOjaleteadoComponent implements OnInit {
   @ViewChild('idWarehouse') idWarehouse: ElementRef;
 
   @ViewChild('unidad') unidad: ElementRef;
-  
+  @ViewChild('perforado') perforado: ElementRef;
+  @ViewChild('fueOjaleteado') fueOjaleteado: ElementRef;
+   
   @ViewChild('selecOperario') selecOperario: ElementRef;
   
   // BUSQUEDA POR CANASTA
@@ -43,7 +45,8 @@ export class SalidasOjaleteadoComponent implements OnInit {
   public strobell: Strobell;
   public ojaleteado: Ojaleteado[];
   public operators: Operator[];
-  public operario: string[];
+  public ojaleteador: string[];
+  public perforador: string[];
   public seleccion;
   public selecOperator;
   public token;
@@ -79,7 +82,8 @@ export class SalidasOjaleteadoComponent implements OnInit {
     this.referencia = new Array();
     this.talla = new Array();
     this.idAlmacen = new Array();
-    this.operario = new Array();
+    this.ojaleteador = new Array();
+    this.perforador = new Array();
     this.numeroCanasta = new Array();
     this.seleccion = '';
     this.selecOperator = '';
@@ -239,8 +243,22 @@ export class SalidasOjaleteadoComponent implements OnInit {
       this.referencia.push(this.reference.nativeElement.value);
       this.talla.push(this.size.nativeElement.value);
       this.idAlmacen.push(this.idWarehouse.nativeElement.value);
-      this.operario.push(this.selecOperario.nativeElement.value);
+      this.ojaleteador.push(this.fueOjaleteado.nativeElement.value);
+      this.perforador.push(this.perforado.nativeElement.value);
       // this.clasificacion.push(this.clasification.nativeElement.value);
+      const perforar = document.getElementById('perforado') as HTMLInputElement;
+      const ojaletear = document.getElementById('ojaleteado') as HTMLInputElement;
+      
+
+      if (perforar.checked === true) {
+        this.perforador.push(this.selecOperario.nativeElement.value);
+      }
+
+      if (ojaletear.checked) {
+        this.ojaleteador.push(this.selecOperario.nativeElement.value);
+      }
+
+
       this.busqueda = '';
       this.status = true;
 
@@ -255,6 +273,7 @@ export class SalidasOjaleteadoComponent implements OnInit {
       size: [''],
       _id: [''],
       ojaleteador: [''],
+      perforador: [''],
       quantity: 0.5,
       clasification: ['']
     });
@@ -287,7 +306,8 @@ export class SalidasOjaleteadoComponent implements OnInit {
                   this.referencia.splice(data);
                   this.talla.splice(data);
                   this.idAlmacen.splice(data);
-                  this.operario.splice(data);
+                  this.ojaleteador.splice(data);
+                  this.perforador.splice(data);
                   this.busqueda = '';
                   this.selecOperator = '';
                   this.getOjaleteado();
@@ -317,7 +337,21 @@ export class SalidasOjaleteadoComponent implements OnInit {
             this.strobell.operator = this.selecOperator;
             if ( i._id === numeroCanasta ) {
               i.registros.forEach((item) => {
-                item.ojaleteador = this.selecOperator;
+                const perforar = document.getElementById('perforado') as HTMLInputElement;
+                const ojaletear = document.getElementById('ojaleteado') as HTMLInputElement;
+                
+            
+                if (perforar.checked === true) {
+                  item.perforador = this.selecOperator;
+                  
+                }
+            
+                if (ojaletear.checked) {
+                  item.ojaleteador = this.selecOperator;
+                }
+            
+                
+
               });
 
               this.strobellService.addStrobell(this.token, this.strobell).subscribe(
@@ -326,6 +360,8 @@ export class SalidasOjaleteadoComponent implements OnInit {
                   this.selecOperator = '';
                   this.busqueda2 = '';
                   this.canastaNumero.nativeElement.value = '';
+                  this.perforador.splice(0, this.perforador.length);
+                  this.ojaleteador.splice(0, this.ojaleteador.length);
 
                   this.numeroCanasta.splice(0, this.numeroCanasta.length);
 

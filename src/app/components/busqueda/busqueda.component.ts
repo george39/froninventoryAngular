@@ -36,6 +36,7 @@ export class BusquedaComponent implements OnInit {
 
   public url: string;
   public titulo: string;
+  public buscarPorTalla;
   public troquelado = [];
   public guarnInterna = [];
   public guarnExterna = [];

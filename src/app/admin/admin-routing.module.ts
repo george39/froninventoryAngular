@@ -35,6 +35,7 @@ import { StockInjectionComponent } from './components/injection/stock-injection.
 import { StockTerminationComponent } from './components/termination/stock-termination.component';
 import { TrazabilidadComponent } from '../components/trazabilidad/trazabilidad.component';
 import { ListadoTareasComponent } from './components/add-homework/listado-tareas.component';
+import { OperatorComponent } from './components/addOperator/operator.component';
 
 
 const adminRoutes: Routes = [
@@ -44,7 +45,7 @@ const adminRoutes: Routes = [
 		canActivate: [AdminGuard],		
 		children: [
 			{path: '', redirectTo: 'home', pathMatch: 'full'},
-			{path: 'crear-operario', component: RegisterComponent},
+			{path: 'crear-operario', component: OperatorComponent},
 			{path: 'crear-referencia', component: AddReferenceComponent},
 			{path: 'crear-tarea', component: AddHomeworkComponent},
 			{path: 'listado-operarios', component: ListOperatorsComponent},

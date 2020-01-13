@@ -1,5 +1,57 @@
-<div class="row">
-    <div class="entregar-tarea col-lg-offset-1">
+<div class="row ">
+    <div class="row ">
+        <div class="entregar-tarea">
+            <div class=" titulo " >
+                <div class="col-lg-3">
+                    <label class="">
+                        <input type="checkbox" id="cerrado" #cerrado value="cerrado"> Cerrado
+                    </label>
+                <br>
+                <br>
+                    <label class="">
+                        <input type="checkbox" id="pegadaCuello" #pegadaCuello value="pegadaCuello"> Pegada cuellos
+                    </label>
+                </div>
+
+                <div class="col-lg-3">
+                    <label class="">
+                        <input type="checkbox" id="costuraCordonera" #costuraCordonera value="costuraCordonera"> Costura cordonera
+                    </label>
+                    <br>
+                    <br>
+                    <label class="">
+                        <input type="checkbox" id="costuraEmbono" #costuraEmbono value="costuraEmbono"> Costura embono
+                    </label>
+                </div>
+            
+                <div class="col-lg-3">
+                    <label class="">
+                        <input type="checkbox" id="costuraCuello" #costuraCuello value="costuraCuello"> Costura cuellos
+                    </label>
+                    <br>
+                    <br>
+                    <label class="">
+                        <input type="checkbox" id="pegadoLengua" #pegadoLengua value="pegadoLengua"> Pegado lengua
+                    </label>    
+                </div>
+
+                <div class="col-lg-3">
+                    <label class="">
+                        <input type="checkbox" id="costuraRibete" #costuraRibete value="costuraRibete"> Costura ribete
+                    </label>
+                    <br>
+                    <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="abollonado" #abollonado value="abollonado"> Abollonado
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+    
+    <div class="entregar-tarea col-lg-8">
         <div class="col-lg-4 inner-addon ">  
             <div>
 
@@ -40,18 +92,9 @@
         
         </div>    
 
-        <div class="col-lg-12 titulo operaciones" *ngIf="tipoSalida">
-            <label class="checkbox-inline">
-                <input type="checkbox" id="sigzado" #sigzado value="sigzado"> Sigzado
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" id="cerrado" #cerrado value="cerrado"> Cerrado
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" id="guarnecido" #guarnecido value="guarnecido"> Guarnecido
-              </label>
-          </div>
+        
     </div>
+</div>
 
     
 
@@ -150,7 +193,7 @@
       <br>
 
        <div class="container">                  
-          <div class="row">
+          <div class="">
               <b><div class="col-lg-1 codigo titulo">Código</div></b>
               <b><div class="col-lg-1 referencia titulo">Referencia</div></b>
               <b><div class="col-lg-1 talla titulo" >Talla</div></b>                        
@@ -176,7 +219,7 @@
           
       
 
-      <div class="col-lg-12 ">
+      <div class="col-lg-12">
           <div class="card ">
               <div class="card-body " id="caja">    
                   <div class="row caja" >    
@@ -205,13 +248,28 @@
                                               <input class="" type="hidden" [ngModel]="operario[i]" placeholder="id" formControlName="operator">
                                           </div>
                                           <div class="">
-                                            <input class="" type="hidden" [ngModel]="sigzar[i]" placeholder="id" formControlName="sigzado">
+                                              <input class="" type="hidden" [ngModel]="cerrar[i]" placeholder="id" formControlName="cerrado">
+                                          </div>
+                                          <div class="">
+                                            <input class="" type="hidden" [ngModel]="pegarCuello[i]" placeholder="id" formControlName="pegadaCuello">
                                         </div>
                                         <div class="">
-                                            <input class="" type="hidden" [ngModel]="cerrar[i]" placeholder="id" formControlName="cerrado">
+                                            <input class="" type="hidden" [ngModel]="costurearCordonera[i]" placeholder="id" formControlName="costuraCordonera">
                                         </div>
                                         <div class="">
-                                            <input class="" type="hidden" [ngModel]="guarnecer[i]" placeholder="id" formControlName="guarnecido">
+                                            <input class="" type="hidden" [ngModel]="costurearEmbono[i]" placeholder="id" formControlName="costuraEmbono">
+                                        </div>
+                                        <div class="">
+                                            <input class="" type="hidden" [ngModel]="costurearCuello[i]" placeholder="id" formControlName="costuraCuello">
+                                        </div>
+                                        <div class="">
+                                            <input class="" type="hidden" [ngModel]="pegarLengua[i]" placeholder="id" formControlName="pegadoLengua">
+                                        </div>
+                                        <div class="">
+                                            <input class="" type="hidden" [ngModel]="costurearRibete[i]" placeholder="id" formControlName="costuraRibete">
+                                        </div>
+                                        <div class="">
+                                            <input class="" type="hidden" [ngModel]="abollonar[i]" placeholder="id" formControlName="abollonado">
                                         </div>
                                           
                                           <span>    

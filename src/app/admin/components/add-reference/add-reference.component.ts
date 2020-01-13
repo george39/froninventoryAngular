@@ -27,7 +27,7 @@ export class AddReferenceComponent implements OnInit {
   	private _referenceSerice: ReferenceService,
   ) { 
   	this.title = 'Crear referencia';
-  	this.reference = new Reference('', '','');
+  	this.reference = new Reference('', '', '', '', '', '');
   	this.identity = this._userService.getIdentity();
   	this.token = this._userService.getToken();
   	this.url = GLOBAL.url;

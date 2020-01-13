@@ -8,7 +8,7 @@
   
   <div  class="col-lg-offset-1">
         <div class="row salida-unidad">
-            <div class="col-lg-4 inner-addon">
+            <div class="col-lg-2 inner-addon">
                 <div>
                     <span class="titulo">Operario </span>
                 </div>
@@ -17,13 +17,23 @@
                     <option *ngFor="let operario of operators" id="opcion"  [value]="operario.name">{{operario.name}}</option>
     
                 </select>
+
             </div>
+                    <div class="operacion-ojaleteado titulo col-lg-4">
+                        <label class="checkbox-inline">
+                        <input type="checkbox" id="perforado" #perforado value="perforado"> Perforado
+                        </label>
+                        <label class="checkbox-inline">
+                        <input type="checkbox" id="ojaleteado" #fueOjaleteado value="ojaleteado"> Ojaleteado
+                        </label>
+                    </div>
 
         
+            
 
             
-            <div class="claseSalidas">
-                <div class="radio-inline radio canasta" > 
+            <div class="claseSalidas col-lg-5">
+                <div class="radio-inline radio checkbox-ojaleteado" > 
                         
                         <input type="radio" name="tipoSalida" id="canasta" [(ngModel)]="tipoSalida" #canasta value="canasta">      
                         <label for="canasta">Canasta  </label>           
@@ -33,8 +43,12 @@
                         
                         <input type="radio" name="tipoSalida" id="unidad" [(ngModel)]="tipoSalida" #unidad value="unidad" >     
                         <label for="unidad">Unidad  </label>        
-                </div>                  
-            </div>                
+                </div> 
+                
+                
+            </div>
+            
+            
         </div> 
 
         <br>
@@ -170,8 +184,12 @@
                                           </div>
 
                                           <div class="">
-                                                <input class="" type="hidden" [ngModel]="operario[i]" placeholder="id" formControlName="ojaleteador">
+                                                <input class="" type="hidden" [ngModel]="perforador[i]" placeholder="id" formControlName="perforador">
                                         </div>
+
+                                        <div class="">
+                                            <input class="" type="hidden" [ngModel]="ojaleteador[i]" placeholder="id" formControlName="ojaleteador">
+                                         </div>
                                           
                                           
                                           <span>    

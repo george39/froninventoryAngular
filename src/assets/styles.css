@@ -234,6 +234,7 @@ nav.navbar ul.nav a {
 	border: 1px solid #eee;
 	box-shadow: 0px 0px 20px #ccc inset;
 	border-radius: 5px;
+	margin-left: 5rem;
 
 		
 }
@@ -390,7 +391,29 @@ nav.navbar ul.nav a {
 } 
 .claseSalidas input[type="radio"]:checked + label:before {
 	display: none;
-}  
+} 
+
+
+
+/* OPERACIONES EN OJALETEADO */
+.operacion-ojaleteado {
+	margin-top: 1.5rem;	
+	margin-left: 1rem;
+	
+}
+.checkbox-ojaleteado {
+	margin-left: 1rem;
+}
+
+
+/* estilos para los checkbox de asignar tarea en guarnecida */
+/* .operaciones-guarnecida {
+	margin-bottom: 0.5rem;
+	margin-left: 0.5rem;
+	
+} */
+
+
 
 
 

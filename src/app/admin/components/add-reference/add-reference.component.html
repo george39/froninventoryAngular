@@ -17,6 +17,30 @@
 			</span>
 		</p>
 
+		<p>
+			<label>Forradura</label>
+			<input type="text" name="forradura" #forradura="ngModel" [(ngModel)]="reference.forradura" class="form-control" placeholder="ejem: Textil"  required>
+			<span *ngIf="!forradura.valid && forradura.touched">
+				La forradura es obligatorio
+			</span>
+		</p>
+
+		<p>
+			<label>Capellada</label>
+			<input type="text" name="capellada" #capellada="ngModel" [(ngModel)]="reference.capellada" class="form-control" placeholder="ejem: cuero"  required>
+			<span *ngIf="!capellada.valid && capellada.touched">
+				La capellada es obligatorio
+			</span>
+		</p>
+
+		<p>
+			<label>Suela</label>
+			<input type="text" name="suela" #suela="ngModel" [(ngModel)]="reference.suela" class="form-control" placeholder="ejem: PU"  required>
+			<span *ngIf="!suela.valid && suela.touched">
+				La capellada es obligatorio
+			</span>
+		</p>
+
 		<input type="submit" value="{{title}}" class="btn btn-success">
 	</form>
 </div>

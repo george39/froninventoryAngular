@@ -58,6 +58,7 @@ import { SearchReferencePipe } from './pipes/search-reference.pipe';
 import { SalidasVulcanizadoComponent } from './components/vulcanizado/salidas-vulcanizado.component';
 import { EntradasVulcanizadoComponent } from './components/vulcanizado/entradas-vulcanizado.component';
 import { ListadoTareasComponent } from './components/add-homework/listado-tareas.component';
+import { OperatorComponent } from './components/addOperator/operator.component';
 
 
 
@@ -106,7 +107,8 @@ import { ListadoTareasComponent } from './components/add-homework/listado-tareas
 		SearchReferencePipe,
 		SalidasVulcanizadoComponent,
 		EntradasVulcanizadoComponent,
-		ListadoTareasComponent
+		ListadoTareasComponent,
+		OperatorComponent
 		
 		
 		

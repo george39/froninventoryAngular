@@ -16,6 +16,17 @@ export class OperatorService {
     this.url = GLOBAL.url;
    }
 
+   // ================================================
+   // GUARDAR UNA OPERARIO
+   // ================================================
+   addOperator(token, operator): Observable<any> {
+    const params = JSON.stringify(operator);
+    const headers = new HttpHeaders({'Content-Type': 'application/json',
+          Authorization: token});
+
+    return this._http.post(this.url + 'operator', params, {headers});
+  }
+
 
   getOperators(): Observable<any>{
 		return this._http.get(this.url + 'getoperator').pipe(map(response => response));
