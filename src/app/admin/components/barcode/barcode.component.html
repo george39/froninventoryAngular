@@ -17,15 +17,36 @@
         <div  *ngFor="let s of (codes); let i = index">
             <div *ngFor="let f of [homework]">
                 <div class="pagina-codigo " id="print-section">
+                    <div id="zapatos">
+                        <img src="{{zapatos}}" alt="Imagen de los zapatos" width="150px">
+                    </div>
+                    <div id="logo">
+                        <img src="{{logo}}" alt="Imagen de los zapatos" width="40px">
+                    </div>
                     <div *ngFor="let r of tareaUnidad" >
                         <div id="referencia-talla">
                             <p  *ngIf="r.code === f._id + [i+1]"><font size="1">{{'ref'}}{{': '}}{{r.reference}}{{' '}}{{' '}}{{'talla:'}}{{' '}}{{r.size}}</font></p>
-                        </div>
+                        </div>                     
+                    
                         
-                        <div *ngFor="let ref of referencias" id="nombre-referencia">
+                        <div *ngFor="let ref of referencias" id="nombre-referencia" >
                             <p *ngIf="r.reference  === ref.code && r.code === f._id + [i+1]"><font size="1">{{ref.name}}</font></p>
+                            
+                            <p id="tipo-capellada" *ngIf="r.reference  === ref.code && r.code === f._id + [i+1]"><font size="1">{{ref.capellada}}</font></p>
+                            <p id="tipo-forradura" *ngIf="r.reference  === ref.code && r.code === f._id + [i+1]"><font size="1">{{ref.forradura}}</font></p>
+                            <p id="tipo-suela" *ngIf="r.reference  === ref.code && r.code === f._id + [i+1]"><font size="1">{{ref.suela}}</font></p>
                         </div>
                     </div>
+                    <div id="capellada">
+                        <p ><font size="1">Capellada</font></p>
+                    </div>
+                    <div id="forradura">
+                        <p ><font size="1">Forradura</font></p>
+                    </div>
+                    <div id="suela">
+                        <p ><font size="1">Suela</font></p>
+                    </div>
+
 
                     <div id="pais-origen">
                         <p ><font size="1">País de origen: Colombia</font></p>
@@ -35,11 +56,14 @@
                         <p ><font size="1">Registro SIC: 891400726</font></p>
                     </div>
 
+                    
+
                     <div id="codigo" >
                         <ngx-barcode  *ngFor="let code of [homework]" [bc-display-value]="true"  [bc-value]="code._id  + [i+1]" [bc-format]="format" [bc-line-color]="lineColor" [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue"
                         [bc-font-options]="fontOptions" [bc-font]="font" [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background" [bc-margin]="margin" [bc-margin-top]="marginTop"
                         [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
-                    </div>
+                    </div>                   
+                    
                     </div>
                 </div>
         

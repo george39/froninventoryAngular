@@ -14,6 +14,8 @@ import { TareaUnidadService } from '../../../services/tarea-unidad.service';
 import { Reference } from '../../../models/reference';
 import { ReferenceService } from '../../../services/reference.service';
 
+declare var require: any
+
 
 
 @Component({
@@ -23,8 +25,10 @@ import { ReferenceService } from '../../../services/reference.service';
   providers: [HomeworkService, TareaUnidadService, ReferenceService]
 })
 export class BarcodeComponent implements OnInit {
-
-
+  
+  zapatos = require('../../../../img/especificaciones.png');
+  logo = require('../../../../img/alpaca.png');
+  
 	constructor(
 	private _route: ActivatedRoute,
 	private _router: Router,
