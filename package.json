@@ -32,7 +32,7 @@
     "rxjs-compat": "^6.5.3",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^9.4.1",
-    "terser": "3.14.1",
+    "terser": "4.8.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
